@@ -1,0 +1,53 @@
+{
+  "name": "rainsyntax",
+  "displayName": "RainSyntax",
+  "description": "Snippets and syntax highlighting for Rainmeter skins. Updated with new syntax and features.",
+  "version": "0.0.1",
+  "publisher": "NS Tech Bytes",
+  "icon": "images/RainSyntax.png",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Snippets",
+    "Programming Languages"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "RainSyntax Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/RainSyntax Theme.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "rainmeter",
+        "aliases": ["Rainmeter", "rainmeter"],
+        "extensions": [".ini", ".nek", ".inc"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rainmeter",
+        "scopeName": "source.rainmeter",
+        "path": "./syntaxes/rainmeter.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "rainmeter",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NSTechBytes/rainsyntax"
+  },
+  "homepage": "https://github.com/NSTechBytes/rainsyntax",
+  "bugs": {
+    "url": "https://github.com/NSTechBytes/rainsyntax/issues"
+  }
+}

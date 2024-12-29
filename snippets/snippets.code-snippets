@@ -1,0 +1,1836 @@
+{
+    "Rainmeter Section": {
+      "prefix": "rainmeter",
+      "body": [
+        "[Rainmeter]",
+        "Author=$1",
+        "Update=$2",
+        "AccurateText=$3"
+      ],
+      "description": "Creates a Rainmeter section."
+    },
+    
+      "Meta Section": {
+        "prefix": "meta",
+        "body": [
+          "[Metadata]",
+          "Name=$1",
+          "Author=$2",
+          "Information=$3",
+          "Version=$4",
+          "License=$5"
+        ],
+        "description": "Creates a Metadata section."
+      },
+      
+        "Rainmeter Skin Boilerplate": {
+          "prefix": "rainmeter-skin",
+          "body": [
+            "[Rainmeter]",
+            "Author=$1",
+            "Update=$2",
+            "AccurateText=$3",
+            "",
+            "[Metadata]",
+            "Name=$4",
+            "Author=$5",
+            "Information=$6",
+            "Version=$7",
+            "License=$8",
+            "",
+            "[Variables]",
+            "; Define your variables here",
+            "MyVariable=$9",
+            "",
+            "[MeasureMyMeasure]",
+            "Measure=String",
+            "Text=$10",
+            "",
+            "[MeterMyMeter]",
+            "Meter=String",
+            "MeasureName=MeasureMyMeasure",
+            "Text=$11"
+          ],
+          "description": "Creates a complete boilerplate for a Rainmeter skin, including [Rainmeter], [Metadata], [Variables], [Measure], and [Meter] sections."
+        },
+      
+      
+    
+    
+    "String Meter": {
+      "prefix": "string",
+      "body": [
+        "[Meter_String]",
+        "Meter=String",
+        "Text=",
+        "FontSize=",
+        "FontColor=",
+        "FontWeight=",
+        "FontFace=",
+        "Antialias=",
+        "DynamicVariables="
+      ],
+      "description": "Creates a String Meter."
+    },
+    "Shape Meter": {
+      "prefix": "Shape",
+      "body": [
+        "[Meter_Shape]",
+        "Meter=Shape",
+        "Shape=ShapeType Width,Height,Round|StrokeWidth Width|FillColor Color|StrokeColor Color",
+        "DynamicVariables="
+      ],
+      "description": "Creates a Shape Meter."
+    },
+    "Image Meter": {
+      "prefix": "Image",
+      "body": [
+        "[Meter_Image]",
+        "Meter=Image",
+        "ImageName=",
+        "W=",
+        "H=",
+        "X=",
+        "Y=",
+        "DynamicVariables="
+      ],
+      "description": "Creates a Shape Meter."
+    },
+    //================================================================================================================================//
+    //                                     Built In Vaiables                                                                          //
+    //================================================================================================================================//
+    "CURRENTSECTION Variable": {
+      "prefix": "#CURRENTSECTION#",
+      "body": "#CURRENTSECTION#",
+      "description": "Inserts the CURRENTSECTION variable."
+    },
+    "ROOTCONFIG Variable": {
+      "prefix": "#ROOTCONFIG#",
+      "body": "#ROOTCONFIG#",
+      "description": "Inserts the ROOTCONFIG variable."
+    },
+    "CURRENTPATH Variable": {
+      "prefix": "#CURRENTPATH#",
+      "body": "#CURRENTPATH#",
+      "description": "Inserts the CURRENTPATH variable."
+    },
+    "SETTINGSPATH Variable": {
+      "prefix": "#SETTINGSPATH#",
+      "body": "#SETTINGSPATH#",
+      "description": "Inserts the SETTINGSPATH variable."
+    },
+    "CONFIGPATH Variable": {
+      "prefix": "#CONFIGPATH#",
+      "body": "#CONFIGPATH#",
+      "description": "Inserts the CONFIGPATH variable."
+    },
+    "PROGRAMDRIVE Variable": {
+      "prefix": "#PROGRAMDRIVE#",
+      "body": "#PROGRAMDRIVE#",
+      "description": "Inserts the PROGRAMDRIVE variable."
+    },
+    "PROGRAMPATH Variable": {
+      "prefix": "#PROGRAMPATH#",
+      "body": "#PROGRAMPATH#",
+      "description": "Inserts the PROGRAMPATH variable."
+    },
+    "SKINSPATH Variable": {
+      "prefix": "#SKINSPATH#",
+      "body": "#SKINSPATH#",
+      "description": "Inserts the SKINSPATH variable."
+    },
+    "PLUGINSPATH Variable": {
+      "prefix": "#PLUGINSPATH#",
+      "body": "#PLUGINSPATH#",
+      "description": "Inserts the PLUGINSPATH variable."
+    },
+    "ADDONSPATH Variable": {
+      "prefix": "#ADDONSPATH#",
+      "body": "#ADDONSPATH#",
+      "description": "Inserts the ADDONSPATH variable."
+    },
+    "#@# Variable": {
+      "prefix": "#@#",
+      "body": "#@#",
+      "description": "Inserts the  @Resources folder variable."
+    },
+    "WORKAREAX Variable": {
+      "prefix": "#WORKAREAX#",
+      "body": "#WORKAREAX#",
+      "description": "Inserts the WORKAREAX variable."
+    },
+    "WORKAREAY Variable": {
+      "prefix": "#WORKAREAY#",
+      "body": "#WORKAREAY#",
+      "description": "Inserts the WORKAREAY variable."
+    },
+    "WORKAREAWIDTH Variable": {
+      "prefix": "#WORKAREAWIDTH#",
+      "body": "#WORKAREAWIDTH#",
+      "description": "Inserts the WORKAREAWIDTH variable."
+    },
+    "WORKAREAHEIGHT Variable": {
+      "prefix": "#WORKAREAHEIGHT#",
+      "body": "#WORKAREAHEIGHT#",
+      "description": "Inserts the WORKAREAHEIGHT variable."
+    },
+    "SCREENAREAX Variable": {
+      "prefix": "#SCREENAREAX#",
+      "body": "#SCREENAREAX#",
+      "description": "Inserts the SCREENAREAX variable."
+    },
+    "SCREENAREAY Variable": {
+      "prefix": "#SCREENAREAY#",
+      "body": "#SCREENAREAY#",
+      "description": "Inserts the SCREENAREAY variable."
+    },
+    "SCREENAREAWIDTH Variable": {
+      "prefix": "#SCREENAREAWIDTH#",
+      "body": "#SCREENAREAWIDTH#",
+      "description": "Inserts the SCREENAREAWIDTH variable."
+    },
+    "SCREENAREAHEIGHT Variable": {
+      "prefix": "#SCREENAREAHEIGHT#",
+      "body": "#SCREENAREAHEIGHT#",
+      "description": "Inserts the SCREENAREAHEIGHT variable."
+    },
+    "PWORKAREAX Variable": {
+      "prefix": "#PWORKAREAX#",
+      "body": "#PWORKAREAX#",
+      "description": "Inserts the PWORKAREAX variable."
+    },
+    "PWORKAREAY Variable": {
+      "prefix": "#PWORKAREAY#",
+      "body": "#PWORKAREAY#",
+      "description": "Inserts the PWORKAREAY variable."
+    },
+    "PWORKAREAWIDTH Variable": {
+      "prefix": "#PWORKAREAWIDTH#",
+      "body": "#PWORKAREAWIDTH#",
+      "description": "Inserts the PWORKAREAWIDTH variable."
+    },
+    "PWORKAREAHEIGHT Variable": {
+      "prefix": "#PWORKAREAHEIGHT#",
+      "body": "#PWORKAREAHEIGHT#",
+      "description": "Inserts the PWORKAREAHEIGHT variable."
+    },
+    "PSCREENAREAX Variable": {
+      "prefix": "#PSCREENAREAX#",
+      "body": "#PSCREENAREAX#",
+      "description": "Inserts the PSCREENAREAX variable."
+    },
+    "PSCREENAREAY Variable": {
+      "prefix": "#PSCREENAREAY#",
+      "body": "#PSCREENAREAY#",
+      "description": "Inserts the PSCREENAREAY variable."
+    },
+    "PSCREENAREAWIDTH Variable": {
+      "prefix": "#PSCREENAREAWIDTH#",
+      "body": "#PSCREENAREAWIDTH#",
+      "description": "Inserts the PSCREENAREAWIDTH variable."
+    },
+    "PSCREENAREAHEIGHT Variable": {
+      "prefix": "#PSCREENAREAHEIGHT#",
+      "body": "#PSCREENAREAHEIGHT#",
+      "description": "Inserts the PSCREENAREAHEIGHT variable."
+    },
+    "WORKAREAX@N Variable": {
+      "prefix": "#WORKAREAX@N#",
+      "body": "#WORKAREAX@N#",
+      "description": "Inserts the WORKAREAX@N variable."
+    },
+    "WORKAREAY@N Variable": {
+      "prefix": "#WORKAREAY@N#",
+      "body": "#WORKAREAY@N#",
+      "description": "Inserts the WORKAREAY@N variable."
+    },
+    "WORKAREAWIDTH@N Variable": {
+      "prefix": "#WORKAREAWIDTH@N#",
+      "body": "#WORKAREAWIDTH@N#",
+      "description": "Inserts the WORKAREAWIDTH@N variable."
+    },
+    "WORKAREAHEIGHT@N Variable": {
+      "prefix": "#WORKAREAHEIGHT@N#",
+      "body": "#WORKAREAHEIGHT@N#",
+      "description": "Inserts the WORKAREAHEIGHT@N variable."
+    },
+    "SCREENAREAX@N Variable": {
+      "prefix": "#SCREENAREAX@N#",
+      "body": "#SCREENAREAX@N#",
+      "description": "Inserts the SCREENAREAX@N variable."
+    },
+    "SCREENAREAY@N Variable": {
+      "prefix": "#SCREENAREAY@N#",
+      "body": "#SCREENAREAY@N#",
+      "description": "Inserts the SCREENAREAY@N variable."
+    },
+    "SCREENAREAWIDTH@N Variable": {
+      "prefix": "#SCREENAREAWIDTH@N#",
+      "body": "#SCREENAREAWIDTH@N#",
+      "description": "Inserts the SCREENAREAWIDTH@N variable."
+    },
+    "SCREENAREAHEIGHT@N Variable": {
+      "prefix": "#SCREENAREAHEIGHT@N#",
+      "body": "#SCREENAREAHEIGHT@N#",
+      "description": "Inserts the SCREENAREAHEIGHT@N variable."
+    },
+    "VSCREENAREAX Variable": {
+      "prefix": "#VSCREENAREAX#",
+      "body": "#VSCREENAREAX#",
+      "description": "Inserts the VSCREENAREAX variable."
+    },
+    "VSCREENAREAY Variable": {
+      "prefix": "#VSCREENAREAY#",
+      "body": "#VSCREENAREAY#",
+      "description": "Inserts the VSCREENAREAY variable."
+    },
+    "VSCREENAREAWIDTH Variable": {
+      "prefix": "#VSCREENAREAWIDTH#",
+      "body": "#VSCREENAREAWIDTH#",
+      "description": "Inserts the VSCREENAREAWIDTH variable."
+    },
+    "VSCREENAREAHEIGHT Variable": {
+      "prefix": "#VSCREENAREAHEIGHT#",
+      "body": "#VSCREENAREAHEIGHT#",
+      "description": "Inserts the VSCREENAREAHEIGHT variable."
+    },
+    "CURRENTFILE Variable": {
+      "prefix": "#CURRENTFILE#",
+      "body": "#CURRENTFILE#",
+      "description": "Inserts the CURRENTFILE variable."
+    },
+    "ROOTCONFIGPATH Variable": {
+      "prefix": "#ROOTCONFIGPATH#",
+      "body": "#ROOTCONFIGPATH#",
+      "description": "Inserts the ROOTCONFIGPATH variable."
+    },
+    "CURRENTCONFIG Variable": {
+      "prefix": "#CURRENTCONFIG#",
+      "body": "#CURRENTCONFIG#",
+      "description": "Inserts the CURRENTCONFIG variable."
+    },
+    "CURRENTCONFIGX Variable": {
+      "prefix": "#CURRENTCONFIGX#",
+      "body": "#CURRENTCONFIGX#",
+      "description": "Inserts the CURRENTCONFIGX variable."
+    },
+    "CURRENTCONFIGY Variable": {
+      "prefix": "#CURRENTCONFIGY#",
+      "body": "#CURRENTCONFIGY#",
+      "description": "Inserts the CURRENTCONFIGY variable."
+    },
+    "CURRENTCONFIGWIDTH Variable": {
+      "prefix": "#CURRENTCONFIGWIDTH#",
+      "body": "#CURRENTCONFIGWIDTH#",
+      "description": "Inserts the CURRENTCONFIGWIDTH variable."
+    },
+    "CURRENTCONFIGHEIGHT Variable": {
+      "prefix": "#CURRENTCONFIGHEIGHT#",
+      "body": "#CURRENTCONFIGHEIGHT#",
+      "description": "Inserts the CURRENTCONFIGHEIGHT variable."
+    },
+    "CURRENTCONFIGZPOS Variable": {
+      "prefix": "#CURRENTCONFIGZPOS#",
+      "body": "#CURRENTCONFIGZPOS#",
+      "description": "Inserts the CURRENTCONFIGZPOS variable."
+    },
+    "CRLF Variable": {
+      "prefix": "#CRLF#",
+      "body": "#CRLF#",
+      "description": "Inserts the CRLF variable."
+    },
+    "CONFIGEDITOR Variable": {
+      "prefix": "#CONFIGEDITOR#",
+      "body": "#CONFIGEDITOR#",
+      "description": "Inserts the CONFIGEDITOR variable."
+    },
+    "Include Variable": {
+      "prefix": "Include",
+      "body": "@include",
+      "description": "Inserts the @ include syntax."
+    },
+    //================================================================================================================================//
+    //                                     Bangs                                                                                      //
+    //================================================================================================================================//
+    "!Refresh Bang": {
+      "prefix": "!Refresh",
+      "body": "!Refresh",
+      "description": "Inserts the !Refresh bang to reload the skin."
+    },
+    "!Redraw Bang": {
+      "prefix": "!Redraw",
+      "body": "!Redraw",
+      "description": "Inserts the !Redraw bang to redraw the skin."
+    },
+    "!SetVariable Bang": {
+      "prefix": "!SetVariable",
+      "body": "!SetVariable $1 $2",
+      "description": "Inserts the !SetVariable bang to set a variable value."
+    },
+    "!DeactivateConfig Bang": {
+      "prefix": "!DeactivateConfig",
+      "body": "!DeactivateConfig",
+      "description": "Inserts the !DeactivateConfig bang to deactivate a config."
+    },
+    "!ActivateConfig Bang": {
+      "prefix": "!ActivateConfig",
+      "body": "!ActivateConfig",
+      "description": "Inserts the !ActivateConfig bang to activate a config."
+    },
+    "!ToggleConfig Bang": {
+      "prefix": "!ToggleConfig",
+      "body": "!ToggleConfig",
+      "description": "Inserts the !ToggleConfig bang to toggle a config."
+    },
+    "!WriteKeyValue Bang": {
+      "prefix": "!WriteKeyValue",
+      "body": "!WriteKeyValue",
+      "description": "Inserts the !WriteKeyValue bang to write a key-value pair."
+    },
+    "Pause Bang": {
+      "prefix": "Pause",
+      "body": "Pause",
+      "description": "Inserts the Pause bang to pause the skin."
+    },
+    "!Unload Bang": {
+      "prefix": "!Unload",
+      "body": "!Unload",
+      "description": "Inserts the !Unload bang to unload the skin."
+    },
+    "Play Bang": {
+      "prefix": "Play",
+      "body": "Play",
+      "description": "Inserts the Play bang to start a playing action."
+    },
+    "!SetOptionGroup Bang": {
+      "prefix": "!SetOptionGroup",
+      "body": "!SetOptionGroup",
+      "description": "Inserts the !SetOptionGroup bang to set options for a group."
+    },
+    "!SetClip Bang": {
+      "prefix": "!SetClip",
+      "body": "!SetClip",
+      "description": "Inserts the !SetClip bang to set the skin clip."
+    },
+    "!SetWallpaper Bang": {
+      "prefix": "!SetWallpaper",
+      "body": "!SetWallpaper",
+      "description": "Inserts the !SetWallpaper bang to set a wallpaper."
+    },
+    "!About Bang": {
+      "prefix": "!About",
+      "body": "!About",
+      "description": "Inserts the !About bang to show the about dialog."
+    },
+    "!Manage Bang": {
+      "prefix": "!Manage",
+      "body": "!Manage",
+      "description": "Inserts the !Manage bang to manage a skin."
+    },
+    "!TrayMenu Bang": {
+      "prefix": "!TrayMenu",
+      "body": "!TrayMenu",
+      "description": "Inserts the !TrayMenu bang to open the tray menu."
+    },
+    "!Log Bang": {
+      "prefix": "!Log",
+      "body": "!Log",
+      "description": "Inserts the !Log bang to log a message."
+    },
+    "!ResetStats Bang": {
+      "prefix": "!ResetStats",
+      "body": "!ResetStats",
+      "description": "Inserts the !ResetStats bang to reset statistics."
+    },
+    "!LoadLayout Bang": {
+      "prefix": "!LoadLayout",
+      "body": "!LoadLayout",
+      "description": "Inserts the !LoadLayout bang to load a layout."
+    },
+    "!RefreshApp Bang": {
+      "prefix": "!RefreshApp",
+      "body": "!RefreshApp",
+      "description": "Inserts the !RefreshApp bang to refresh the application."
+    },
+    "!Quit Bang": {
+      "prefix": "!Quit",
+      "body": "!Quit",
+      "description": "Inserts the !Quit bang to quit the application."
+    },
+    "PlayLoop Bang": {
+      "prefix": "PlayLoop",
+      "body": "PlayLoop",
+      "description": "Inserts the PlayLoop bang to play a loop."
+    },
+    "PlayStop Bang": {
+      "prefix": "PlayStop",
+      "body": "PlayStop",
+      "description": "Inserts the PlayStop bang to stop playing."
+    },
+    "!SetOption Bang": {
+      "prefix": "!SetOption",
+      "body": "!SetOption",
+      "description": "Inserts the !SetOption bang to set an option."
+    },
+    "!SetVariableGroup Bang": {
+      "prefix": "!SetVariableGroup",
+      "body": "!SetVariableGroup",
+      "description": "Inserts the !SetVariableGroup bang to set a variable in a group."
+    },
+    "!Show Bang": {
+      "prefix": "!Show",
+      "body": "!Show",
+      "description": "Inserts the !Show bang to show the skin."
+    },
+    "!Toggle Bang": {
+      "prefix": "!Toggle",
+      "body": "!Toggle",
+      "description": "Inserts the !Toggle bang to toggle a state."
+    },
+    "!ShowFade Bang": {
+      "prefix": "!ShowFade",
+      "body": "!ShowFade",
+      "description": "Inserts the !ShowFade bang to show with fade effect."
+    },
+    "!HideFade Bang": {
+      "prefix": "!HideFade",
+      "body": "!HideFade",
+      "description": "Inserts the !HideFade bang to hide with fade effect."
+    },
+    "!ToggleFade Bang": {
+      "prefix": "!ToggleFade",
+      "body": "!ToggleFade",
+      "description": "Inserts the !ToggleFade bang to toggle fade effect."
+    },
+    "!FadeDuration Bang": {
+      "prefix": "!FadeDuration",
+      "body": "!FadeDuration",
+      "description": "Inserts the !FadeDuration bang to set the fade duration."
+    },
+    "!ShowBlur Bang": {
+      "prefix": "!ShowBlur",
+      "body": "!ShowBlur",
+      "description": "Inserts the !ShowBlur bang to show with blur effect."
+    },
+    "!HideBlur Bang": {
+      "prefix": "!HideBlur",
+      "body": "!HideBlur",
+      "description": "Inserts the !HideBlur bang to hide with blur effect."
+    },
+    "!ToggleBlur Bang": {
+      "prefix": "!ToggleBlur",
+      "body": "!ToggleBlur",
+      "description": "Inserts the !ToggleBlur bang to toggle blur effect."
+    },
+    "!AddBlur Bang": {
+      "prefix": "!AddBlur",
+      "body": "!AddBlur",
+      "description": "Inserts the !AddBlur bang to add a blur effect."
+    },
+    "!RemoveBlur Bang": {
+      "prefix": "!RemoveBlur",
+      "body": "!RemoveBlur",
+      "description": "Inserts the !RemoveBlur bang to remove the blur effect."
+    },
+    "!Move Bang": {
+      "prefix": "!Move",
+      "body": "!Move",
+      "description": "Inserts the !Move bang to move the skin."
+    },
+    "!SetWindowPosition Bang": {
+      "prefix": "!SetWindowPosition",
+      "body": "!SetWindowPosition",
+      "description": "Inserts the !SetWindowPosition bang to set the window position."
+    },
+    "!SetAnchor Bang": {
+      "prefix": "!SetAnchor",
+      "body": "!SetAnchor",
+      "description": "Inserts the !SetAnchor bang to set the anchor point."
+    },
+    "!Update Bang": {
+      "prefix": "!Update",
+      "body": "!Update",
+      "description": "Inserts the !Update bang to update the skin."
+    },
+    "!Delay Bang": {
+      "prefix": "!Delay",
+      "body": "!Delay",
+      "description": "Inserts the !Delay bang to delay an action."
+    },
+    "!SkinMenu Bang": {
+      "prefix": "!SkinMenu",
+      "body": "!SkinMenu",
+      "description": "Inserts the !SkinMenu bang to display the skin menu."
+    },
+    "!SkinCustomMenu Bang": {
+      "prefix": "!SkinCustomMenu",
+      "body": "!SkinCustomMenu",
+      "description": "Inserts the !SkinCustomMenu bang to display a custom menu."
+    },
+    "!SetTransparency Bang": {
+      "prefix": "!SetTransparency",
+      "body": "!SetTransparency",
+      "description": "Inserts the !SetTransparency bang to set transparency."
+    },
+    "!ZPos Bang": {
+      "prefix": "!ZPos",
+      "body": "!ZPos",
+      "description": "Inserts the !ZPos bang to set the Z position."
+    },
+    "!Draggable Bang": {
+      "prefix": "!Draggable",
+      "body": "!Draggable",
+      "description": "Inserts the !Draggable bang to make the skin draggable."
+    },
+    "!KeepOnScreen Bang": {
+      "prefix": "!KeepOnScreen",
+      "body": "!KeepOnScreen",
+      "description": "Inserts the !KeepOnScreen bang to keep the skin on the screen."
+    },
+    "!ClickThrough Bang": {
+      "prefix": "!ClickThrough",
+      "body": "!ClickThrough",
+      "description": "Inserts the !ClickThrough bang to enable or disable click-through mode for the skin."
+    },
+    "!SnapEdges Bang": {
+      "prefix": "!SnapEdges",
+      "body": "!SnapEdges",
+      "description": "Inserts the !SnapEdges bang to snap the skin to the edges of the screen."
+    },
+    "!AutoSelectScreen Bang": {
+      "prefix": "!AutoSelectScreen",
+      "body": "!AutoSelectScreen",
+      "description": "Inserts the !AutoSelectScreen bang to automatically select the screen."
+    },
+    "!EditSkin Bang": {
+      "prefix": "!EditSkin",
+      "body": "!EditSkin",
+      "description": "Inserts the !EditSkin bang to edit the skin."
+    },
+    "!ShowGroup Bang": {
+      "prefix": "!ShowGroup",
+      "body": "!ShowGroup",
+      "description": "Inserts the !ShowGroup bang to show a group of meters."
+    },
+    "!HideGroup Bang": {
+      "prefix": "!HideGroup",
+      "body": "!HideGroup",
+      "description": "Inserts the !HideGroup bang to hide a group of meters."
+    },
+    "!ToggleGroup Bang": {
+      "prefix": "!ToggleGroup",
+      "body": "!ToggleGroup",
+      "description": "Inserts the !ToggleGroup bang to toggle the visibility of a group of meters."
+    },
+    "!ShowFadeGroup Bang": {
+      "prefix": "!ShowFadeGroup",
+      "body": "!ShowFadeGroup",
+      "description": "Inserts the !ShowFadeGroup bang to show a group with fade effect."
+    },
+    "!HideFadeGroup Bang": {
+      "prefix": "!HideFadeGroup",
+      "body": "!HideFadeGroup",
+      "description": "Inserts the !HideFadeGroup bang to hide a group with fade effect."
+    },
+    "!ToggleFadeGroup Bang": {
+      "prefix": "!ToggleFadeGroup",
+      "body": "!ToggleFadeGroup",
+      "description": "Inserts the !ToggleFadeGroup bang to toggle fade effect on a group."
+    },
+    "!FadeDurationGroup Bang": {
+      "prefix": "!FadeDurationGroup",
+      "body": "!FadeDurationGroup",
+      "description": "Inserts the !FadeDurationGroup bang to set the fade duration for a group."
+    },
+    "!DeactivateConfigGroup Bang": {
+      "prefix": "!DeactivateConfigGroup",
+      "body": "!DeactivateConfigGroup",
+      "description": "Inserts the !DeactivateConfigGroup bang to deactivate a config group."
+    },
+    "!UpdateGroup Bang": {
+      "prefix": "!UpdateGroup",
+      "body": "!UpdateGroup",
+      "description": "Inserts the !UpdateGroup bang to update a config group."
+    },
+    "!RedrawGroup Bang": {
+      "prefix": "!RedrawGroup",
+      "body": "!RedrawGroup",
+      "description": "Inserts the !RedrawGroup bang to redraw a config group."
+    },
+    "!RefreshGroup Bang": {
+      "prefix": "!RefreshGroup",
+      "body": "!RefreshGroup",
+      "description": "Inserts the !RefreshGroup bang to refresh a config group."
+    },
+    "!SetTransparencyGroup Bang": {
+      "prefix": "!SetTransparencyGroup",
+      "body": "!SetTransparencyGroup",
+      "description": "Inserts the !SetTransparencyGroup bang to set transparency for a group."
+    },
+    "!DraggableGroup Bang": {
+      "prefix": "!DraggableGroup",
+      "body": "!DraggableGroup",
+      "description": "Inserts the !DraggableGroup bang to make a group draggable."
+    },
+    "!ZPosGroup Bang": {
+      "prefix": "!ZPosGroup",
+      "body": "!ZPosGroup",
+      "description": "Inserts the !ZPosGroup bang to set the Z position of a group."
+    },
+    "!KeepOnScreenGroup Bang": {
+      "prefix": "!KeepOnScreenGroup",
+      "body": "!KeepOnScreenGroup",
+      "description": "Inserts the !KeepOnScreenGroup bang to keep a group on the screen."
+    },
+    "!ClickThroughGroup Bang": {
+      "prefix": "!ClickThroughGroup",
+      "body": "!ClickThroughGroup",
+      "description": "Inserts the !ClickThroughGroup bang to enable or disable click-through mode for a group."
+    },
+    "!SnapEdgesGroup Bang": {
+      "prefix": "!SnapEdgesGroup",
+      "body": "!SnapEdgesGroup",
+      "description": "Inserts the !SnapEdgesGroup bang to snap a group of meters to the edges of the screen."
+    },
+    "!AutoSelectScreenGroup Bang": {
+      "prefix": "!AutoSelectScreenGroup",
+      "body": "!AutoSelectScreenGroup",
+      "description": "Inserts the !AutoSelectScreenGroup bang to automatically select a screen for a group."
+    },
+    "!ShowMeter Bang": {
+      "prefix": "!ShowMeter",
+      "body": "!ShowMeter",
+      "description": "Inserts the !ShowMeter bang to show a meter."
+    },
+    "!HideMeter Bang": {
+      "prefix": "!HideMeter",
+      "body": "!HideMeter",
+      "description": "Inserts the !HideMeter bang to hide a meter."
+    },
+    "!ToggleMeter Bang": {
+      "prefix": "!ToggleMeter",
+      "body": "!ToggleMeter",
+      "description": "Inserts the !ToggleMeter bang to toggle the visibility of a meter."
+    },
+    "!UpdateMeter Bang": {
+      "prefix": "!UpdateMeter",
+      "body": "!UpdateMeter",
+      "description": "Inserts the !UpdateMeter bang to update a meter."
+    },
+    "!MoveMeter Bang": {
+      "prefix": "!MoveMeter",
+      "body": "!MoveMeter",
+      "description": "Inserts the !MoveMeter bang to move a meter."
+    },
+    "!ShowMeterGroup Bang": {
+      "prefix": "!ShowMeterGroup",
+      "body": "!ShowMeterGroup",
+      "description": "Inserts the !ShowMeterGroup bang to show a group of meters."
+    },
+    "!HideMeterGroup Bang": {
+      "prefix": "!HideMeterGroup",
+      "body": "!HideMeterGroup",
+      "description": "Inserts the !HideMeterGroup bang to hide a group of meters."
+    },
+    "!ToggleMeterGroup Bang": {
+      "prefix": "!ToggleMeterGroup",
+      "body": "!ToggleMeterGroup",
+      "description": "Inserts the !ToggleMeterGroup bang to toggle a group of meters."
+    },
+    "!UpdateMeterGroup Bang": {
+      "prefix": "!UpdateMeterGroup",
+      "body": "!UpdateMeterGroup",
+      "description": "Inserts the !UpdateMeterGroup bang to update a group of meters."
+    },
+    "!EnableMeasure Bang": {
+      "prefix": "!EnableMeasure",
+      "body": "!EnableMeasure",
+      "description": "Inserts the !EnableMeasure bang to enable a measure."
+    },
+    "!DisableMeasure Bang": {
+      "prefix": "!DisableMeasure",
+      "body": "!DisableMeasure",
+      "description": "Inserts the !DisableMeasure bang to disable a measure."
+    },
+    "!ToggleMeasure Bang": {
+      "prefix": "!ToggleMeasure",
+      "body": "!ToggleMeasure",
+      "description": "Inserts the !ToggleMeasure bang to toggle a measure."
+    },
+    "PauseMeasure Bang": {
+      "prefix": "PauseMeasure",
+      "body": "PauseMeasure",
+      "description": "Inserts the PauseMeasure bang to pause a measure."
+    },
+    "!UnpauseMeasure Bang": {
+      "prefix": "!UnpauseMeasure",
+      "body": "!UnpauseMeasure",
+      "description": "Inserts the !UnpauseMeasure bang to unpause a measure."
+    },
+    "!TogglePauseMeasure Bang": {
+      "prefix": "!TogglePauseMeasure",
+      "body": "!TogglePauseMeasure",
+      "description": "Inserts the !TogglePauseMeasure bang to toggle the pause state of a measure."
+    },
+    "!UpdateMeasure Bang": {
+      "prefix": "!UpdateMeasure",
+      "body": "!UpdateMeasure",
+      "description": "Inserts the !UpdateMeasure bang to update a measure."
+    },
+    "!CommandMeasure Bang": {
+      "prefix": "!CommandMeasure",
+      "body": "!CommandMeasure",
+      "description": "Inserts the !CommandMeasure bang to execute a command on a measure."
+    },
+    "!EnableMeasureGroup Bang": {
+      "prefix": "!EnableMeasureGroup",
+      "body": "!EnableMeasureGroup",
+      "description": "Inserts the !EnableMeasureGroup bang to enable a group of measures."
+    },
+    "!DisableMeasureGroup Bang": {
+      "prefix": "!DisableMeasureGroup",
+      "body": "!DisableMeasureGroup",
+      "description": "Inserts the !DisableMeasureGroup bang to disable a group of measures."
+    },
+    "!ToggleMeasureGroup Bang": {
+      "prefix": "!ToggleMeasureGroup",
+      "body": "!ToggleMeasureGroup",
+      "description": "Inserts the !ToggleMeasureGroup bang to toggle a group of measures."
+    },
+    "PauseMeasureGroup Bang": {
+      "prefix": "PauseMeasureGroup",
+      "body": "PauseMeasureGroup",
+      "description": "Inserts the PauseMeasureGroup bang to pause a group of measures."
+    },
+    "!UnpauseMeasureGroup Bang": {
+      "prefix": "!UnpauseMeasureGroup",
+      "body": "!UnpauseMeasureGroup",
+      "description": "Inserts the !UnpauseMeasureGroup bang to unpause a group of measures."
+    },
+    "!TogglePauseMeasureGroup Bang": {
+      "prefix": "!TogglePauseMeasureGroup",
+      "body": "!TogglePauseMeasureGroup",
+      "description": "Inserts the !TogglePauseMeasureGroup bang to toggle the pause state of a group of measures."
+    },
+    "!UpdateMeasureGroup Bang": {
+      "prefix": "!UpdateMeasureGroup",
+      "body": "!UpdateMeasureGroup",
+      "description": "Inserts the !UpdateMeasureGroup bang to update a group of measures."
+    },
+    "!DisableMouseAction Bang": {
+      "prefix": "!DisableMouseAction",
+      "body": "!DisableMouseAction",
+      "description": "Inserts the !DisableMouseAction bang to disable a mouse action."
+    },
+    "!ClearMouseAction Bang": {
+      "prefix": "!ClearMouseAction",
+      "body": "!ClearMouseAction",
+      "description": "Inserts the !ClearMouseAction bang to clear a mouse action."
+    },
+    "!EnableMouseAction Bang": {
+      "prefix": "!EnableMouseAction",
+      "body": "!EnableMouseAction",
+      "description": "Inserts the !EnableMouseAction bang to enable a mouse action."
+    },
+    "!ToggleMouseAction Bang": {
+      "prefix": "!ToggleMouseAction",
+      "body": "!ToggleMouseAction",
+      "description": "Inserts the !ToggleMouseAction bang to toggle a mouse action."
+    },
+    "!DisableMouseActionGroup Bang": {
+      "prefix": "!DisableMouseActionGroup",
+      "body": "!DisableMouseActionGroup",
+      "description": "Inserts the !DisableMouseActionGroup bang to disable a group of mouse actions."
+    },
+    "!ClearMouseActionGroup Bang": {
+      "prefix": "!ClearMouseActionGroup",
+      "body": "!ClearMouseActionGroup",
+      "description": "Inserts the !ClearMouseActionGroup bang to clear a group of mouse actions."
+    },
+    "!EnableMouseActionGroup Bang": {
+      "prefix": "!EnableMouseActionGroup",
+      "body": "!EnableMouseActionGroup",
+      "description": "Inserts the !EnableMouseActionGroup bang to enable a group of mouse actions."
+    },
+    "!ToggleMouseActionGroup Bang": {
+      "prefix": "!ToggleMouseActionGroup",
+      "body": "!ToggleMouseActionGroup",
+      "description": "Inserts the !ToggleMouseActionGroup bang to toggle a group of mouse actions."
+    },
+    "!DisableMouseActionSkinGroup Bang": {
+      "prefix": "!DisableMouseActionSkinGroup",
+      "body": "!DisableMouseActionSkinGroup",
+      "description": "Inserts the !DisableMouseActionSkinGroup bang to disable mouse actions for the skin group."
+    },
+    "!ClearMouseActionSkinGroup Bang": {
+      "prefix": "!ClearMouseActionSkinGroup",
+      "body": "!ClearMouseActionSkinGroup",
+      "description": "Inserts the !ClearMouseActionSkinGroup bang to clear mouse actions for the skin group."
+    },
+    "!EnableMouseActionSkinGroup Bang": {
+      "prefix": "!EnableMouseActionSkinGroup",
+      "body": "!EnableMouseActionSkinGroup",
+      "description": "Inserts the !EnableMouseActionSkinGroup bang to enable mouse actions for the skin group."
+    },
+    "!ToggleMouseActionSkinGroup Bang": {
+      "prefix": "!ToggleMouseActionSkinGroup",
+      "body": "!ToggleMouseActionSkinGroup",
+      "description": "Inserts the !ToggleMouseActionSkinGroup bang to toggle mouse actions for the skin group."
+    },
+    "!Execute Bang": {
+      "prefix": "!Execute",
+      "body": "!Execute",
+      "description": "Inserts the !Execute bang to execute a command."
+    },
+    "!Rainmeter Bang": {
+      "prefix": "!Rainmeter",
+      "body": "!Rainmeter",
+      "description": "Inserts the !Rainmeter bang to interact with Rainmeter directly."
+    },
+    "!PluginBang Bang": {
+      "prefix": "!PluginBang",
+      "body": "!PluginBang",
+      "description": "Inserts the !PluginBang bang to interact with a plugin."
+    },
+    "WriteKeyValue Bang": {
+      "prefix": "!WriteKeyValue",
+      "body": "!WriteKeyValue $1 $2 $3",
+      "description": "Inserts the !WriteKeyValue bang to write data to an INI file."
+    },
+    //================================================================================================================================//
+    //                                    Actions                                                                                     //
+    //================================================================================================================================//
+    "LeftMouseUpAction": {
+      "prefix": "LeftMouseUpAction",
+      "body": "LeftMouseUpAction=[]",
+      "description": "Inserts a LeftMouseUpAction Bang."
+    },
+    "RightMouseUpAction": {
+      "prefix": "RightMouseUpAction",
+      "body": "RightMouseUpAction=[]",
+      "description": "Inserts a RightMouseUpAction Bang."
+    },
+    "MouseOverAction": {
+      "prefix": "MouseOverAction",
+      "body": "MouseOverAction=[]",
+      "description": "Inserts a MouseOverAction Bang."
+    },
+    "MouseLeaveAction": {
+      "prefix": "MouseLeaveAction",
+      "body": "MouseLeaveAction=[]",
+      "description": "Inserts a MouseLeaveAction Bang."
+    },
+    "LeftMouseDoubleClickAction": {
+      "prefix": "LeftMouseDoubleClickAction",
+      "body": "LeftMouseDoubleClickAction=[]",
+      "description": "Inserts a LeftMouseDoubleClickAction Bang."
+    },
+    "RightMouseDoubleClickAction": {
+      "prefix": "RightMouseDoubleClickAction",
+      "body": "RightMouseDoubleClickAction=[]",
+      "description": "Inserts a RightMouseDoubleClickAction Bang."
+    },
+    "MiddleMouseDoubleClickAction": {
+      "prefix": "MiddleMouseDoubleClickAction",
+      "body": "MiddleMouseDoubleClickAction=[]",
+      "description": "Inserts a MiddleMouseDoubleClickAction Bang."
+    },
+    "X1MouseDownAction": {
+      "prefix": "X1MouseDownAction",
+      "body": "X1MouseDownAction=[]",
+      "description": "Inserts an X1MouseDownAction Bang."
+    },
+    "X2MouseDownAction": {
+      "prefix": "X2MouseDownAction",
+      "body": "X2MouseDownAction=[]",
+      "description": "Inserts an X2MouseDownAction Bang."
+    },
+    "X1MouseUpAction": {
+      "prefix": "X1MouseUpAction",
+      "body": "X1MouseUpAction=[]",
+      "description": "Inserts an X1MouseUpAction Bang."
+    },
+    "X2MouseUpAction": {
+      "prefix": "X2MouseUpAction",
+      "body": "X2MouseUpAction=[]",
+      "description": "Inserts an X2MouseUpAction Bang."
+    },
+    "X1MouseDoubleClickAction": {
+      "prefix": "X1MouseDoubleClickAction",
+      "body": "X1MouseDoubleClickAction=[]",
+      "description": "Inserts an X1MouseDoubleClickAction Bang."
+    },
+    "X2MouseDoubleClickAction": {
+      "prefix": "X2MouseDoubleClickAction",
+      "body": "X2MouseDoubleClickAction=[]",
+      "description": "Inserts an X2MouseDoubleClickAction Bang."
+    },
+    "MouseScrollDownAction": {
+      "prefix": "MouseScrollDownAction",
+      "body": "MouseScrollDownAction=[]",
+      "description": "Inserts a MouseScrollDownAction Bang."
+    },
+    "MouseScrollUpAction": {
+      "prefix": "MouseScrollUpAction",
+      "body": "MouseScrollUpAction=[]",
+      "description": "Inserts a MouseScrollUpAction Bang."
+    },
+    "MouseScrollLeftAction": {
+      "prefix": "MouseScrollLeftAction",
+      "body": "MouseScrollLeftAction=[]",
+      "description": "Inserts a MouseScrollLeftAction Bang."
+    },
+    "MouseScrollRightAction": {
+      "prefix": "MouseScrollRightAction",
+      "body": "MouseScrollRightAction=[]",
+      "description": "Inserts a MouseScrollRightAction Bang."
+    },
+    //================================================================================================================================//
+    //                                    Attributes                                                                                     //
+    //================================================================================================================================//
+    "FontFace Attribute": {
+      "prefix": "FontFace",
+      "body": "FontFace=",
+      "description": "Fonts are used in String meters with the FontFace option."
+    },
+    "FontColor Attribute": {
+      "prefix": "FontColor",
+      "body": "FontColor=",
+      "description": "Sets the font color for a String meter."
+    },
+    "FontSize Attribute": {
+      "prefix": "FontSize",
+      "body": "FontSize=",
+      "description": "Sets the font size for a String meter."
+    },
+    "StringAlign Attribute": {
+      "prefix": "StringAlign",
+      "body": "StringAlign=",
+      "description": "Aligns the text within a String meter."
+    },
+    "Antialias Attribute": {
+      "prefix": "Antialias",
+      "body": "Antialias=",
+      "description": "Enables or disables antialiasing for a String meter."
+    },
+    "SolidColor Attribute": {
+      "prefix": "SolidColor",
+      "body": "SolidColor=",
+      "description": "Sets the solid color for a meter."
+    },
+    "X Attribute": {
+      "prefix": "X",
+      "body": "X=",
+      "description": "Sets the X position of the meter."
+    },
+    "Y Attribute": {
+      "prefix": "Y",
+      "body": "Y=",
+      "description": "Sets the Y position of the meter."
+    },
+    "W Attribute": {
+      "prefix": "W",
+      "body": "W=",
+      "description": "Sets the width of the meter."
+    },
+    "H Attribute": {
+      "prefix": "H",
+      "body": "H=",
+      "description": "Sets the height of the meter."
+    },
+    "Text Attribute": {
+      "prefix": "Text",
+      "body": "Text=",
+      "description": "Sets the text for a String meter."
+    },
+    "Meter Attribute": {
+      "prefix": "Meter",
+      "body": "Meter=",
+      "description": "Defines the type of meter."
+    },
+    "Measure Attribute": {
+      "prefix": "Measure",
+      "body": "Measure=",
+      "description": "Defines the measure that the meter will use."
+    },
+    "MouseActionCursor Attribute": {
+      "prefix": "MouseActionCursor",
+      "body": "MouseActionCursor=",
+      "description": "Sets the cursor style when a mouse action is triggered."
+    },
+    "MouseActionCursorName Attribute": {
+      "prefix": "MouseActionCursorName",
+      "body": "MouseActionCursorName=",
+      "description": "Sets the name of the cursor for mouse actions."
+    },
+    "ScriptFile Attribute": {
+      "prefix": "ScriptFile",
+      "body": "ScriptFile=",
+      "description": "Specifies the script file to be executed."
+    },
+    "MeterStyle Attribute": {
+      "prefix": "MeterStyle",
+      "body": "MeterStyle=",
+      "description": "Defines the style for a meter."
+    },
+    "Hidden Attribute": {
+      "prefix": "Hidden",
+      "body": "Hidden=",
+      "description": "Hides or shows a meter."
+    },
+    "DynamicVariables Attribute": {
+      "prefix": "DynamicVariables",
+      "body": "DynamicVariables=",
+      "description": "Enables or disables dynamic variables."
+    },
+    "FontWeight Attribute": {
+      "prefix": "FontWeight",
+      "body": "FontWeight=",
+      "description": "Sets the weight of the font."
+    },
+    "StrokeWidth Attribute": {
+      "prefix": "StrokeWidth",
+      "body": "StrokeWidth=",
+      "description": "Sets the stroke width for a meter."
+    },
+    "FillColor Attribute": {
+      "prefix": "FillColor",
+      "body": "FillColor=",
+      "description": "Sets the fill color for a meter."
+    },
+    "Offset Attribute": {
+      "prefix": "Offset",
+      "body": "Offset=",
+      "description": "Sets the offset for a meter."
+    },
+    "DragGroup Attribute": {
+      "prefix": "DragGroup",
+      "body": "DragGroup=",
+      "description": "Specifies the group for dragging a meter."
+    },
+    "Group Attribute": {
+      "prefix": "Group",
+      "body": "Group=",
+      "description": "Defines the group for a meter."
+    },
+    "AutoSelectScreen Attribute": {
+      "prefix": "AutoSelectScreen",
+      "body": "AutoSelectScreen=",
+      "description": "Automatically selects the screen for a skin."
+    },
+    "LoadOrder Attribute": {
+      "prefix": "LoadOrder",
+      "body": "LoadOrder=",
+      "description": "Sets the load order for a skin or meter."
+    },
+    "KeepOnScreen Attribute": {
+      "prefix": "KeepOnScreen",
+      "body": "KeepOnScreen=",
+      "description": "Keeps the skin on the screen."
+    },
+    "ClickThrough Attribute": {
+      "prefix": "ClickThrough",
+      "body": "ClickThrough=",
+      "description": "Enables or disables click-through for a skin."
+    },
+    "FadeDuration Attribute": {
+      "prefix": "FadeDuration",
+      "body": "FadeDuration=",
+      "description": "Sets the fade duration for a meter or skin."
+    },
+    "OnHover Attribute": {
+      "prefix": "OnHover",
+      "body": "OnHover=",
+      "description": "Defines the action to take on hover for a meter."
+    },
+    "AlphaValue Attribute": {
+      "prefix": "AlphaValue",
+      "body": "AlphaValue=",
+      "description": "Sets the alpha transparency for a meter."
+    },
+    "StartHidden Attribute": {
+      "prefix": "StartHidden",
+      "body": "StartHidden=",
+      "description": "Sets whether the meter or skin starts hidden."
+    },
+    "SnapEdges Attribute": {
+      "prefix": "SnapEdges",
+      "body": "SnapEdges=",
+      "description": "Snaps the skin edges to the screen borders."
+    },
+    "DraggableDefault Attribute": {
+      "prefix": "DraggableDefault",
+      "body": "DraggableDefault=",
+      "description": "Sets the default draggable behavior for a skin."
+    },
+    "AlwaysOnTop Attribute": {
+      "prefix": "AlwaysOnTop",
+      "body": "AlwaysOnTop=",
+      "description": "Keeps the skin on top of other windows."
+    },
+    "SavePosition Attribute": {
+      "prefix": "SavePosition",
+      "body": "SavePosition=",
+      "description": "Saves the position of the skin when it is moved."
+    },
+    "AnchorX Attribute": {
+      "prefix": "AnchorX",
+      "body": "AnchorX=",
+      "description": "Sets the X anchor position of the skin or meter."
+    },
+    "AnchorY Attribute": {
+      "prefix": "AnchorY",
+      "body": "AnchorY=",
+      "description": "Sets the Y anchor position of the skin or meter."
+    },
+    "WindowX Attribute": {
+      "prefix": "WindowX",
+      "body": "WindowX=",
+      "description": "Sets the X position of the skin window."
+    },
+    "WindowY Attribute": {
+      "prefix": "WindowY",
+      "body": "WindowY=",
+      "description": "Sets the Y position of the skin window."
+    },
+    "Active Attribute": {
+      "prefix": "Active",
+      "body": "Active=",
+      "description": "Sets whether the skin or meter is active."
+    },
+    "ImageTint Attribute": {
+      "prefix": "ImageTint",
+      "body": "ImageTint=",
+      "description": "Applies a tint to an image in a skin."
+    },
+    "UpdateDivider Attribute": {
+      "prefix": "UpdateDivider",
+      "body": "UpdateDivider=",
+      "description": "Sets the update interval for the skin or meter."
+    },
+    "Disabled Attribute": {
+      "prefix": "Disabled",
+      "body": "Disabled=",
+      "description": "Disables a meter or skin functionality."
+    },
+    "ImagePath Attribute": {
+      "prefix": "ImagePath",
+      "body": "ImagePath=",
+      "description": "Sets the path for an image used in a skin."
+    },
+    "ImageCrop Attribute": {
+      "prefix": "ImageCrop",
+      "body": "ImageCrop=",
+      "description": "Crops an image within the specified bounds."
+    },
+    "Greyscale Attribute": {
+      "prefix": "Greyscale",
+      "body": "Greyscale=",
+      "description": "Applies greyscale to an image."
+    },
+    "ImageAlpha Attribute": {
+      "prefix": "ImageAlpha",
+      "body": "ImageAlpha=",
+      "description": "Sets the alpha transparency for an image."
+    },
+    "ImageFlip Attribute": {
+      "prefix": "ImageFlip",
+      "body": "ImageFlip=",
+      "description": "Flips an image horizontally or vertically."
+    },
+    "ImageRotate Attribute": {
+      "prefix": "ImageRotate",
+      "body": "ImageRotate=",
+      "description": "Rotates an image by a specified angle."
+    },
+    "UseExifOrientation Attribute": {
+      "prefix": "UseExifOrientation",
+      "body": "UseExifOrientation=",
+      "description": "Uses the Exif orientation data for an image."
+    },
+    "ColorMatrixN Attribute": {
+      "prefix": "ColorMatrixN",
+      "body": "ColorMatrixN=",
+      "description": "Applies a color matrix transformation to an image."
+    },
+    "StringStyle Attribute": {
+      "prefix": "StringStyle",
+      "body": "StringStyle=",
+      "description": "Defines the style of a string in a String meter."
+    },
+    "ToolTipText Attribute": {
+      "prefix": "ToolTipText",
+      "body": "ToolTipText=",
+      "description": "Sets the text for a tool tip."
+    },
+    "ToolTipTitle Attribute": {
+      "prefix": "ToolTipTitle",
+      "body": "ToolTipTitle=",
+      "description": "Sets the title of a tool tip."
+    },
+    "ToolTipIcon Attribute": {
+      "prefix": "ToolTipIcon",
+      "body": "ToolTipIcon=",
+      "description": "Sets the icon for a tool tip."
+    },
+    "ToolTipType Attribute": {
+      "prefix": "ToolTipType",
+      "body": "ToolTipType=",
+      "description": "Defines the type of tool tip."
+    },
+    "ToolTipWidth Attribute": {
+      "prefix": "ToolTipWidth",
+      "body": "ToolTipWidth=",
+      "description": "Sets the width of a tool tip."
+    },
+    "ToolTipHidden Attribute": {
+      "prefix": "ToolTipHidden",
+      "body": "ToolTipHidden=",
+      "description": "Hides the tool tip."
+    },
+    "RegHKey Attribute": {
+      "prefix": "RegHKey",
+      "body": "RegHKey=",
+      "description": "Defines the registry root key for a registry action."
+    },
+    "RegKey Attribute": {
+      "prefix": "RegKey",
+      "body": "RegKey=",
+      "description": "Defines the registry key for a registry action."
+    },
+    "RegValue Attribute": {
+      "prefix": "RegValue",
+      "body": "RegValue=",
+      "description": "Defines the registry value for a registry action."
+    },
+    "PreserveAspectRatio Attribute": {
+      "prefix": "PreserveAspectRatio",
+      "body": "PreserveAspectRatio=",
+      "description": "Preserves the aspect ratio of an image."
+    },
+    "InlineSetting Attribute": {
+      "prefix": "InlineSetting",
+      "body": "InlineSetting=",
+      "description": "Defines an inline setting for a skin."
+    },
+    "Container Attribute": {
+      "prefix": "Container",
+      "body": "Container=",
+      "description": "Defines a container for meters and controls."
+    },
+    "MeasureName Attribute": {
+      "prefix": "MeasureName",
+      "body": "MeasureName=",
+      "description": "Sets the name for a measure."
+    },
+    "BarColor Attribute": {
+      "prefix": "BarColor",
+      "body": "BarColor=",
+      "description": "Sets the color for a bar meter."
+    },
+    "BarImage Attribute": {
+      "prefix": "BarImage",
+      "body": "BarImage=",
+      "description": "Sets the image for a bar meter."
+    },
+    "BarBorder Attribute": {
+      "prefix": "BarBorder",
+      "body": "BarBorder=",
+      "description": "Defines the border for a bar meter."
+    },
+    "BarOrientation Attribute": {
+      "prefix": "BarOrientation",
+      "body": "BarOrientation=",
+      "description": "Defines the orientation of a bar meter."
+    },
+    "Flip Attribute": {
+      "prefix": "Flip",
+      "body": "Flip=",
+      "description": "Flips the bar in a bar meter."
+    },
+    "BitmapSeparation Attribute": {
+      "prefix": "BitmapSeparation",
+      "body": "BitmapSeparation=",
+      "description": "Sets the separation between bitmap images."
+    },
+    "BitmapAlign Attribute": {
+      "prefix": "BitmapAlign",
+      "body": "BitmapAlign=",
+      "description": "Aligns the bitmap images within a meter."
+    },
+    "BitmapDigits Attribute": {
+      "prefix": "BitmapDigits",
+      "body": "BitmapDigits=",
+      "description": "Defines the number of digits in a bitmap meter."
+    },
+    "BitmapExtend Attribute": {
+      "prefix": "BitmapExtend",
+      "body": "BitmapExtend=",
+      "description": "Defines the extension for bitmap images in a meter."
+    },
+    "BitmapZeroFrame Attribute": {
+      "prefix": "BitmapZeroFrame",
+      "body": "BitmapZeroFrame=",
+      "description": "Sets the zero frame index for a bitmap meter."
+    },
+    "BitmapTransitionFrames Attribute": {
+      "prefix": "BitmapTransitionFrames",
+      "body": "BitmapTransitionFrames=",
+      "description": "Defines the number of transition frames for a bitmap meter."
+    },
+    "BitmapFrames Attribute": {
+      "prefix": "BitmapFrames",
+      "body": "BitmapFrames=",
+      "description": "Sets the number of frames for a bitmap meter."
+    },
+    "BitmapImage Attribute": {
+      "prefix": "BitmapImage",
+      "body": "BitmapImage=",
+      "description": "Sets the image for a bitmap meter."
+    },
+    "ButtonImage Attribute": {
+      "prefix": "ButtonImage",
+      "body": "ButtonImage=",
+      "description": "Defines the image for a button meter."
+    },
+    "ButtonCommand Attribute": {
+      "prefix": "ButtonCommand",
+      "body": "ButtonCommand=",
+      "description": "Sets the command to run when the button is clicked."
+    },
+    "PrimaryColorMatrixN Attribute": {
+      "prefix": "PrimaryColorMatrixN",
+      "body": "PrimaryColorMatrixN=",
+      "description": "Applies the color matrix transformation to the primary image."
+    },
+    "SecondaryColorMatrixN Attribute": {
+      "prefix": "SecondaryColorMatrixN",
+      "body": "SecondaryColorMatrixN=",
+      "description": "Applies the color matrix transformation to the secondary image."
+    },
+    "BothImageColorMatrixN Attribute": {
+      "prefix": "BothImageColorMatrixN",
+      "body": "BothImageColorMatrixN=",
+      "description": "Applies the color matrix transformation to both primary and secondary images."
+    },
+    "PrimaryImageRotate Attribute": {
+      "prefix": "PrimaryImageRotate",
+      "body": "PrimaryImageRotate=",
+      "description": "Rotates the primary image by the specified angle."
+    },
+    "SecondaryImageRotate Attribute": {
+      "prefix": "SecondaryImageRotate",
+      "body": "SecondaryImageRotate=",
+      "description": "Rotates the secondary image by the specified angle."
+    },
+    "BothImageRotate Attribute": {
+      "prefix": "BothImageRotate",
+      "body": "BothImageRotate=",
+      "description": "Rotates both primary and secondary images by the specified angle."
+    },
+    "PrimaryImageFlip Attribute": {
+      "prefix": "PrimaryImageFlip",
+      "body": "PrimaryImageFlip=",
+      "description": "Flips the primary image horizontally or vertically."
+    },
+    "SecondaryImageFlip Attribute": {
+      "prefix": "SecondaryImageFlip",
+      "body": "SecondaryImageFlip=",
+      "description": "Flips the secondary image horizontally or vertically."
+    },
+    "BothImageFlip Attribute": {
+      "prefix": "BothImageFlip",
+      "body": "BothImageFlip=",
+      "description": "Flips both primary and secondary images horizontally or vertically."
+    },
+    "PrimaryImageAlpha Attribute": {
+      "prefix": "PrimaryImageAlpha",
+      "body": "PrimaryImageAlpha=",
+      "description": "Sets the alpha transparency for the primary image."
+    },
+    "SecondaryImageAlpha Attribute": {
+      "prefix": "SecondaryImageAlpha",
+      "body": "SecondaryImageAlpha=",
+      "description": "Sets the alpha transparency for the secondary image."
+    },
+    "BothImageAlpha Attribute": {
+      "prefix": "BothImageAlpha",
+      "body": "BothImageAlpha=",
+      "description": "Sets the alpha transparency for both primary and secondary images."
+    },
+    "PrimaryImageTint Attribute": {
+      "prefix": "PrimaryImageTint",
+      "body": "PrimaryImageTint=",
+      "description": "Applies a tint to the primary image."
+    },
+    "SecondaryImageTint Attribute": {
+      "prefix": "SecondaryImageTint",
+      "body": "SecondaryImageTint=",
+      "description": "Applies a tint to the secondary image."
+    },
+    "BothImageTint Attribute": {
+      "prefix": "BothImageTint",
+      "body": "BothImageTint=",
+      "description": "Applies a tint to both primary and secondary images."
+    },
+    "PrimaryImageCrop Attribute": {
+      "prefix": "PrimaryImageCrop",
+      "body": "PrimaryImageCrop=",
+      "description": "Crops the primary image within the specified bounds."
+    },
+    "SecondaryImageCrop Attribute": {
+      "prefix": "SecondaryImageCrop",
+      "body": "SecondaryImageCrop=",
+      "description": "Crops the secondary image within the specified bounds."
+    },
+    "BothImageCrop Attribute": {
+      "prefix": "BothImageCrop",
+      "body": "BothImageCrop=",
+      "description": "Crops both primary and secondary images within the specified bounds."
+    },
+    "PrimaryGreyScale Attribute": {
+      "prefix": "PrimaryGreyScale",
+      "body": "PrimaryGreyScale=",
+      "description": "Applies greyscale to the primary image."
+    },
+    "SecondaryGreyScale Attribute": {
+      "prefix": "SecondaryGreyScale",
+      "body": "SecondaryGreyScale=",
+      "description": "Applies greyscale to the secondary image."
+    },
+    "BothGreyScale Attribute": {
+      "prefix": "BothGreyScale",
+      "body": "BothGreyScale=",
+      "description": "Applies greyscale to both primary and secondary images."
+    },
+    "PrimaryImagePath Attribute": {
+      "prefix": "PrimaryImagePath",
+      "body": "PrimaryImagePath=",
+      "description": "Sets the path for the primary image."
+    },
+    "SecondaryImagePath Attribute": {
+      "prefix": "SecondaryImagePath",
+      "body": "SecondaryImagePath=",
+      "description": "Sets the path for the secondary image."
+    },
+    "BothImagePath Attribute": {
+      "prefix": "BothImagePath",
+      "body": "BothImagePath=",
+      "description": "Sets the path for both primary and secondary images."
+    },
+    "PrimaryImage Attribute": {
+      "prefix": "PrimaryImage",
+      "body": "PrimaryImage=",
+      "description": "Defines the primary image for use in the skin."
+    },
+    "SecondaryImage Attribute": {
+      "prefix": "SecondaryImage",
+      "body": "SecondaryImage=",
+      "description": "Defines the secondary image for use in the skin."
+    },
+    "BothImage Attribute": {
+      "prefix": "BothImage",
+      "body": "BothImage=",
+      "description": "Defines both primary and secondary images for use in the skin."
+    },
+    "PrimaryColor Attribute": {
+      "prefix": "PrimaryColor",
+      "body": "PrimaryColor=",
+      "description": "Sets the primary color for use in the skin."
+    },
+    "SecondaryColor Attribute": {
+      "prefix": "SecondaryColor",
+      "body": "SecondaryColor=",
+      "description": "Sets the secondary color for use in the skin."
+    },
+    "BothColor Attribute": {
+      "prefix": "BothColor",
+      "body": "BothColor=",
+      "description": "Defines the color for both primary and secondary elements."
+    },
+    "GraphOrientation Attribute": {
+      "prefix": "GraphOrientation",
+      "body": "GraphOrientation=",
+      "description": "Sets the orientation of the graph (horizontal/vertical)."
+    },
+    "GraphStart Attribute": {
+      "prefix": "GraphStart",
+      "body": "GraphStart=",
+      "description": "Defines the starting point of the graph."
+    },
+    "AutoScale Attribute": {
+      "prefix": "AutoScale",
+      "body": "AutoScale=",
+      "description": "Automatically scales the graph or element."
+    },
+    "ScaleMargins Attribute": {
+      "prefix": "ScaleMargins",
+      "body": "ScaleMargins=",
+      "description": "Defines the margins for scaling the graph or element."
+    },
+    "Tile Attribute": {
+      "prefix": "Tile",
+      "body": "Tile=",
+      "description": "Defines the tiling pattern for an image or element."
+    },
+    "MaskImageName Attribute": {
+      "prefix": "MaskImageName",
+      "body": "MaskImageName=",
+      "description": "Defines the name of the mask image."
+    },
+    "MaskImagePath Attribute": {
+      "prefix": "MaskImagePath",
+      "body": "MaskImagePath=",
+      "description": "Sets the path for the mask image."
+    },
+    "MaskImageFlip Attribute": {
+      "prefix": "MaskImageFlip",
+      "body": "MaskImageFlip=",
+      "description": "Flips the mask image horizontally or vertically."
+    },
+    "MaskImageRotate Attribute": {
+      "prefix": "MaskImageRotate",
+      "body": "MaskImageRotate=",
+      "description": "Rotates the mask image by the specified angle."
+    },
+    "TransformStroke Attribute": {
+      "prefix": "TransformStroke",
+      "body": "TransformStroke=",
+      "description": "Applies a stroke transformation to the image or element."
+    },
+    "HorizontalLineColor Attribute": {
+      "prefix": "HorizontalLineColor",
+      "body": "HorizontalLineColor=",
+      "description": "Sets the color of horizontal lines."
+    },
+    "HorizontalLines Attribute": {
+      "prefix": "HorizontalLines",
+      "body": "HorizontalLines=",
+      "description": "Defines the number of horizontal lines."
+    },
+    "LineCount Attribute": {
+      "prefix": "LineCount",
+      "body": "LineCount=",
+      "description": "Sets the number of lines in a graph or meter."
+    },
+    "Scale Attribute": {
+      "prefix": "Scale",
+      "body": "Scale=",
+      "description": "Defines the scaling factor for the element."
+    },
+    "LineWidth Attribute": {
+      "prefix": "LineWidth",
+      "body": "LineWidth=",
+      "description": "Defines the width of a line in a graph or meter."
+    },
+    "OffsetX Attribute": {
+      "prefix": "OffsetX",
+      "body": "OffsetX=",
+      "description": "Sets the horizontal offset for an element."
+    },
+    "OffsetY Attribute": {
+      "prefix": "OffsetY",
+      "body": "OffsetY=",
+      "description": "Sets the vertical offset for an element."
+    },
+    "StartAngle Attribute": {
+      "prefix": "StartAngle",
+      "body": "StartAngle=",
+      "description": "Sets the starting angle for a circular or angular element."
+    },
+    "RotationAngle Attribute": {
+      "prefix": "RotationAngle",
+      "body": "RotationAngle=",
+      "description": "Defines the rotation angle of an element."
+    },
+    "ValueRemainder Attribute": {
+      "prefix": "ValueRemainder",
+      "body": "ValueRemainder=",
+      "description": "Defines the remainder value for a percentage or calculation."
+    },
+    "ControlLength Attribute": {
+      "prefix": "ControlLength",
+      "body": "ControlLength=",
+      "description": "Sets the length of a control element."
+    },
+    "LengthShift Attribute": {
+      "prefix": "LengthShift",
+      "body": "LengthShift=",
+      "description": "Defines the shift in length for a control element."
+    },
+    "ControlStart Attribute": {
+      "prefix": "ControlStart",
+      "body": "ControlStart=",
+      "description": "Defines the start position of a control element."
+    },
+    "StartShift Attribute": {
+      "prefix": "StartShift",
+      "body": "StartShift=",
+      "description": "Defines the starting shift value for a control element."
+    },
+    "ControlAngle Attribute": {
+      "prefix": "ControlAngle",
+      "body": "ControlAngle=",
+      "description": "Defines the angle for a control element."
+    },
+    "Solid Attribute": {
+      "prefix": "Solid",
+      "body": "Solid=",
+      "description": "Defines whether an element is solid."
+    },
+    "LineColor Attribute": {
+      "prefix": "LineColor",
+      "body": "LineColor=",
+      "description": "Sets the color of a line in a graph or meter."
+    },
+    "LineLength Attribute": {
+      "prefix": "LineLength",
+      "body": "LineLength=",
+      "description": "Defines the length of a line in a graph or meter."
+    },
+    "LineStart Attribute": {
+      "prefix": "LineStart",
+      "body": "LineStart=",
+      "description": "Sets the starting position of a line."
+    },
+    "StringCase Attribute": {
+      "prefix": "StringCase",
+      "body": "StringCase=",
+      "description": "Defines the case format (uppercase/lowercase) for a string."
+    },
+    "StringEffect Attribute": {
+      "prefix": "StringEffect",
+      "body": "StringEffect=",
+      "description": "Applies a special effect to a string."
+    },
+    "FontEffectColor Attribute": {
+      "prefix": "FontEffectColor",
+      "body": "FontEffectColor=",
+      "description": "Sets the font color for string effects."
+    },
+    "ClipString Attribute": {
+      "prefix": "ClipString",
+      "body": "ClipString=",
+      "description": "Clips the string to a specified length."
+    },
+    "ClipStringW Attribute": {
+      "prefix": "ClipStringW",
+      "body": "ClipStringW=",
+      "description": "Clips the string by width."
+    },
+    "ClipStringH Attribute": {
+      "prefix": "ClipStringH",
+      "body": "ClipStringH=",
+      "description": "Clips the string by height."
+    },
+    "TrailingSpaces Attribute": {
+      "prefix": "TrailingSpaces",
+      "body": "TrailingSpaces=",
+      "description": "Defines whether to allow trailing spaces in a string."
+    },
+    "Angle Attribute": {
+      "prefix": "Angle",
+      "body": "Angle=",
+      "description": "Sets the angle for an element."
+    },
+    "Percentual Attribute": {
+      "prefix": "Percentual",
+      "body": "Percentual=",
+      "description": "Defines whether the value is expressed as a percentage."
+    },
+    "NumOfDecimals Attribute": {
+      "prefix": "NumOfDecimals",
+      "body": "NumOfDecimals=",
+      "description": "Sets the number of decimals to display for a value."
+    },
+    "Left Attribute": {
+      "prefix": "Left",
+      "body": "Left",
+      "description": "Aligns the element to the left."
+    },
+    "Right Attribute": {
+      "prefix": "Right",
+      "body": "Right",
+      "description": "Aligns the element to the right."
+    },
+    "Center Attribute": {
+      "prefix": "Center",
+      "body": "Center",
+      "description": "Aligns the element to the center."
+    },
+    "LeftTop Attribute": {
+      "prefix": "LeftTop",
+      "body": "LeftTop",
+      "description": "Aligns the element to the top-left corner."
+    },
+    "RightTop Attribute": {
+      "prefix": "RightTop",
+      "body": "RightTop",
+      "description": "Aligns the element to the top-right corner."
+    },
+    "CenterTop Attribute": {
+      "prefix": "CenterTop",
+      "body": "CenterTop",
+      "description": "Aligns the element to the top-center."
+    },
+    "LeftCenter Attribute": {
+      "prefix": "LeftCenter",
+      "body": "LeftCenter",
+      "description": "Aligns the element to the middle-left."
+    },
+    "RightCenter Attribute": {
+      "prefix": "RightCenter",
+      "body": "RightCenter",
+      "description": "Aligns the element to the middle-right."
+    },
+    "CenterCenter Attribute": {
+      "prefix": "CenterCenter",
+      "body": "CenterCenter",
+      "description": "Aligns the element to the center of the container."
+    },
+    "LeftBottom Attribute": {
+      "prefix": "LeftBottom",
+      "body": "LeftBottom",
+      "description": "Aligns the element to the bottom-left corner."
+    },
+    "RightBottom Attribute": {
+      "prefix": "RightBottom",
+      "body": "RightBottom",
+      "description": "Aligns the element to the bottom-right corner."
+    },
+    "CenterBottom Attribute": {
+      "prefix": "CenterBottom",
+      "body": "CenterBottom",
+      "description": "Aligns the element to the bottom-center."
+    },
+    "ifCondition Attribute": {
+      "prefix": "ifCondition",
+      "body": "ifCondition",
+      "description": "Specifies the condition for an action to execute."
+    },
+    "IfTrueAction Attribute": {
+      "prefix": "IfTrueAction",
+      "body": "IfTrueAction",
+      "description": "Specifies the action to execute if the condition evaluates to true."
+    },
+    "IfFalseAction Attribute": {
+      "prefix": "IfFalseAction",
+      "body": "IfFalseAction",
+      "description": "Specifies the action to execute if the condition evaluates to false."
+    },
+    "OnFinishAction Attribute": {
+      "prefix": "OnFinishAction",
+      "body": "OnFinishAction",
+      "description": "Specifies the action to execute when a process finishes."
+    },
+    "OnChangeAction Attribute": {
+      "prefix": "OnChangeAction",
+      "body": "OnChangeAction",
+      "description": "Specifies the action to execute when a value changes."
+    },
+    "OnMatchAction Attribute": {
+      "prefix": "OnMatchAction",
+      "body": "OnMatchAction",
+      "description": "Specifies the action to execute when a match is detected."
+    }
+  }
