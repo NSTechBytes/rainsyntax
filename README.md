@@ -37,15 +37,15 @@ RainSyntax Theme is a powerful VS Code extension tailored for Rainmeter enthusia
 
 This feature provides a clear and structured visual representation of your Rainmeter code, making it easier to identify elements like sections, variables, and comments. Below is a snapshot to give you an idea of its appearance in action.
 
-![Syntax Highlighting Example](https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/SyntaxHightlight.png)
+![Syntax Highlighting Example](./images/Preview/SyntaxHightlight.png)
 
 ### Code Snippets
 
-![Snippets in Action](https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/Snippets.gif)
+![Snippets in Action](./images/Preview/Snippets.gif)
 
 ### RainSyntax Theme
 
-![Theme Preview](https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/Theme.png)
+![Theme Preview](./images/Preview/Theme.png)
 
 ---
 
