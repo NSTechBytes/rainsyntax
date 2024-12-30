@@ -8,6 +8,10 @@
   "engines": {
     "vscode": "^1.96.0"
   },
+  "activationEvents": [
+    "onLanguage:rainmeter"
+  ],
+  "main": "./out/extension.js",
   "categories": [
     "Snippets",
     "Programming Languages"
@@ -23,8 +27,15 @@
     "languages": [
       {
         "id": "rainmeter",
-        "aliases": ["Rainmeter", "rainmeter"],
-        "extensions": [".ini", ".nek", ".inc"],
+        "aliases": [
+          "Rainmeter",
+          "rainmeter"
+        ],
+        "extensions": [
+          ".ini",
+          ".nek",
+          ".inc"
+        ],
         "configuration": "./language-configuration.json"
       }
     ],
