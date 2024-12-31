@@ -108,10 +108,11 @@ This feature provides a clear and structured visual representation of your Rainm
 
 <div align="center">
     <img src="https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/SyntaxHightlight.png" alt="Logo" width="380" height="580">
-  </a>
 
 
-### Code Snippets 📑
+
+  ### Code Snippets 📑
+
 
 ![Snippets in Action](./images/Preview/Snippets.gif)
 
@@ -120,7 +121,9 @@ This feature provides a clear and structured visual representation of your Rainm
 <div align="center">
     <img src="https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/Theme.png" alt="Logo" width="680" height="380">
   </a>
-
+</div>
+ </div>
+  </div>
 
 ---
 
