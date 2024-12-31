@@ -107,20 +107,22 @@ The extension can automatically refresh the Rainmeter skin whenever an  `.ini`, 
 This feature provides a clear and structured visual representation of your Rainmeter code, making it easier to identify elements like sections, variables, and comments. Below is a snapshot to give you an idea of its appearance in action.
 
 <div align="center">
-    <img src="https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/SyntaxHightlight.png" alt="Logo" width="380" height="580">
+    <img src="./images/Preview/SyntaxHightlight.png" alt="Logo" width="380" height="580">
 
 
 
   ### Code Snippets 📑
 
 
-![Snippets in Action](./images/Preview/Snippets.gif)
+<div align="center">
+    <img src="./images/Preview/Snippets.gif" alt="Logo" width="680" height="380">
+ 
 
 ### RainSyntax Theme
 
 <div align="center">
-    <img src="https://github.com/NSTechBytes/rainsyntax/blob/main/images/Preview/Theme.png" alt="Logo" width="680" height="380">
-  </a>
+    <img src="./images/Preview/Theme.png" alt="Logo" width="680" height="380">
+ 
 </div>
  </div>
   </div>
@@ -150,7 +152,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-### Thank You for Using RainSyntax Theme! 🙌
+### Thank You for Using RainSyntax! 🙌
 
 Make your Rainmeter skin development enjoyable and efficient with RainSyntax Theme!
 
