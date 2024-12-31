@@ -418,6 +418,14 @@ function activate(context) {
         }
 
         if (
+          lineText.startsWith("updatedivider=") &&
+          !hasAssignedValue("updatedivider=")
+        ) {
+          return createNumericCompletionItems(0, 1000, 50);
+        }
+
+
+        if (
           lineText.startsWith("bitmapseparation=") &&
           !hasAssignedValue("bitmapseparation=")
         ) {
@@ -1032,11 +1040,11 @@ function activate(context) {
           const range = new vscode.Range(start, end);
   
           if (match[4]) {
-            // HEX color
+           
             const color = hexToColor(match[4]);
             colors.push(new vscode.ColorInformation(range, color));
           } else if (match[1]) {
-            // RGB color
+          
             const r = Math.min(parseInt(match[1]), 255);
             const g = Math.min(parseInt(match[2]), 255);
             const b = Math.min(parseInt(match[3]), 255);
@@ -1074,13 +1082,10 @@ function activate(context) {
     //===================================================================================================================================//
   //                                               AutoRefreshRainmeter                                                                 //
  //===================================================================================================================================//
-
-
-
   const saveListener = vscode.workspace.onDidSaveTextDocument((document) => {
     const autoRefreshEnabled = vscode.workspace.getConfiguration("rainSyntax").get("autoRefreshOnSave", true);
 
-    if (autoRefreshEnabled && document.languageId === "rainmeter" && (document.uri.fsPath.endsWith(".ini") || document.uri.fsPath.endsWith(".inc"))) {
+    if (autoRefreshEnabled && document.languageId === "rainmeter" && (document.uri.fsPath.endsWith(".ini") || document.uri.fsPath.endsWith(".inc")  || document.uri.fsPath.endsWith(".nek"))) {
       refreshRainmeterSkin();
     }
   });
