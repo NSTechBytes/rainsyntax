@@ -131,7 +131,7 @@ This feature provides a clear and structured visual representation of your Rainm
 
 ## Contribution 🤝
 
-Feel free to contribute to the development of RainSyntax Theme! Follow these steps:
+Feel free to contribute to the development of RainSyntax! Follow these steps:
 
 1. Fork this repository.
 2. Clone the forked repository to your local machine.
