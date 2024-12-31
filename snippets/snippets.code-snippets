@@ -2113,7 +2113,17 @@
       "prefix": "DefaultOnHover",
       "body": "DefaultOnHover",
       "description": "Controls the transparency of the skin when the mouse is moved on and off of it. This works in conjunction with the setting in AlphaValue. "
-    }
+    },
+    "Combine": {
+      "prefix": "Combine",
+      "body": "Combine",
+      "description": "Defines the Combine Attribute for shape meter."
+    },
+    "XOR": {
+      "prefix": "XOR",
+      "body": "XOR",
+      "description": "Defines the XOR Attribute for shape meter."
+    },
   }
   
 

@@ -17,6 +17,32 @@
     "Programming Languages"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "rainSyntax.toggleAutoRefresh",
+        "title": "Toggle AutoRefresh Rainmeter"
+      },
+      {
+        "command": "rainSyntax.changeRainmeterPath",
+        "title": "Change Rainmeter Path"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "RainSyntax",
+      "properties": {
+        "rainSyntax.autoRefreshOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically refresh Rainmeter skins when an INI or INC file is saved."
+        },
+        "rainSyntax.rainmeterPath": {
+          "type": "string",
+          "default": "C:\\Program Files\\Rainmeter\\Rainmeter.exe",
+          "description": "Path to the Rainmeter executable."
+        }
+      }
+    },
     "themes": [
       {
         "label": "RainSyntax Theme",
