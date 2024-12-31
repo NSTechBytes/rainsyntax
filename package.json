@@ -2,14 +2,16 @@
   "name": "rainsyntax",
   "displayName": "RainSyntax",
   "description": "Snippets and syntax highlighting for Rainmeter skins. Updated with new syntax and features.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "NSTechBytes",
   "icon": "images/RainSyntax.png",
   "engines": {
     "vscode": "^1.96.0"
   },
   "activationEvents": [
-    "onLanguage:rainmeter"
+    "onLanguage:rainmeter",
+    "onCommand:rainSyntax.changeRefreshMode",
+    "onSaveTextDocument"
   ],
   "main": "./out/extension.js",
   "categories": [
@@ -25,6 +27,11 @@
       {
         "command": "rainSyntax.changeRainmeterPath",
         "title": "Change Rainmeter Path"
+      },
+      {
+        "command": "rainSyntax.changeRefreshMode",
+        "title": "Rainmeter Refresh Mode",
+        "category": "RainSyntax"
       }
     ],
     "configuration": {
@@ -35,6 +42,12 @@
           "type": "boolean",
           "default": true,
           "description": "Automatically refresh Rainmeter skins when an INI or INC file is saved."
+        },
+        "rainSyntax.refreshMode": {
+          "type": "string",
+          "default": "all",
+          "enum": ["all", "specific"],
+          "description": "Choose between refreshing all skins or only the specific skin being edited."
         },
         "rainSyntax.rainmeterPath": {
           "type": "string",

@@ -1,5 +1,6 @@
 const vscode = require("vscode");
 const { exec } = require("child_process");
+const path = require("path");
 
 /**
  * This method is called when the extension is activated.
@@ -17,7 +18,7 @@ function activate(context) {
           const regex = new RegExp(`^${property.toLowerCase()}=.+`);
           return regex.test(lineText);
         };
-        
+
         //===================================================================================================================================//
         //                                                  MeterCompletionItems                                                             //
         //===================================================================================================================================//
@@ -1022,106 +1023,173 @@ function activate(context) {
     },
     "="
   );
-   //===================================================================================================================================//
+  //===================================================================================================================================//
   //                                                 Color Picker Provider                                                             //
- //===================================================================================================================================//
-    const selector = { scheme: "file", language: "rainmeter" };
+  //===================================================================================================================================//
+  const selector = { scheme: "file", language: "rainmeter" };
 
-    const colorProvider = {
-      provideDocumentColors(document, token) {
-        const colors = [];
-        const text = document.getText();
-        const regex = /\b(\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\b|(#(?:[0-9a-fA-F]{6}))/g;
-  
-        let match;
-        while ((match = regex.exec(text)) !== null) {
-          const start = document.positionAt(match.index);
-          const end = document.positionAt(match.index + match[0].length);
-          const range = new vscode.Range(start, end);
-  
-          if (match[4]) {
-           
-            const color = hexToColor(match[4]);
-            colors.push(new vscode.ColorInformation(range, color));
-          } else if (match[1]) {
-          
-            const r = Math.min(parseInt(match[1]), 255);
-            const g = Math.min(parseInt(match[2]), 255);
-            const b = Math.min(parseInt(match[3]), 255);
-  
-            const color = new vscode.Color(r / 255, g / 255, b / 255, 1);
-            colors.push(new vscode.ColorInformation(range, color));
-          }
+  const colorProvider = {
+    provideDocumentColors(document, token) {
+      const colors = [];
+      const text = document.getText();
+      const regex = /\b(\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\b|(#(?:[0-9a-fA-F]{6}))/g;
+
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        const start = document.positionAt(match.index);
+        const end = document.positionAt(match.index + match[0].length);
+        const range = new vscode.Range(start, end);
+
+        if (match[4]) {
+
+          const color = hexToColor(match[4]);
+          colors.push(new vscode.ColorInformation(range, color));
+        } else if (match[1]) {
+
+          const r = Math.min(parseInt(match[1]), 255);
+          const g = Math.min(parseInt(match[2]), 255);
+          const b = Math.min(parseInt(match[3]), 255);
+
+          const color = new vscode.Color(r / 255, g / 255, b / 255, 1);
+          colors.push(new vscode.ColorInformation(range, color));
         }
-        return colors;
-      },
-  
-      provideColorPresentations(color, context, token) {
-        const rgb = colorToRgb(color);
-        const presentation = new vscode.ColorPresentation(rgb);
-        presentation.textEdit = vscode.TextEdit.replace(context.range, rgb);
-        return [presentation];
-      },
-    };
-  
-    vscode.languages.registerColorProvider(selector, colorProvider);
-  
-    function hexToColor(hex) {
-      const r = parseInt(hex.substr(1, 2), 16) / 255;
-      const g = parseInt(hex.substr(3, 2), 16) / 255;
-      const b = parseInt(hex.substr(5, 2), 16) / 255;
-      return new vscode.Color(r, g, b, 1);
-    }
-  
-    function colorToRgb(color) {
-      const r = Math.round(color.red * 255);
-      const g = Math.round(color.green * 255);
-      const b = Math.round(color.blue * 255);
-      return `${r},${g},${b}`;
-    }
-    //===================================================================================================================================//
-  //                                               AutoRefreshRainmeter                                                                 //
- //===================================================================================================================================//
-  const saveListener = vscode.workspace.onDidSaveTextDocument((document) => {
-    const autoRefreshEnabled = vscode.workspace.getConfiguration("rainSyntax").get("autoRefreshOnSave", true);
+      }
+      return colors;
+    },
 
-    if (autoRefreshEnabled && document.languageId === "rainmeter" && (document.uri.fsPath.endsWith(".ini") || document.uri.fsPath.endsWith(".inc")  || document.uri.fsPath.endsWith(".nek"))) {
-      refreshRainmeterSkin();
+    provideColorPresentations(color, context, token) {
+      const rgb = colorToRgb(color);
+      const presentation = new vscode.ColorPresentation(rgb);
+      presentation.textEdit = vscode.TextEdit.replace(context.range, rgb);
+      return [presentation];
+    },
+  };
+
+  vscode.languages.registerColorProvider(selector, colorProvider);
+
+  function hexToColor(hex) {
+    const r = parseInt(hex.substr(1, 2), 16) / 255;
+    const g = parseInt(hex.substr(3, 2), 16) / 255;
+    const b = parseInt(hex.substr(5, 2), 16) / 255;
+    return new vscode.Color(r, g, b, 1);
+  }
+
+  function colorToRgb(color) {
+    const r = Math.round(color.red * 255);
+    const g = Math.round(color.green * 255);
+    const b = Math.round(color.blue * 255);
+    return `${r},${g},${b}`;
+  }
+  //===================================================================================================================================//
+  //                                               AutoRefreshRainmeter                                                                 //
+  //===================================================================================================================================//
+
+  const saveListener = vscode.workspace.onDidSaveTextDocument((document) => {
+    const autoRefreshEnabled = vscode.workspace
+      .getConfiguration("rainSyntax")
+      .get("autoRefreshOnSave", true);
+
+    if (!autoRefreshEnabled || document.languageId !== "rainmeter") {
+      return;
+    }
+
+    const refreshMode = vscode.workspace
+      .getConfiguration("rainSyntax")
+      .get("refreshMode", "all");
+
+    if (refreshMode === "specific" && document.uri.fsPath.endsWith(".ini")) {
+      refreshSpecificSkin(document.uri.fsPath);
+    } else if (
+      refreshMode === "all" &&
+      (document.uri.fsPath.endsWith(".ini") ||
+        document.uri.fsPath.endsWith(".inc") ||
+        document.uri.fsPath.endsWith(".nek"))
+    ) {
+      refreshAllSkins();
     }
   });
 
   context.subscriptions.push(saveListener);
 
-  
-  function refreshRainmeterSkin() {
-  
-    const rainmeterPath = vscode.workspace.getConfiguration("rainSyntax").get("rainmeterPath","C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+  function refreshSpecificSkin(filePath) {
+    const rainmeterPath = vscode.workspace
+      .getConfiguration("rainSyntax")
+      .get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+
     if (!rainmeterPath) {
-      vscode.window.showErrorMessage("Rainmeter path is not configured. Please set it in the settings.");
+      vscode.window.showErrorMessage(
+        "Rainmeter path is not configured. Please set it in the settings."
+      );
       return;
     }
-    
+
+    const skinsIndex = filePath.toLowerCase().indexOf("\\skins\\");
+    if (skinsIndex === -1) {
+      vscode.window.showErrorMessage(
+        "File is not located within the Rainmeter 'Skins' folder."
+      );
+      return;
+    }
+
+    const relativePath = filePath.substring(skinsIndex + 7);
+    const iniFolderPath = relativePath.split(path.sep).slice(0, -1).join(path.sep);
+
+    const sanitizedIniFolderPath = iniFolderPath.trim().replace(/[^\w\s\-\\]/g, "");
+
+
+    exec(
+      `"${rainmeterPath}" !Refresh "${sanitizedIniFolderPath}"`,
+      (error, stdout, stderr) => {
+        if (error || stderr) {
+          console.error(`Error refreshing Rainmeter: ${error?.message || stderr}`);
+          vscode.window.showErrorMessage(
+            `Failed to refresh Rainmeter skin "${sanitizedIniFolderPath}". Ensure the skin exists.`
+          );
+          return;
+        }
+
+        vscode.window.showInformationMessage(
+          `Rainmeter skin "${sanitizedIniFolderPath}" refreshed successfully!`
+        );
+      }
+    );
+  }
+
+  function refreshAllSkins() {
+    const rainmeterPath = vscode.workspace
+      .getConfiguration("rainSyntax")
+      .get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+
+    if (!rainmeterPath) {
+      vscode.window.showErrorMessage(
+        "Rainmeter path is not configured. Please set it in the settings."
+      );
+      return;
+    }
+
     exec(`"${rainmeterPath}" !RefreshApp`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error refreshing Rainmeter: ${error.message}`);
-        vscode.window.showErrorMessage("Failed to refresh Rainmeter. Make sure Rainmeter is installed.");
+        vscode.window.showErrorMessage(
+          "Failed to refresh Rainmeter. Make sure Rainmeter is installed."
+        );
         return;
       }
-      console.log("Rainmeter Path:", rainmeterPath);
 
-      vscode.window.showInformationMessage("Rainmeter skins refreshed successfully!");
+      vscode.window.showInformationMessage(
+        "Rainmeter skins refreshed successfully!"
+      );
     });
   }
-
-    //===================================================================================================================================//
+  //===================================================================================================================================//
   //                                                 Commands                                                                           //
- //===================================================================================================================================//
+  //===================================================================================================================================//
 
-  
+
   let toggleAutoRefreshCommand = vscode.commands.registerCommand('rainSyntax.toggleAutoRefresh', () => {
     const config = vscode.workspace.getConfiguration('rainSyntax');
     const currentSetting = config.get('autoRefreshOnSave');
-    const newSetting = !currentSetting; 
+    const newSetting = !currentSetting;
 
     config.update('autoRefreshOnSave', newSetting, vscode.ConfigurationTarget.Global)
       .then(() => {
@@ -1148,6 +1216,29 @@ function activate(context) {
     }
   });
 
+
+  const changeRefreshModeCommand = vscode.commands.registerCommand(
+    "rainSyntax.changeRefreshMode",
+    async () => {
+      const options = ["Refresh All Skins", "Refresh Specific Skin"];
+      const selection = await vscode.window.showQuickPick(options, {
+        placeHolder: "Select the Rainmeter refresh mode",
+      });
+
+      if (selection) {
+        const newMode = selection === "Refresh All Skins" ? "all" : "specific";
+        vscode.workspace
+          .getConfiguration("rainSyntax")
+          .update("refreshMode", newMode, vscode.ConfigurationTarget.Global);
+
+        vscode.window.showInformationMessage(
+          `Rainmeter refresh mode set to: ${selection}`
+        );
+      }
+    }
+  );
+
+  context.subscriptions.push(changeRefreshModeCommand);
   context.subscriptions.push(toggleAutoRefreshCommand);
   context.subscriptions.push(changeRainmeterPathCommand);
 }
