@@ -34,9 +34,9 @@ The extension also supports color highlighting for RGB and HEX values in `.ini`,
 - **Supported Formats**:
   - **RGB**: `255,255,255`
   - **HEX**: `#FFFFFF`
- 
-    When you hover over a color, the color picker is activated, allowing you to select a new color.
-    ---
+    
+   When you hover over a color, the color picker is activated, allowing you to select a new color.
+---
 ## Installation 🛠️
 
 1. Open Visual Studio Code.
@@ -98,7 +98,36 @@ MyHexColor=#FF5733
 ```
 ### Auto-Refresh on Save 🔄
 
-The extension can automatically refresh the Rainmeter skin whenever an  `.ini`, `.inc`, and `.nek` file is saved, provided the **auto-refresh** feature is enabled.
+### Refresh Rainmeter Skins Automatically
+
+RainSyntax offers automatic skin refresh when `.ini`, `.inc`, or `.nek` files are saved. You can customize the refresh behavior and Rainmeter executable path through the extension's settings.
+
+#### Features:
+
+1. **Auto-Refresh on Save**:
+
+   - Automatically refresh all Rainmeter skins or just the specific skin being edited based on the selected mode.
+   - Enabled by default, but can be toggled via the Command Palette (`Toggle AutoRefresh Rainmeter`).
+2. **Refresh Modes**:
+
+   - `all`: Refresh all Rainmeter skins.
+   - `specific`: Refresh only the skin currently being edited.
+
+   Change this mode through the Command Palette (`Rainmeter Refresh Mode`).
+
+#### Commands:
+
+- **Toggle AutoRefresh**: Quickly enable or disable auto-refresh.
+- **Change Refresh Mode**: Switch between refreshing all skins or the specific skin.
+
+#### Settings:
+
+- **`rainSyntax.autoRefreshOnSave`**: Toggle automatic refreshing of skins on file save.
+- **`rainSyntax.refreshMode`**: Choose between `all` (default) or `specific` refresh modes.
+
+
+> ⚙️ Ensure Rainmeter is properly installed and its path is correctly set to use these features.
+
 
 ## Preview 👀
 
