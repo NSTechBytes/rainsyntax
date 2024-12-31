@@ -1,6 +1,6 @@
 # RainSyntax for Visual Studio Code
 
-RainSyntax Theme is a powerful VS Code extension tailored for Rainmeter enthusiasts, providing an intuitive environment that streamlines skin creation, reduces errors, and boosts productivity by offering tools specifically designed for Rainmeter's unique scripting needs. It provides syntax highlighting, code snippets, and a sleek theme to enhance your Rainmeter skin development experience.
+RainSyntax  is a powerful VS Code extension tailored for Rainmeter enthusiasts, providing an intuitive environment that streamlines skin creation, reduces errors, and boosts productivity by offering tools specifically designed for Rainmeter's unique scripting needs. It provides syntax highlighting, code snippets, and a sleek theme to enhance your Rainmeter skin development experience.
 
 ---
 
