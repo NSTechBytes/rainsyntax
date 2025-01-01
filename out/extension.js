@@ -1,6 +1,7 @@
 const vscode = require("vscode");
 const { exec } = require("child_process");
 const path = require("path");
+const fs = require("fs");
 
 /**
  * This method is called when the extension is activated.
@@ -8,11 +9,14 @@ const path = require("path");
  */
 function activate(context) {
   console.log("RainSyntax extension is now active!");
+  const diagnosticsCollection = vscode.languages.createDiagnosticCollection("rainmeter");
+
   const completionProvider = vscode.languages.registerCompletionItemProvider(
     { language: "rainmeter", scheme: "file" },
     {
       provideCompletionItems(document, position) {
         const lineText = document.lineAt(position).text.trim().toLowerCase();
+
 
         const hasAssignedValue = (property) => {
           const regex = new RegExp(`^${property.toLowerCase()}=.+`);
@@ -988,8 +992,6 @@ function activate(context) {
           ];
         }
 
-
-
         if (
           lineText.startsWith("graphorientation=") &&
           !hasAssignedValue("graphorientation=")
@@ -1032,7 +1034,7 @@ function activate(context) {
     provideDocumentColors(document, token) {
       const colors = [];
       const text = document.getText();
-      const regex = /\b(\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\b|(#(?:[0-9a-fA-F]{6}))/g;
+      const regex = /\b(\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\b|(\b[0-9a-fA-F]{6}\b)/g;
 
       let match;
       while ((match = regex.exec(text)) !== null) {
@@ -1041,11 +1043,11 @@ function activate(context) {
         const range = new vscode.Range(start, end);
 
         if (match[4]) {
-
+          // Hex color
           const color = hexToColor(match[4]);
           colors.push(new vscode.ColorInformation(range, color));
         } else if (match[1]) {
-
+          // RGB color
           const r = Math.min(parseInt(match[1]), 255);
           const g = Math.min(parseInt(match[2]), 255);
           const b = Math.min(parseInt(match[3]), 255);
@@ -1058,9 +1060,21 @@ function activate(context) {
     },
 
     provideColorPresentations(color, context, token) {
-      const rgb = colorToRgb(color);
-      const presentation = new vscode.ColorPresentation(rgb);
-      presentation.textEdit = vscode.TextEdit.replace(context.range, rgb);
+      const text = context.document.getText(context.range);
+      let presentationText;
+
+      if (/\b\d{1,3},\s*\d{1,3},\s*\d{1,3}\b/.test(text)) {
+       
+        const rgb = colorToRgb(color);
+        presentationText = rgb;
+      } else if (/\b[0-9a-fA-F]{6}\b/.test(text)) {
+      
+        const hex = colorToHex(color);
+        presentationText = hex;
+      }
+
+      const presentation = new vscode.ColorPresentation(presentationText);
+      presentation.textEdit = vscode.TextEdit.replace(context.range, presentationText);
       return [presentation];
     },
   };
@@ -1068,9 +1082,9 @@ function activate(context) {
   vscode.languages.registerColorProvider(selector, colorProvider);
 
   function hexToColor(hex) {
-    const r = parseInt(hex.substr(1, 2), 16) / 255;
-    const g = parseInt(hex.substr(3, 2), 16) / 255;
-    const b = parseInt(hex.substr(5, 2), 16) / 255;
+    const r = parseInt(hex.substr(0, 2), 16) / 255;
+    const g = parseInt(hex.substr(2, 2), 16) / 255;
+    const b = parseInt(hex.substr(4, 2), 16) / 255;
     return new vscode.Color(r, g, b, 1);
   }
 
@@ -1080,6 +1094,14 @@ function activate(context) {
     const b = Math.round(color.blue * 255);
     return `${r},${g},${b}`;
   }
+
+  function colorToHex(color) {
+    const r = Math.round(color.red * 255).toString(16).padStart(2, "0");
+    const g = Math.round(color.green * 255).toString(16).padStart(2, "0");
+    const b = Math.round(color.blue * 255).toString(16).padStart(2, "0");
+    return `${r}${g}${b}`;
+  }
+
   //===================================================================================================================================//
   //                                               AutoRefreshRainmeter                                                                 //
   //===================================================================================================================================//
@@ -1241,7 +1263,214 @@ function activate(context) {
   context.subscriptions.push(changeRefreshModeCommand);
   context.subscriptions.push(toggleAutoRefreshCommand);
   context.subscriptions.push(changeRainmeterPathCommand);
+  //===================================================================================================================================//
+  //                                                Validation                                                                          //
+  //===================================================================================================================================//
+
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeTextDocument((event) => {
+      if (event.document.languageId === "rainmeter") {
+        const diagnostics = [];
+        const text = event.document.getText();
+        const lines = text.split(/\r?\n/);
+
+        const sectionHeaders = new Set();
+        let currentSection = null;
+        const keysInCurrentSection = new Set();
+
+        let hasRainmeterSection = false;
+        let hasVariablesSection = false;
+
+        const fileDir = path.dirname(event.document.uri.fsPath);
+        const includedFiles = new Set();
+
+        const resolveRainmeterMacros = (filePath, context) => {
+          const resourcesPath = path.join(context.fileDir, "@Resources") + path.sep;
+          const rootConfigPath = path.join(context.skinsDir, context.rootConfigName) + path.sep;
+          const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
+
+          return filePath
+            .replace(/#@#/g, resourcesPath)
+            .replace(/#CURRENTPATH#/g, currentConfigPath)
+            .replace(/#CURRENTFILE#/g, path.basename(context.currentFilePath))
+            .replace(/#ROOTCONFIGPATH#/g, rootConfigPath)
+            .replace(/#ROOTCONFIG#/g, context.rootConfigName)
+            .replace(/#CURRENTCONFIG#/g, context.currentConfigName);
+        };
+
+        lines.forEach((line, index) => {
+          const trimmedLine = line.trim();
+
+          if (!trimmedLine || trimmedLine.startsWith(";")) return;
+
+          if (trimmedLine.startsWith("[")) {
+            if (!trimmedLine.endsWith("]")) {
+              const range = new vscode.Range(
+                new vscode.Position(index, 0),
+                new vscode.Position(index, line.length)
+              );
+              diagnostics.push(
+                new vscode.Diagnostic(
+                  range,
+                  "Section header must end with ']'.",
+                  vscode.DiagnosticSeverity.Warning
+                )
+              );
+            } else {
+              const sectionName = trimmedLine.slice(1, -1);
+              if (sectionName.length > 255) {
+                const range = new vscode.Range(
+                  new vscode.Position(index, 1),
+                  new vscode.Position(index, trimmedLine.length - 1)
+                );
+                diagnostics.push(
+                  new vscode.Diagnostic(
+                    range,
+                    "Section name is too long. Maximum allowed length is 255 characters.",
+                    vscode.DiagnosticSeverity.Error
+                  )
+                );
+              }
+              if (!/^[a-zA-Z0-9_\-]+$/.test(sectionName)) {
+                const range = new vscode.Range(
+                  new vscode.Position(index, 1),
+                  new vscode.Position(index, trimmedLine.length - 1)
+                );
+                diagnostics.push(
+                  new vscode.Diagnostic(
+                    range,
+                    "Section header contains invalid characters. Only alphanumeric, underscores, and hyphens are allowed.",
+                    vscode.DiagnosticSeverity.Error
+                  )
+                );
+              }
+              if (sectionHeaders.has(sectionName)) {
+                const range = new vscode.Range(
+                  new vscode.Position(index, 1),
+                  new vscode.Position(index, trimmedLine.length - 1)
+                );
+                diagnostics.push(
+                  new vscode.Diagnostic(
+                    range,
+                    `Duplicate section header: [${sectionName}].`,
+                    vscode.DiagnosticSeverity.Warning
+                  )
+                );
+              } else {
+                sectionHeaders.add(sectionName);
+              }
+              if (sectionName.toLowerCase() === "rainmeter") hasRainmeterSection = true;
+              if (sectionName.toLowerCase() === "variables") hasVariablesSection = true;
+
+              currentSection = sectionName;
+              keysInCurrentSection.clear();
+            }
+            return;
+          }
+
+          const [key, value] = trimmedLine.split("=", 2);
+
+          if (key?.trim().toLowerCase().startsWith("@include")) {
+            const rawPath = value?.trim().replace(/"/g, "");
+            const resolvedPath = resolveRainmeterMacros(rawPath, {
+              fileDir,
+              skinsDir: path.join(fileDir, "../.."),
+              rootConfigName: path.basename(path.dirname(fileDir)),
+              currentFilePath: event.document.uri.fsPath,
+              currentConfigName: path.relative(
+                path.join(fileDir, "../.."),
+                path.dirname(event.document.uri.fsPath)
+              ),
+            });
+
+
+            if (!fs.existsSync(resolvedPath)) {
+              const range = new vscode.Range(
+                new vscode.Position(index, key.length + 1),
+                new vscode.Position(index, line.length)
+              );
+              diagnostics.push(
+                new vscode.Diagnostic(
+                  range,
+                  `Included file not found: ${rawPath} (Resolved: ${resolvedPath}). Ensure the macro resolves to a valid file path.`,
+                  vscode.DiagnosticSeverity.Error
+                )
+              );
+            } else if (includedFiles.has(resolvedPath)) {
+              const range = new vscode.Range(
+                new vscode.Position(index, 0),
+                new vscode.Position(index, line.length)
+              );
+              diagnostics.push(
+                new vscode.Diagnostic(
+                  range,
+                  `Circular include detected for file: ${rawPath} (Resolved: ${resolvedPath}).`,
+                  vscode.DiagnosticSeverity.Error
+                )
+              );
+            } else {
+              includedFiles.add(resolvedPath);
+            }
+            return;
+          }
+
+          if (!key || value === undefined) {
+            const range = new vscode.Range(
+              new vscode.Position(index, 0),
+              new vscode.Position(index, line.length)
+            );
+            diagnostics.push(
+              new vscode.Diagnostic(
+                range,
+                "Key-value pair is malformed. Ensure the format is 'Key=Value'.",
+                vscode.DiagnosticSeverity.Error
+              )
+            );
+          } else if (keysInCurrentSection.has(key)) {
+            const range = new vscode.Range(
+              new vscode.Position(index, 0),
+              new vscode.Position(index, key.length)
+            );
+            diagnostics.push(
+              new vscode.Diagnostic(
+                range,
+                `Duplicate key '${key}' found in section [${currentSection}].`,
+                vscode.DiagnosticSeverity.Warning
+              )
+            );
+          } else {
+            keysInCurrentSection.add(key);
+          }
+        });
+
+        if (!hasRainmeterSection) {
+          diagnostics.push(
+            new vscode.Diagnostic(
+              new vscode.Range(new vscode.Position(0, 0), new vscode.Position(0, 0)),
+              "Missing required section: [Rainmeter].",
+              vscode.DiagnosticSeverity.Error
+            )
+          );
+        }
+        if (!hasVariablesSection) {
+          diagnostics.push(
+            new vscode.Diagnostic(
+              new vscode.Range(new vscode.Position(0, 0), new vscode.Position(0, 0)),
+              "Missing recommended section: [Variables].",
+              vscode.DiagnosticSeverity.Warning
+            )
+          );
+        }
+
+        diagnosticsCollection.set(event.document.uri, diagnostics);
+      }
+    })
+  );
+
+  context.subscriptions.push(diagnosticsCollection);
 }
+
+
 function deactivate() { }
 
 module.exports = {

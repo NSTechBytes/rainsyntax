@@ -2125,6 +2125,16 @@
       "body": "XOR",
       "description": "Defines the XOR Attribute for shape meter."
     },
+    "Formula": {
+      "prefix": "Formula",
+      "body": "Formula",
+      "description": "Defines the Formula in the measure."
+    },
+    "Clamp": {
+      "prefix": "Clamp",
+      "body": "Clamp",
+      "description": "Defines the Clamp Attribute for  meter."
+    },
   }
   
 
