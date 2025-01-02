@@ -2,6 +2,7 @@ const vscode = require("vscode");
 const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const { Console } = require("console");
 
 /**
  * This method is called when the extension is activated.
@@ -1064,11 +1065,11 @@ function activate(context) {
       let presentationText;
 
       if (/\b\d{1,3},\s*\d{1,3},\s*\d{1,3}\b/.test(text)) {
-       
+
         const rgb = colorToRgb(color);
         presentationText = rgb;
       } else if (/\b[0-9a-fA-F]{6}\b/.test(text)) {
-      
+
         const hex = colorToHex(color);
         presentationText = hex;
       }
@@ -1285,19 +1286,51 @@ function activate(context) {
         const includedFiles = new Set();
 
         const resolveRainmeterMacros = (filePath, context) => {
-          const resourcesPath = path.join(context.fileDir, "@Resources") + path.sep;
-          const rootConfigPath = path.join(context.skinsDir, context.rootConfigName) + path.sep;
+          // Find the base skin directory dynamically
+          const skinsDir = path.resolve(context.fileDir, "../../"); // Top-level Skins directory
+        
+          let baseSkinDir = context.fileDir;
+        
+          while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
+            baseSkinDir = path.dirname(baseSkinDir); // Move up one directory
+          }
+        
+          const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
+            ? path.join(baseSkinDir, "@Resources") + path.sep
+            : ""; // Empty if @Resources not found
+        
+          const rootConfigPath = baseSkinDir + path.sep;
           const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
-
-          return filePath
+        
+          const resolvedPath = filePath
             .replace(/#@#/g, resourcesPath)
+            .replace(/#SKINSPATH#/g, resourcesPath)
             .replace(/#CURRENTPATH#/g, currentConfigPath)
             .replace(/#CURRENTFILE#/g, path.basename(context.currentFilePath))
             .replace(/#ROOTCONFIGPATH#/g, rootConfigPath)
-            .replace(/#ROOTCONFIG#/g, context.rootConfigName)
-            .replace(/#CURRENTCONFIG#/g, context.currentConfigName);
-        };
+            .replace(/#ROOTCONFIG#/g, path.basename(baseSkinDir))
+            .replace(/#CURRENTCONFIG#/g, path.relative(baseSkinDir, path.dirname(context.currentFilePath)));
+        
+          // Debugging output
+          console.log("File Check Path:", filePath);
+          console.log("Skins Path:", skinsDir);
+          console.log("Current skin path:", baseSkinDir);
+          console.log("Resources Path:", resourcesPath);
+          console.log("Current Config Path:", currentConfigPath);
+          console.log("Root Config Path:", rootConfigPath);
+          console.log("Current INI:", path.relative(baseSkinDir, path.dirname(context.currentFilePath)));
+          console.log("Current Skin Path:", rootConfigPath);
 
+
+          console.log("Resolved Path:", resolvedPath);
+        
+          return resolvedPath;
+        };
+        
+        
+        
+        
+        
         lines.forEach((line, index) => {
           const trimmedLine = line.trim();
 
