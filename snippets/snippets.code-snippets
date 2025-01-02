@@ -76,7 +76,7 @@
     "body": [
       "[Rectangle_Shape]",
       "Meter=Shape",
-      "Shape=Rectangle Width,Height,Round|StrokeWidth Width|FillColor Color|StrokeColor Color",
+      "Shape=Rectangle 0,0,Width,Height,Round|StrokeWidth Width|FillColor Color|StrokeColor Color",
       "DynamicVariables"
     ],
     "description": "Creates a Rectangle Shape Meter."

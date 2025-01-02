@@ -40,7 +40,7 @@ The extension also supports color highlighting for RGB and HEX values in `.ini`,
 - **Supported Formats**:
 
   - **RGB**: `255,255,255`
-  - **HEX**: `#FFFFFF`
+  - **HEX**: `FFFFFF`
 
   When you hover over a color, the color picker is activated, allowing you to select a new color.
 
@@ -68,7 +68,6 @@ The extension also supports color highlighting for RGB and HEX values in `.ini`,
 
 You can configure the following settings in your `settings.json` file:
 
-
 **rainSyntax.autoRefreshOnSave**: Automatically refresh Rainmeter skins when saving   `.ini`, `.inc`, and `.nek` files.
 
 - Type: `boolean`
@@ -78,7 +77,6 @@ You can configure the following settings in your `settings.json` file:
 ```json
 "rainSyntax.autoRefreshOnSave": true
 ```
-
 
 **rainSyntax.rainmeterPath**: Path to the Rainmeter executable.
 
@@ -95,17 +93,14 @@ You can configure the following settings in your `settings.json` file:
 * Type: `string`
 * Default : `All`
 * Example
-* 
 
 ```json
 "rainSyntax.refreshMode": "all"
 ```
 
-
 ```json
 "rainSyntax.refreshMode": "specific"
 ```
-
 
 ### Update Settings via Command Palette 🎛️
 
@@ -119,7 +114,7 @@ You can update the settings directly from the Command Palette:
 The extension uses the `provideDocumentColors` method to detect color values in RGB or HEX format. When you hover over any color value in the  `.ini`, `.inc`, and `.nek` file, a color preview is shown, and you can use the color picker to modify the color.
 
 - **RGB Format**: `255,255,255`
-- **HEX Format**: `#FFFFFF`
+- **HEX Format**: `FFFFFF`
 
 Both formats will be converted and presented in the editor as clickable color information, allowing for color selection and easy editing.
 
@@ -128,7 +123,7 @@ Both formats will be converted and presented in the editor as clickable color in
 ```ini
 [Variables]
 MyColor=255,0,0
-MyHexColor=#FF5733
+MyHexColor=FF5733
 ```
 
 ### Auto-Refresh on Save 🔄

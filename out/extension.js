@@ -1,3 +1,4 @@
+
 const vscode = require("vscode");
 const { exec } = require("child_process");
 const path = require("path");
@@ -17,7 +18,6 @@ function activate(context) {
     {
       provideCompletionItems(document, position) {
         const lineText = document.lineAt(position).text.trim().toLowerCase();
-
 
         const hasAssignedValue = (property) => {
           const regex = new RegExp(`^${property.toLowerCase()}=.+`);
@@ -1265,15 +1265,27 @@ function activate(context) {
   context.subscriptions.push(toggleAutoRefreshCommand);
   context.subscriptions.push(changeRainmeterPathCommand);
   //===================================================================================================================================//
-  //                                                Validation                                                                          //
+  //                                                Validation Extension for Rainmeter                                                  //
   //===================================================================================================================================//
-
   context.subscriptions.push(
     vscode.workspace.onDidChangeTextDocument((event) => {
       if (event.document.languageId === "rainmeter") {
         const diagnostics = [];
         const text = event.document.getText();
         const lines = text.split(/\r?\n/);
+
+        const validStringMeterKeys = [
+          "Text",
+          "FontSize",
+          "FontColor",
+          "FontFace",
+          "StringStyle",
+          "StringAlign",
+          "Padding",
+          "AntiAlias",
+          "ClipString",
+          "TransformationMatrix",
+        ];
 
         const sectionHeaders = new Set();
         let currentSection = null;
@@ -1286,22 +1298,20 @@ function activate(context) {
         const includedFiles = new Set();
 
         const resolveRainmeterMacros = (filePath, context) => {
-          // Find the base skin directory dynamically
-          const skinsDir = path.resolve(context.fileDir, "../../"); // Top-level Skins directory
-        
+          const skinsDir = path.resolve(context.fileDir, "../../");
           let baseSkinDir = context.fileDir;
-        
+
           while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
-            baseSkinDir = path.dirname(baseSkinDir); // Move up one directory
+            baseSkinDir = path.dirname(baseSkinDir);
           }
-        
+
           const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
             ? path.join(baseSkinDir, "@Resources") + path.sep
-            : ""; // Empty if @Resources not found
-        
+            : "";
+
           const rootConfigPath = baseSkinDir + path.sep;
           const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
-        
+
           const resolvedPath = filePath
             .replace(/#@#/g, resourcesPath)
             .replace(/#SKINSPATH#/g, resourcesPath)
@@ -1310,27 +1320,118 @@ function activate(context) {
             .replace(/#ROOTCONFIGPATH#/g, rootConfigPath)
             .replace(/#ROOTCONFIG#/g, path.basename(baseSkinDir))
             .replace(/#CURRENTCONFIG#/g, path.relative(baseSkinDir, path.dirname(context.currentFilePath)));
-        
-          // Debugging output
-          console.log("File Check Path:", filePath);
-          console.log("Skins Path:", skinsDir);
-          console.log("Current skin path:", baseSkinDir);
-          console.log("Resources Path:", resourcesPath);
-          console.log("Current Config Path:", currentConfigPath);
-          console.log("Root Config Path:", rootConfigPath);
-          console.log("Current INI:", path.relative(baseSkinDir, path.dirname(context.currentFilePath)));
-          console.log("Current Skin Path:", rootConfigPath);
 
-
-          console.log("Resolved Path:", resolvedPath);
-        
           return resolvedPath;
         };
-        
-        
-        
-        
-        
+
+        //=======================================================Validate for StringMeter Keys======================================================================//
+
+        const validateStringMeterKeys = (lines, diagnostics, validKeys) => {
+          let inStringMeter = false;
+          let currentSection = null;
+
+          lines.forEach((line, index) => {
+            const trimmedLine = line.trim();
+
+
+            if (!trimmedLine || trimmedLine.startsWith(";")) return;
+
+
+            if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
+              currentSection = trimmedLine.slice(1, -1);
+              inStringMeter = false;
+              return;
+            }
+
+
+            if (currentSection && trimmedLine.toLowerCase() === "meter=string") {
+              inStringMeter = true;
+              return;
+            }
+
+
+            if (inStringMeter) {
+              const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
+              if (keyValue.length !== 2) return;
+
+              const [key] = keyValue;
+              if (key && !validKeys.includes(key)) {
+                const range = new vscode.Range(
+                  new vscode.Position(index, 0),
+                  new vscode.Position(index, key.length)
+                );
+                diagnostics.push(
+                  new vscode.Diagnostic(
+                    range,
+                    `Invalid key '${key}' in [${currentSection}]. Valid keys are: ${validKeys.join(", ")}.`,
+                    vscode.DiagnosticSeverity.Error
+                  )
+                );
+              }
+            }
+          });
+        };
+        //=======================================================Validate for StringMeter Keys======================================================================//
+        const validImageMeterKeys = [
+          "ImageName",
+          "ImageTint",
+          "ImageRotate",
+          "ImageFlip",
+          "ImageCrop",
+          "ImageDivide",
+          "SolidColor",
+          "DynamicVariables",
+          // Add additional valid keys for image meters as needed
+        ];
+
+
+        const validateImageMeterKeys = (lines, diagnostics, validKeys) => {
+          let inImageMeter = false;
+          let currentSection = null;
+
+          lines.forEach((line, index) => {
+            const trimmedLine = line.trim();
+
+
+            if (!trimmedLine || trimmedLine.startsWith(";")) return;
+
+
+            if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
+              currentSection = trimmedLine.slice(1, -1);
+              inImageMeter = false;
+              return;
+            }
+
+
+            if (currentSection && trimmedLine.toLowerCase() === "meter=image") {
+              inImageMeter = true;
+              return;
+            }
+
+
+            if (inImageMeter) {
+              const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
+              if (keyValue.length !== 2) return;
+
+              const [key] = keyValue;
+              if (key && !validKeys.includes(key)) {
+                const range = new vscode.Range(
+                  new vscode.Position(index, 0),
+                  new vscode.Position(index, key.length)
+                );
+                diagnostics.push(
+                  new vscode.Diagnostic(
+                    range,
+                    `Invalid key '${key}' in [${currentSection}]. Valid keys are: ${validKeys.join(", ")}.`,
+                    vscode.DiagnosticSeverity.Error
+                  )
+                );
+              }
+            }
+          });
+        };
+
+        //=======================================================Main validation logic======================================================================//
         lines.forEach((line, index) => {
           const trimmedLine = line.trim();
 
@@ -1338,13 +1439,9 @@ function activate(context) {
 
           if (trimmedLine.startsWith("[")) {
             if (!trimmedLine.endsWith("]")) {
-              const range = new vscode.Range(
-                new vscode.Position(index, 0),
-                new vscode.Position(index, line.length)
-              );
               diagnostics.push(
                 new vscode.Diagnostic(
-                  range,
+                  new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
                   "Section header must end with ']'.",
                   vscode.DiagnosticSeverity.Warning
                 )
@@ -1352,39 +1449,36 @@ function activate(context) {
             } else {
               const sectionName = trimmedLine.slice(1, -1);
               if (sectionName.length > 255) {
-                const range = new vscode.Range(
-                  new vscode.Position(index, 1),
-                  new vscode.Position(index, trimmedLine.length - 1)
-                );
                 diagnostics.push(
                   new vscode.Diagnostic(
-                    range,
+                    new vscode.Range(
+                      new vscode.Position(index, 1),
+                      new vscode.Position(index, trimmedLine.length - 1)
+                    ),
                     "Section name is too long. Maximum allowed length is 255 characters.",
                     vscode.DiagnosticSeverity.Error
                   )
                 );
               }
               if (!/^[a-zA-Z0-9_\-]+$/.test(sectionName)) {
-                const range = new vscode.Range(
-                  new vscode.Position(index, 1),
-                  new vscode.Position(index, trimmedLine.length - 1)
-                );
                 diagnostics.push(
                   new vscode.Diagnostic(
-                    range,
+                    new vscode.Range(
+                      new vscode.Position(index, 1),
+                      new vscode.Position(index, trimmedLine.length - 1)
+                    ),
                     "Section header contains invalid characters. Only alphanumeric, underscores, and hyphens are allowed.",
                     vscode.DiagnosticSeverity.Error
                   )
                 );
               }
               if (sectionHeaders.has(sectionName)) {
-                const range = new vscode.Range(
-                  new vscode.Position(index, 1),
-                  new vscode.Position(index, trimmedLine.length - 1)
-                );
                 diagnostics.push(
                   new vscode.Diagnostic(
-                    range,
+                    new vscode.Range(
+                      new vscode.Position(index, 1),
+                      new vscode.Position(index, trimmedLine.length - 1)
+                    ),
                     `Duplicate section header: [${sectionName}].`,
                     vscode.DiagnosticSeverity.Warning
                   )
@@ -1392,6 +1486,7 @@ function activate(context) {
               } else {
                 sectionHeaders.add(sectionName);
               }
+
               if (sectionName.toLowerCase() === "rainmeter") hasRainmeterSection = true;
               if (sectionName.toLowerCase() === "variables") hasVariablesSection = true;
 
@@ -1401,42 +1496,31 @@ function activate(context) {
             return;
           }
 
+
           const [key, value] = trimmedLine.split("=", 2);
 
           if (key?.trim().toLowerCase().startsWith("@include")) {
             const rawPath = value?.trim().replace(/"/g, "");
             const resolvedPath = resolveRainmeterMacros(rawPath, {
               fileDir,
-              skinsDir: path.join(fileDir, "../.."),
-              rootConfigName: path.basename(path.dirname(fileDir)),
               currentFilePath: event.document.uri.fsPath,
-              currentConfigName: path.relative(
-                path.join(fileDir, "../.."),
-                path.dirname(event.document.uri.fsPath)
-              ),
             });
 
-
             if (!fs.existsSync(resolvedPath)) {
-              const range = new vscode.Range(
-                new vscode.Position(index, key.length + 1),
-                new vscode.Position(index, line.length)
-              );
               diagnostics.push(
                 new vscode.Diagnostic(
-                  range,
+                  new vscode.Range(
+                    new vscode.Position(index, key.length + 1),
+                    new vscode.Position(index, line.length)
+                  ),
                   `Included file not found: ${rawPath} (Resolved: ${resolvedPath}). Ensure the macro resolves to a valid file path.`,
                   vscode.DiagnosticSeverity.Error
                 )
               );
             } else if (includedFiles.has(resolvedPath)) {
-              const range = new vscode.Range(
-                new vscode.Position(index, 0),
-                new vscode.Position(index, line.length)
-              );
               diagnostics.push(
                 new vscode.Diagnostic(
-                  range,
+                  new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
                   `Circular include detected for file: ${rawPath} (Resolved: ${resolvedPath}).`,
                   vscode.DiagnosticSeverity.Error
                 )
@@ -1448,25 +1532,17 @@ function activate(context) {
           }
 
           if (!key || value === undefined) {
-            const range = new vscode.Range(
-              new vscode.Position(index, 0),
-              new vscode.Position(index, line.length)
-            );
             diagnostics.push(
               new vscode.Diagnostic(
-                range,
+                new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
                 "Key-value pair is malformed. Ensure the format is 'Key=Value'.",
                 vscode.DiagnosticSeverity.Error
               )
             );
           } else if (keysInCurrentSection.has(key)) {
-            const range = new vscode.Range(
-              new vscode.Position(index, 0),
-              new vscode.Position(index, key.length)
-            );
             diagnostics.push(
               new vscode.Diagnostic(
-                range,
+                new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, key.length)),
                 `Duplicate key '${key}' found in section [${currentSection}].`,
                 vscode.DiagnosticSeverity.Warning
               )
@@ -1494,6 +1570,8 @@ function activate(context) {
             )
           );
         }
+        validateImageMeterKeys(lines, diagnostics, validImageMeterKeys);
+        validateStringMeterKeys(lines, diagnostics, validStringMeterKeys);
 
         diagnosticsCollection.set(event.document.uri, diagnostics);
       }
@@ -1502,7 +1580,6 @@ function activate(context) {
 
   context.subscriptions.push(diagnosticsCollection);
 }
-
 
 function deactivate() { }
 
