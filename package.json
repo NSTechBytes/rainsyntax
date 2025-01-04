@@ -46,7 +46,10 @@
         "rainSyntax.refreshMode": {
           "type": "string",
           "default": "all",
-          "enum": ["all", "specific"],
+          "enum": [
+            "all",
+            "specific"
+          ],
           "description": "Choose between refreshing all skins or only the specific skin being edited."
         },
         "rainSyntax.rainmeterPath": {

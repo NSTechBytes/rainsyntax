@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const { Console } = require("console");
 
+
 /**
  * This method is called when the extension is activated.
  * @param {vscode.ExtensionContext} context
@@ -1274,6 +1275,126 @@ function activate(context) {
         const text = event.document.getText();
         const lines = text.split(/\r?\n/);
 
+        const sectionHeaders = new Set();
+        let currentSection = null;
+        const keysInCurrentSection = new Set();
+
+        let hasRainmeterSection = false;
+        let hasVariablesSection = false;
+
+        const fileDir = path.dirname(event.document.uri.fsPath);
+        const includedFiles = new Set();
+    //=======================================================Validate  Paths======================================================================//
+   
+
+    
+
+    function setDiagnostics(editor, unresolvedVariables) {
+      // Create a diagnostic collection for your extension
+      const diagnosticCollection = vscode.languages.createDiagnosticCollection("rainmeter");
+    
+      const diagnostics = [];
+    
+      const text = editor.document.getText();
+      unresolvedVariables.forEach((variable) => {
+        let match;
+        const regex = new RegExp(variable, "g");
+    
+        while ((match = regex.exec(text)) !== null) {
+          const startPos = editor.document.positionAt(match.index);
+          const endPos = editor.document.positionAt(match.index + match[0].length);
+    
+          // Create a diagnostic with a custom severity
+          const diagnostic = new vscode.Diagnostic(
+            new vscode.Range(startPos, endPos),
+            `Unresolved variable: ${variable}`,
+            vscode.DiagnosticSeverity.Warning // Set severity to Warning or Information
+          );
+    
+          diagnostics.push(diagnostic);
+        }
+      });
+    
+      // Set the diagnostics for the current file
+      diagnosticCollection.set(editor.document.uri, diagnostics);
+    }
+    
+    // Function to resolve macros and detect unresolved variables
+    const resolveRainmeterMacros = (filePath, context) => {
+      const skinsDir = path.resolve(context.fileDir, "../../");
+      let baseSkinDir = context.fileDir;
+    
+      while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
+        baseSkinDir = path.dirname(baseSkinDir);
+      }
+    
+      const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
+        ? path.join(baseSkinDir, "@Resources") + path.sep
+        : "";
+    
+      const rootConfigPath = baseSkinDir + path.sep;
+      const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
+    
+      const macros = {
+        "#@#": resourcesPath,
+        "#SKINSPATH#": resourcesPath,
+        "#CURRENTPATH#": currentConfigPath,
+        "#CURRENTFILE#": path.basename(context.currentFilePath),
+        "#ROOTCONFIGPATH#": rootConfigPath,
+        "#ROOTCONFIG#": path.basename(baseSkinDir),
+        "#CURRENTCONFIG#": path.relative(baseSkinDir, path.dirname(context.currentFilePath)),
+      };
+    
+      let unresolvedVariables = [];
+      const resolvedPath = filePath.replace(/#\w+#/g, (match) => {
+        if (macros[match]) {
+          return macros[match];
+        } else {
+          unresolvedVariables.push(match); // Track unresolved macros
+          return match; // Leave unresolved variables unchanged
+        }
+      });
+    
+      return { resolvedPath, unresolvedVariables };
+    };
+    
+    // Main function to handle diagnostics
+    function handleUnresolvedVariables(editor) {
+      const context = {
+        fileDir: path.dirname(editor.document.uri.fsPath),
+        currentFilePath: editor.document.uri.fsPath,
+      };
+    
+      const filePath = editor.document.getText();
+      const { unresolvedVariables } = resolveRainmeterMacros(filePath, context);
+    
+      if (unresolvedVariables.length > 0) {
+        setDiagnostics(editor, unresolvedVariables);
+      }
+    }
+    
+    // Trigger diagnostics when the active editor changes or document is saved
+    vscode.window.onDidChangeActiveTextEditor((editor) => {
+      if (editor) {
+        handleUnresolvedVariables(editor);
+      }
+    });
+    
+    vscode.workspace.onDidSaveTextDocument((document) => {
+      const editor = vscode.window.activeTextEditor;
+      if (editor && editor.document === document) {
+        handleUnresolvedVariables(editor);
+      }
+    });
+    
+
+
+
+    
+
+
+    
+    //=======================================================Validate for StringMeter Keys======================================================================//
         const validStringMeterKeys = [
           "Text",
           "FontSize",
@@ -1286,45 +1407,6 @@ function activate(context) {
           "ClipString",
           "TransformationMatrix",
         ];
-
-        const sectionHeaders = new Set();
-        let currentSection = null;
-        const keysInCurrentSection = new Set();
-
-        let hasRainmeterSection = false;
-        let hasVariablesSection = false;
-
-        const fileDir = path.dirname(event.document.uri.fsPath);
-        const includedFiles = new Set();
-
-        const resolveRainmeterMacros = (filePath, context) => {
-          const skinsDir = path.resolve(context.fileDir, "../../");
-          let baseSkinDir = context.fileDir;
-
-          while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
-            baseSkinDir = path.dirname(baseSkinDir);
-          }
-
-          const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
-            ? path.join(baseSkinDir, "@Resources") + path.sep
-            : "";
-
-          const rootConfigPath = baseSkinDir + path.sep;
-          const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
-
-          const resolvedPath = filePath
-            .replace(/#@#/g, resourcesPath)
-            .replace(/#SKINSPATH#/g, resourcesPath)
-            .replace(/#CURRENTPATH#/g, currentConfigPath)
-            .replace(/#CURRENTFILE#/g, path.basename(context.currentFilePath))
-            .replace(/#ROOTCONFIGPATH#/g, rootConfigPath)
-            .replace(/#ROOTCONFIG#/g, path.basename(baseSkinDir))
-            .replace(/#CURRENTCONFIG#/g, path.relative(baseSkinDir, path.dirname(context.currentFilePath)));
-
-          return resolvedPath;
-        };
-
-        //=======================================================Validate for StringMeter Keys======================================================================//
 
         const validateStringMeterKeys = (lines, diagnostics, validKeys) => {
           let inStringMeter = false;
@@ -1580,6 +1662,7 @@ function activate(context) {
 
   context.subscriptions.push(diagnosticsCollection);
 }
+
 
 function deactivate() { }
 
