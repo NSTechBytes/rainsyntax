@@ -1045,11 +1045,11 @@ function activate(context) {
         const range = new vscode.Range(start, end);
 
         if (match[4]) {
-          // Hex color
+
           const color = hexToColor(match[4]);
           colors.push(new vscode.ColorInformation(range, color));
         } else if (match[1]) {
-          // RGB color
+
           const r = Math.min(parseInt(match[1]), 255);
           const g = Math.min(parseInt(match[2]), 255);
           const b = Math.min(parseInt(match[3]), 255);
@@ -1266,6 +1266,178 @@ function activate(context) {
   context.subscriptions.push(toggleAutoRefreshCommand);
   context.subscriptions.push(changeRainmeterPathCommand);
   //===================================================================================================================================//
+  //                                                Setteings Through Gui                                                              //
+  //===================================================================================================================================//
+  const openSettingsCommand = vscode.commands.registerCommand('rainSyntax.openSettings', () => {
+    const panel = vscode.window.createWebviewPanel(
+      'rainSyntaxSettings',
+      'RainSyntax Settings',
+      vscode.ViewColumn.One,
+      { enableScripts: true }
+    );
+
+    panel.webview.html = getWebviewContent();
+
+
+    panel.webview.onDidReceiveMessage(async (message) => {
+      if (message.command === 'saveSettings') {
+
+        await vscode.workspace.getConfiguration('rainSyntax').update('rainmeterPath', message.rainmeterPath, true);
+        await vscode.workspace.getConfiguration('rainSyntax').update('autoRefreshOnSave', message.autoRefreshOnSave, true);
+        await vscode.workspace.getConfiguration('rainSyntax').update('refreshMode', message.refreshMode, true);
+
+        vscode.window.showInformationMessage('RainSyntax settings updated!');
+      }
+    });
+  });
+
+  context.subscriptions.push(openSettingsCommand);
+
+
+  function getWebviewContent() {
+    const config = vscode.workspace.getConfiguration('rainSyntax');
+    const rainmeterPath = config.get('rainmeterPath', 'C:\\Program Files\\Rainmeter\\Rainmeter.exe');
+    const autoRefreshOnSave = config.get('autoRefreshOnSave', true);
+    const refreshMode = config.get('refreshMode', 'all');
+
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RainSyntax Settings</title>
+    <style>
+       
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #343746, #343746);
+            color: #ecf0f1;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            background-color: #21222c;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        form {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #21222c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #bdc3c7;
+        }
+        input, select, button {
+        
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+        input{
+            width: 95%;
+        }
+        select{
+            width: 100%;
+        }
+        input::placeholder {
+            color: #95a5a6;
+        }
+        input:focus, select:focus {
+            border-color: #1abc9c;
+            outline: none;
+            box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+        }
+        button {
+            background-color: #1abc9c;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background-color: #16a085;
+        }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+         
+        }
+        .checkbox-wrapper span {
+            color: #bdc3c7;
+        }
+        /* Add subtle animation */
+        button {
+            transition: background-color 0.3s ease;
+        }
+        input, select {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>RainSyntax Settings</h1>
+    <form id="settingsForm">
+        <label for="rainmeterPath">Rainmeter Path</label>
+        <input type="text" id="rainmeterPath" value="${rainmeterPath}" placeholder="Enter Rainmeter path" />
+
+        <label for="autoRefreshOnSave">Auto Refresh on Save</label>
+        <div class="checkbox-wrapper">
+            <input type="checkbox" id="autoRefreshOnSave" ${autoRefreshOnSave ? 'checked' : ''} />
+            <span>Enable auto refresh when saving files</span>
+        </div>
+
+        <label for="refreshMode">Refresh Mode</label>
+        <select id="refreshMode">
+            <option value="all" ${refreshMode === 'all' ? 'selected' : ''}>All Skins</option>
+            <option value="specific" ${refreshMode === 'specific' ? 'selected' : ''}>Specific Skin</option>
+        </select>
+
+        <button type="button" id="saveSettings">Save Settings</button>
+    </form>
+    <script>
+        const vscode = acquireVsCodeApi();
+
+        document.getElementById('saveSettings').addEventListener('click', () => {
+            const rainmeterPath = document.getElementById('rainmeterPath').value;
+            const autoRefreshOnSave = document.getElementById('autoRefreshOnSave').checked;
+            const refreshMode = document.getElementById('refreshMode').value;
+
+            vscode.postMessage({
+                command: 'saveSettings',
+                rainmeterPath: rainmeterPath,
+                autoRefreshOnSave: autoRefreshOnSave,
+                refreshMode: refreshMode
+            });
+        });
+    </script>
+</body>
+</html>
+
+    `;
+  }
+
+  //===================================================================================================================================//
   //                                                Validation Extension for Rainmeter                                                  //
   //===================================================================================================================================//
   context.subscriptions.push(
@@ -1284,24 +1456,24 @@ function activate(context) {
 
         const fileDir = path.dirname(event.document.uri.fsPath);
         const includedFiles = new Set();
-//=======================================================Validate Macros======================================================================//
+        //=======================================================Validate Macros======================================================================//
 
         const resolveRainmeterMacros = (filePath, context) => {
           const skinsDir = path.resolve(context.fileDir, "../../");
           let baseSkinDir = context.fileDir;
-        
+
           while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
             baseSkinDir = path.dirname(baseSkinDir);
           }
-        
+
           const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
             ? path.join(baseSkinDir, "@Resources") + path.sep
             : "";
-        
+
           const rootConfigPath = baseSkinDir + path.sep;
           const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
-        
-         
+
+
           const supportedMacros = {
             "#@#": resourcesPath,
             "#SKINSPATH#": resourcesPath,
@@ -1311,109 +1483,109 @@ function activate(context) {
             "#ROOTCONFIG#": path.basename(baseSkinDir),
             "#CURRENTCONFIG#": path.relative(baseSkinDir, path.dirname(context.currentFilePath)),
           };
-        
-        
+
+
           let resolvedPath = filePath;
           Object.keys(supportedMacros).forEach((macro) => {
             const value = supportedMacros[macro];
             resolvedPath = resolvedPath.split(macro).join(value);
           });
-        
-          
+
+
           const unsupportedMacroRegex = /#[A-Z0-9_]+#/g;
           const hasUnsupported = unsupportedMacroRegex.test(resolvedPath);
-        
+
           return {
             path: resolvedPath,
             hasUnsupported,
           };
         };
 
-            //=======================================================Validate for Meter Keys======================================================================//
-            const validateMeterKeys = (lines, diagnostics, validKeys, meterType, sharedKeys = []) => {
-              let inTargetMeter = false;
-              let currentSection = null;
-            
-           
-              const allValidKeys = [...validKeys, ...sharedKeys];
-            
-              lines.forEach((line, index) => {
-                const trimmedLine = line.trim();
-            
-               
-                if (!trimmedLine || trimmedLine.startsWith(";") || trimmedLine.toLowerCase().startsWith("@include")) {
-                  return;
-                }
-            
-              
-                if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
-                  currentSection = trimmedLine.slice(1, -1);
-                  inTargetMeter = false; 
-                  return;
-                }
-    
-                if (currentSection && trimmedLine.toLowerCase() === `meter=${meterType.toLowerCase()}`) {
-                  inTargetMeter = true;
-                  return;
-                }
-            
-               
-                if (inTargetMeter) {
-                  const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
-                  if (keyValue.length !== 2) return; 
-            
-                  const [key] = keyValue;
-            
-                 
-                  if (key.toLowerCase().startsWith("@include")) return;
-            
-                  if (key && !allValidKeys.includes(key)) {
-                    const range = new vscode.Range(
-                      new vscode.Position(index, 0),
-                      new vscode.Position(index, key.length)
-                    );
-                    diagnostics.push(
-                      new vscode.Diagnostic(
-                        range,
-                        `Invalid key '${key}' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(", ")} (shared keys: ${sharedKeys.join(", ")}).`,
-                        vscode.DiagnosticSeverity.Error
-                      )
-                    );
-                  }
-                }
-              });
-            };
-            const sharedKeys = [
-              "DynamicVariables",
-              "SolidColor",
-          ];
+        //=======================================================Validate for Meter Keys======================================================================//
+        const validateMeterKeys = (lines, diagnostics, validKeys, meterType, sharedKeys = []) => {
+          let inTargetMeter = false;
+          let currentSection = null;
 
-          const validStringMeterKeys = [
-              "Text",
-              "FontSize",
-              "FontColor",
-              "FontFace",
-              "StringStyle",
-              "StringAlign",
-              "Padding",
-              "AntiAlias",
-              "ClipString",
-              "TransformationMatrix",
-          ];
 
-          const validImageMeterKeys = [
-              "ImageName",
-              "ImageTint",
-              "ImageRotate",
-              "ImageFlip",
-              "ImageCrop",
-              "ImageDivide",
-          ];
+          const allValidKeys = [...validKeys, ...sharedKeys];
 
-          validateMeterKeys(lines, diagnostics, validStringMeterKeys, "String", sharedKeys);
+          lines.forEach((line, index) => {
+            const trimmedLine = line.trim();
 
-         
-          validateMeterKeys(lines, diagnostics, validImageMeterKeys, "Image", sharedKeys);
+
+            if (!trimmedLine || trimmedLine.startsWith(";") || trimmedLine.toLowerCase().startsWith("@include")) {
+              return;
+            }
+
+
+            if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
+              currentSection = trimmedLine.slice(1, -1);
+              inTargetMeter = false;
+              return;
+            }
+
+            if (currentSection && trimmedLine.toLowerCase() === `meter=${meterType.toLowerCase()}`) {
+              inTargetMeter = true;
+              return;
+            }
+
+
+            if (inTargetMeter) {
+              const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
+              if (keyValue.length !== 2) return;
+
+              const [key] = keyValue;
+
+
+              if (key.toLowerCase().startsWith("@include")) return;
+
+              if (key && !allValidKeys.includes(key)) {
+                const range = new vscode.Range(
+                  new vscode.Position(index, 0),
+                  new vscode.Position(index, key.length)
+                );
+                diagnostics.push(
+                  new vscode.Diagnostic(
+                    range,
+                    `Invalid key '${key}' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(", ")} (shared keys: ${sharedKeys.join(", ")}).`,
+                    vscode.DiagnosticSeverity.Error
+                  )
+                );
+              }
+            }
+          });
+        };
+        const sharedKeys = [
+          "DynamicVariables",
+          "SolidColor",
+        ];
+
+        const validStringMeterKeys = [
+          "Text",
+          "FontSize",
+          "FontColor",
+          "FontFace",
+          "StringStyle",
+          "StringAlign",
+          "Padding",
+          "AntiAlias",
+          "ClipString",
+          "TransformationMatrix",
+        ];
+
+        const validImageMeterKeys = [
+          "ImageName",
+          "ImageTint",
+          "ImageRotate",
+          "ImageFlip",
+          "ImageCrop",
+          "ImageDivide",
+        ];
+
+        validateMeterKeys(lines, diagnostics, validStringMeterKeys, "String", sharedKeys);
+
+
+        validateMeterKeys(lines, diagnostics, validImageMeterKeys, "Image", sharedKeys);
 
         //=======================================================Main validation logic======================================================================//
         lines.forEach((line, index) => {
@@ -1487,8 +1659,8 @@ function activate(context) {
               fileDir,
               currentFilePath: event.document.uri.fsPath,
             });
-          
-            if (hasUnsupported) { 
+
+            if (hasUnsupported) {
               diagnostics.push(
                 new vscode.Diagnostic(
                   new vscode.Range(

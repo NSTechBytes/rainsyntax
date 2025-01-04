@@ -11,6 +11,7 @@
   "activationEvents": [
     "onLanguage:rainmeter",
     "onCommand:rainSyntax.changeRefreshMode",
+    "onCommand:rainSyntax.openSettings",
     "onSaveTextDocument"
   ],
   "main": "./out/extension.js",
@@ -32,7 +33,13 @@
         "command": "rainSyntax.changeRefreshMode",
         "title": "Rainmeter Refresh Mode",
         "category": "RainSyntax"
+      },
+      {
+        "command": "rainSyntax.openSettings",
+        "title": "Open RainSyntax Settings",
+        "category": "RainSyntax"
       }
+      
     ],
     "configuration": {
       "type": "object",
