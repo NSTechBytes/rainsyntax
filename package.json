@@ -102,5 +102,9 @@
   "homepage": "https://github.com/NSTechBytes/rainsyntax",
   "bugs": {
     "url": "https://github.com/NSTechBytes/rainsyntax/issues"
+  },
+  "devDependencies": {
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   }
 }

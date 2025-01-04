@@ -1284,234 +1284,136 @@ function activate(context) {
 
         const fileDir = path.dirname(event.document.uri.fsPath);
         const includedFiles = new Set();
-    //=======================================================Validate  Paths======================================================================//
-   
+//=======================================================Validate Macros======================================================================//
 
-    
-
-    function setDiagnostics(editor, unresolvedVariables) {
-      // Create a diagnostic collection for your extension
-      const diagnosticCollection = vscode.languages.createDiagnosticCollection("rainmeter");
-    
-      const diagnostics = [];
-    
-      const text = editor.document.getText();
-      unresolvedVariables.forEach((variable) => {
-        let match;
-        const regex = new RegExp(variable, "g");
-    
-        while ((match = regex.exec(text)) !== null) {
-          const startPos = editor.document.positionAt(match.index);
-          const endPos = editor.document.positionAt(match.index + match[0].length);
-    
-          // Create a diagnostic with a custom severity
-          const diagnostic = new vscode.Diagnostic(
-            new vscode.Range(startPos, endPos),
-            `Unresolved variable: ${variable}`,
-            vscode.DiagnosticSeverity.Warning // Set severity to Warning or Information
-          );
-    
-          diagnostics.push(diagnostic);
-        }
-      });
-    
-      // Set the diagnostics for the current file
-      diagnosticCollection.set(editor.document.uri, diagnostics);
-    }
-    
-    // Function to resolve macros and detect unresolved variables
-    const resolveRainmeterMacros = (filePath, context) => {
-      const skinsDir = path.resolve(context.fileDir, "../../");
-      let baseSkinDir = context.fileDir;
-    
-      while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
-        baseSkinDir = path.dirname(baseSkinDir);
-      }
-    
-      const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
-        ? path.join(baseSkinDir, "@Resources") + path.sep
-        : "";
-    
-      const rootConfigPath = baseSkinDir + path.sep;
-      const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
-    
-      const macros = {
-        "#@#": resourcesPath,
-        "#SKINSPATH#": resourcesPath,
-        "#CURRENTPATH#": currentConfigPath,
-        "#CURRENTFILE#": path.basename(context.currentFilePath),
-        "#ROOTCONFIGPATH#": rootConfigPath,
-        "#ROOTCONFIG#": path.basename(baseSkinDir),
-        "#CURRENTCONFIG#": path.relative(baseSkinDir, path.dirname(context.currentFilePath)),
-      };
-    
-      let unresolvedVariables = [];
-      const resolvedPath = filePath.replace(/#\w+#/g, (match) => {
-        if (macros[match]) {
-          return macros[match];
-        } else {
-          unresolvedVariables.push(match); // Track unresolved macros
-          return match; // Leave unresolved variables unchanged
-        }
-      });
-    
-      return { resolvedPath, unresolvedVariables };
-    };
-    
-    // Main function to handle diagnostics
-    function handleUnresolvedVariables(editor) {
-      const context = {
-        fileDir: path.dirname(editor.document.uri.fsPath),
-        currentFilePath: editor.document.uri.fsPath,
-      };
-    
-      const filePath = editor.document.getText();
-      const { unresolvedVariables } = resolveRainmeterMacros(filePath, context);
-    
-      if (unresolvedVariables.length > 0) {
-        setDiagnostics(editor, unresolvedVariables);
-      }
-    }
-    
-    // Trigger diagnostics when the active editor changes or document is saved
-    vscode.window.onDidChangeActiveTextEditor((editor) => {
-      if (editor) {
-        handleUnresolvedVariables(editor);
-      }
-    });
-    
-    vscode.workspace.onDidSaveTextDocument((document) => {
-      const editor = vscode.window.activeTextEditor;
-      if (editor && editor.document === document) {
-        handleUnresolvedVariables(editor);
-      }
-    });
-    
-
-
-
-    
-
-
-    
-    //=======================================================Validate for StringMeter Keys======================================================================//
-        const validStringMeterKeys = [
-          "Text",
-          "FontSize",
-          "FontColor",
-          "FontFace",
-          "StringStyle",
-          "StringAlign",
-          "Padding",
-          "AntiAlias",
-          "ClipString",
-          "TransformationMatrix",
-        ];
-
-        const validateStringMeterKeys = (lines, diagnostics, validKeys) => {
-          let inStringMeter = false;
-          let currentSection = null;
-
-          lines.forEach((line, index) => {
-            const trimmedLine = line.trim();
-
-
-            if (!trimmedLine || trimmedLine.startsWith(";")) return;
-
-
-            if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
-              currentSection = trimmedLine.slice(1, -1);
-              inStringMeter = false;
-              return;
-            }
-
-
-            if (currentSection && trimmedLine.toLowerCase() === "meter=string") {
-              inStringMeter = true;
-              return;
-            }
-
-
-            if (inStringMeter) {
-              const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
-              if (keyValue.length !== 2) return;
-
-              const [key] = keyValue;
-              if (key && !validKeys.includes(key)) {
-                const range = new vscode.Range(
-                  new vscode.Position(index, 0),
-                  new vscode.Position(index, key.length)
-                );
-                diagnostics.push(
-                  new vscode.Diagnostic(
-                    range,
-                    `Invalid key '${key}' in [${currentSection}]. Valid keys are: ${validKeys.join(", ")}.`,
-                    vscode.DiagnosticSeverity.Error
-                  )
-                );
-              }
-            }
+        const resolveRainmeterMacros = (filePath, context) => {
+          const skinsDir = path.resolve(context.fileDir, "../../");
+          let baseSkinDir = context.fileDir;
+        
+          while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
+            baseSkinDir = path.dirname(baseSkinDir);
+          }
+        
+          const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
+            ? path.join(baseSkinDir, "@Resources") + path.sep
+            : "";
+        
+          const rootConfigPath = baseSkinDir + path.sep;
+          const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
+        
+         
+          const supportedMacros = {
+            "#@#": resourcesPath,
+            "#SKINSPATH#": resourcesPath,
+            "#CURRENTPATH#": currentConfigPath,
+            "#CURRENTFILE#": path.basename(context.currentFilePath),
+            "#ROOTCONFIGPATH#": rootConfigPath,
+            "#ROOTCONFIG#": path.basename(baseSkinDir),
+            "#CURRENTCONFIG#": path.relative(baseSkinDir, path.dirname(context.currentFilePath)),
+          };
+        
+        
+          let resolvedPath = filePath;
+          Object.keys(supportedMacros).forEach((macro) => {
+            const value = supportedMacros[macro];
+            resolvedPath = resolvedPath.split(macro).join(value);
           });
+        
+          
+          const unsupportedMacroRegex = /#[A-Z0-9_]+#/g;
+          const hasUnsupported = unsupportedMacroRegex.test(resolvedPath);
+        
+          return {
+            path: resolvedPath,
+            hasUnsupported,
+          };
         };
-        //=======================================================Validate for StringMeter Keys======================================================================//
-        const validImageMeterKeys = [
-          "ImageName",
-          "ImageTint",
-          "ImageRotate",
-          "ImageFlip",
-          "ImageCrop",
-          "ImageDivide",
-          "SolidColor",
-          "DynamicVariables",
-          // Add additional valid keys for image meters as needed
-        ];
 
+            //=======================================================Validate for Meter Keys======================================================================//
+            const validateMeterKeys = (lines, diagnostics, validKeys, meterType, sharedKeys = []) => {
+              let inTargetMeter = false;
+              let currentSection = null;
+            
+           
+              const allValidKeys = [...validKeys, ...sharedKeys];
+            
+              lines.forEach((line, index) => {
+                const trimmedLine = line.trim();
+            
+               
+                if (!trimmedLine || trimmedLine.startsWith(";") || trimmedLine.toLowerCase().startsWith("@include")) {
+                  return;
+                }
+            
+              
+                if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
+                  currentSection = trimmedLine.slice(1, -1);
+                  inTargetMeter = false; 
+                  return;
+                }
+    
+                if (currentSection && trimmedLine.toLowerCase() === `meter=${meterType.toLowerCase()}`) {
+                  inTargetMeter = true;
+                  return;
+                }
+            
+               
+                if (inTargetMeter) {
+                  const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
+                  if (keyValue.length !== 2) return; 
+            
+                  const [key] = keyValue;
+            
+                 
+                  if (key.toLowerCase().startsWith("@include")) return;
+            
+                  if (key && !allValidKeys.includes(key)) {
+                    const range = new vscode.Range(
+                      new vscode.Position(index, 0),
+                      new vscode.Position(index, key.length)
+                    );
+                    diagnostics.push(
+                      new vscode.Diagnostic(
+                        range,
+                        `Invalid key '${key}' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(", ")} (shared keys: ${sharedKeys.join(", ")}).`,
+                        vscode.DiagnosticSeverity.Error
+                      )
+                    );
+                  }
+                }
+              });
+            };
+            const sharedKeys = [
+              "DynamicVariables",
+              "SolidColor",
+          ];
 
-        const validateImageMeterKeys = (lines, diagnostics, validKeys) => {
-          let inImageMeter = false;
-          let currentSection = null;
+          const validStringMeterKeys = [
+              "Text",
+              "FontSize",
+              "FontColor",
+              "FontFace",
+              "StringStyle",
+              "StringAlign",
+              "Padding",
+              "AntiAlias",
+              "ClipString",
+              "TransformationMatrix",
+          ];
 
-          lines.forEach((line, index) => {
-            const trimmedLine = line.trim();
+          const validImageMeterKeys = [
+              "ImageName",
+              "ImageTint",
+              "ImageRotate",
+              "ImageFlip",
+              "ImageCrop",
+              "ImageDivide",
+          ];
 
+          validateMeterKeys(lines, diagnostics, validStringMeterKeys, "String", sharedKeys);
 
-            if (!trimmedLine || trimmedLine.startsWith(";")) return;
-
-
-            if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
-              currentSection = trimmedLine.slice(1, -1);
-              inImageMeter = false;
-              return;
-            }
-
-
-            if (currentSection && trimmedLine.toLowerCase() === "meter=image") {
-              inImageMeter = true;
-              return;
-            }
-
-
-            if (inImageMeter) {
-              const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
-              if (keyValue.length !== 2) return;
-
-              const [key] = keyValue;
-              if (key && !validKeys.includes(key)) {
-                const range = new vscode.Range(
-                  new vscode.Position(index, 0),
-                  new vscode.Position(index, key.length)
-                );
-                diagnostics.push(
-                  new vscode.Diagnostic(
-                    range,
-                    `Invalid key '${key}' in [${currentSection}]. Valid keys are: ${validKeys.join(", ")}.`,
-                    vscode.DiagnosticSeverity.Error
-                  )
-                );
-              }
-            }
-          });
-        };
+         
+          validateMeterKeys(lines, diagnostics, validImageMeterKeys, "Image", sharedKeys);
 
         //=======================================================Main validation logic======================================================================//
         lines.forEach((line, index) => {
@@ -1577,17 +1479,28 @@ function activate(context) {
             }
             return;
           }
-
-
           const [key, value] = trimmedLine.split("=", 2);
 
           if (key?.trim().toLowerCase().startsWith("@include")) {
             const rawPath = value?.trim().replace(/"/g, "");
-            const resolvedPath = resolveRainmeterMacros(rawPath, {
+            const { path: resolvedPath, hasUnsupported } = resolveRainmeterMacros(rawPath, {
               fileDir,
               currentFilePath: event.document.uri.fsPath,
             });
-
+          
+            if (hasUnsupported) { 
+              diagnostics.push(
+                new vscode.Diagnostic(
+                  new vscode.Range(
+                    new vscode.Position(index, key.length + 1),
+                    new vscode.Position(index, line.length)
+                  ),
+                  `Path contains unsupported macros: ${rawPath}. Macros remain unresolved.`,
+                  vscode.DiagnosticSeverity.Hint
+                )
+              );
+              return;
+            }
             if (!fs.existsSync(resolvedPath)) {
               diagnostics.push(
                 new vscode.Diagnostic(
@@ -1612,7 +1525,6 @@ function activate(context) {
             }
             return;
           }
-
           if (!key || value === undefined) {
             diagnostics.push(
               new vscode.Diagnostic(
@@ -1652,8 +1564,7 @@ function activate(context) {
             )
           );
         }
-        validateImageMeterKeys(lines, diagnostics, validImageMeterKeys);
-        validateStringMeterKeys(lines, diagnostics, validStringMeterKeys);
+
 
         diagnosticsCollection.set(event.document.uri, diagnostics);
       }
