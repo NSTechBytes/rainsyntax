@@ -1,0 +1,252 @@
+{
+    "CURRENTSECTION Variable": {
+        "prefix": "#CURRENTSECTION#",
+        "body": "#CURRENTSECTION#",
+        "description": "Inserts the CURRENTSECTION variable."
+    },
+    "ROOTCONFIG Variable": {
+        "prefix": "#ROOTCONFIG#",
+        "body": "#ROOTCONFIG#",
+        "description": "Inserts the ROOTCONFIG variable."
+    },
+    "CURRENTPATH Variable": {
+        "prefix": "#CURRENTPATH#",
+        "body": "#CURRENTPATH#",
+        "description": "Inserts the CURRENTPATH variable."
+    },
+    "SETTINGSPATH Variable": {
+        "prefix": "#SETTINGSPATH#",
+        "body": "#SETTINGSPATH#",
+        "description": "Inserts the SETTINGSPATH variable."
+    },
+    "CONFIGPATH Variable": {
+        "prefix": "#CONFIGPATH#",
+        "body": "#CONFIGPATH#",
+        "description": "Inserts the CONFIGPATH variable."
+    },
+    "PROGRAMDRIVE Variable": {
+        "prefix": "#PROGRAMDRIVE#",
+        "body": "#PROGRAMDRIVE#",
+        "description": "Inserts the PROGRAMDRIVE variable."
+    },
+    "PROGRAMPATH Variable": {
+        "prefix": "#PROGRAMPATH#",
+        "body": "#PROGRAMPATH#",
+        "description": "Inserts the PROGRAMPATH variable."
+    },
+    "SKINSPATH Variable": {
+        "prefix": "#SKINSPATH#",
+        "body": "#SKINSPATH#",
+        "description": "Inserts the SKINSPATH variable."
+    },
+    "PLUGINSPATH Variable": {
+        "prefix": "#PLUGINSPATH#",
+        "body": "#PLUGINSPATH#",
+        "description": "Inserts the PLUGINSPATH variable."
+    },
+    "ADDONSPATH Variable": {
+        "prefix": "#ADDONSPATH#",
+        "body": "#ADDONSPATH#",
+        "description": "Inserts the ADDONSPATH variable."
+    },
+    "#@# Variable": {
+        "prefix": "#@#",
+        "body": "#@#",
+        "description": "Inserts the  @Resources folder variable."
+    },
+    "WORKAREAX Variable": {
+        "prefix": "#WORKAREAX#",
+        "body": "#WORKAREAX#",
+        "description": "Inserts the WORKAREAX variable."
+    },
+    "WORKAREAY Variable": {
+        "prefix": "#WORKAREAY#",
+        "body": "#WORKAREAY#",
+        "description": "Inserts the WORKAREAY variable."
+    },
+    "WORKAREAWIDTH Variable": {
+        "prefix": "#WORKAREAWIDTH#",
+        "body": "#WORKAREAWIDTH#",
+        "description": "Inserts the WORKAREAWIDTH variable."
+    },
+    "WORKAREAHEIGHT Variable": {
+        "prefix": "#WORKAREAHEIGHT#",
+        "body": "#WORKAREAHEIGHT#",
+        "description": "Inserts the WORKAREAHEIGHT variable."
+    },
+    "SCREENAREAX Variable": {
+        "prefix": "#SCREENAREAX#",
+        "body": "#SCREENAREAX#",
+        "description": "Inserts the SCREENAREAX variable."
+    },
+    "SCREENAREAY Variable": {
+        "prefix": "#SCREENAREAY#",
+        "body": "#SCREENAREAY#",
+        "description": "Inserts the SCREENAREAY variable."
+    },
+    "SCREENAREAWIDTH Variable": {
+        "prefix": "#SCREENAREAWIDTH#",
+        "body": "#SCREENAREAWIDTH#",
+        "description": "Inserts the SCREENAREAWIDTH variable."
+    },
+    "SCREENAREAHEIGHT Variable": {
+        "prefix": "#SCREENAREAHEIGHT#",
+        "body": "#SCREENAREAHEIGHT#",
+        "description": "Inserts the SCREENAREAHEIGHT variable."
+    },
+    "PWORKAREAX Variable": {
+        "prefix": "#PWORKAREAX#",
+        "body": "#PWORKAREAX#",
+        "description": "Inserts the PWORKAREAX variable."
+    },
+    "PWORKAREAY Variable": {
+        "prefix": "#PWORKAREAY#",
+        "body": "#PWORKAREAY#",
+        "description": "Inserts the PWORKAREAY variable."
+    },
+    "PWORKAREAWIDTH Variable": {
+        "prefix": "#PWORKAREAWIDTH#",
+        "body": "#PWORKAREAWIDTH#",
+        "description": "Inserts the PWORKAREAWIDTH variable."
+    },
+    "PWORKAREAHEIGHT Variable": {
+        "prefix": "#PWORKAREAHEIGHT#",
+        "body": "#PWORKAREAHEIGHT#",
+        "description": "Inserts the PWORKAREAHEIGHT variable."
+    },
+    "PSCREENAREAX Variable": {
+        "prefix": "#PSCREENAREAX#",
+        "body": "#PSCREENAREAX#",
+        "description": "Inserts the PSCREENAREAX variable."
+    },
+    "PSCREENAREAY Variable": {
+        "prefix": "#PSCREENAREAY#",
+        "body": "#PSCREENAREAY#",
+        "description": "Inserts the PSCREENAREAY variable."
+    },
+    "PSCREENAREAWIDTH Variable": {
+        "prefix": "#PSCREENAREAWIDTH#",
+        "body": "#PSCREENAREAWIDTH#",
+        "description": "Inserts the PSCREENAREAWIDTH variable."
+    },
+    "PSCREENAREAHEIGHT Variable": {
+        "prefix": "#PSCREENAREAHEIGHT#",
+        "body": "#PSCREENAREAHEIGHT#",
+        "description": "Inserts the PSCREENAREAHEIGHT variable."
+    },
+    "WORKAREAX@N Variable": {
+        "prefix": "#WORKAREAX@N#",
+        "body": "#WORKAREAX@N#",
+        "description": "Inserts the WORKAREAX@N variable."
+    },
+    "WORKAREAY@N Variable": {
+        "prefix": "#WORKAREAY@N#",
+        "body": "#WORKAREAY@N#",
+        "description": "Inserts the WORKAREAY@N variable."
+    },
+    "WORKAREAWIDTH@N Variable": {
+        "prefix": "#WORKAREAWIDTH@N#",
+        "body": "#WORKAREAWIDTH@N#",
+        "description": "Inserts the WORKAREAWIDTH@N variable."
+    },
+    "WORKAREAHEIGHT@N Variable": {
+        "prefix": "#WORKAREAHEIGHT@N#",
+        "body": "#WORKAREAHEIGHT@N#",
+        "description": "Inserts the WORKAREAHEIGHT@N variable."
+    },
+    "SCREENAREAX@N Variable": {
+        "prefix": "#SCREENAREAX@N#",
+        "body": "#SCREENAREAX@N#",
+        "description": "Inserts the SCREENAREAX@N variable."
+    },
+    "SCREENAREAY@N Variable": {
+        "prefix": "#SCREENAREAY@N#",
+        "body": "#SCREENAREAY@N#",
+        "description": "Inserts the SCREENAREAY@N variable."
+    },
+    "SCREENAREAWIDTH@N Variable": {
+        "prefix": "#SCREENAREAWIDTH@N#",
+        "body": "#SCREENAREAWIDTH@N#",
+        "description": "Inserts the SCREENAREAWIDTH@N variable."
+    },
+    "SCREENAREAHEIGHT@N Variable": {
+        "prefix": "#SCREENAREAHEIGHT@N#",
+        "body": "#SCREENAREAHEIGHT@N#",
+        "description": "Inserts the SCREENAREAHEIGHT@N variable."
+    },
+    "VSCREENAREAX Variable": {
+        "prefix": "#VSCREENAREAX#",
+        "body": "#VSCREENAREAX#",
+        "description": "Inserts the VSCREENAREAX variable."
+    },
+    "VSCREENAREAY Variable": {
+        "prefix": "#VSCREENAREAY#",
+        "body": "#VSCREENAREAY#",
+        "description": "Inserts the VSCREENAREAY variable."
+    },
+    "VSCREENAREAWIDTH Variable": {
+        "prefix": "#VSCREENAREAWIDTH#",
+        "body": "#VSCREENAREAWIDTH#",
+        "description": "Inserts the VSCREENAREAWIDTH variable."
+    },
+    "VSCREENAREAHEIGHT Variable": {
+        "prefix": "#VSCREENAREAHEIGHT#",
+        "body": "#VSCREENAREAHEIGHT#",
+        "description": "Inserts the VSCREENAREAHEIGHT variable."
+    },
+    "CURRENTFILE Variable": {
+        "prefix": "#CURRENTFILE#",
+        "body": "#CURRENTFILE#",
+        "description": "Inserts the CURRENTFILE variable."
+    },
+    "ROOTCONFIGPATH Variable": {
+        "prefix": "#ROOTCONFIGPATH#",
+        "body": "#ROOTCONFIGPATH#",
+        "description": "Inserts the ROOTCONFIGPATH variable."
+    },
+    "CURRENTCONFIG Variable": {
+        "prefix": "#CURRENTCONFIG#",
+        "body": "#CURRENTCONFIG#",
+        "description": "Inserts the CURRENTCONFIG variable."
+    },
+    "CURRENTCONFIGX Variable": {
+        "prefix": "#CURRENTCONFIGX#",
+        "body": "#CURRENTCONFIGX#",
+        "description": "Inserts the CURRENTCONFIGX variable."
+    },
+    "CURRENTCONFIGY Variable": {
+        "prefix": "#CURRENTCONFIGY#",
+        "body": "#CURRENTCONFIGY#",
+        "description": "Inserts the CURRENTCONFIGY variable."
+    },
+    "CURRENTCONFIGWIDTH Variable": {
+        "prefix": "#CURRENTCONFIGWIDTH#",
+        "body": "#CURRENTCONFIGWIDTH#",
+        "description": "Inserts the CURRENTCONFIGWIDTH variable."
+    },
+    "CURRENTCONFIGHEIGHT Variable": {
+        "prefix": "#CURRENTCONFIGHEIGHT#",
+        "body": "#CURRENTCONFIGHEIGHT#",
+        "description": "Inserts the CURRENTCONFIGHEIGHT variable."
+    },
+    "CURRENTCONFIGZPOS Variable": {
+        "prefix": "#CURRENTCONFIGZPOS#",
+        "body": "#CURRENTCONFIGZPOS#",
+        "description": "Inserts the CURRENTCONFIGZPOS variable."
+    },
+    "CRLF Variable": {
+        "prefix": "#CRLF#",
+        "body": "#CRLF#",
+        "description": "Inserts the CRLF variable."
+    },
+    "CONFIGEDITOR Variable": {
+        "prefix": "#CONFIGEDITOR#",
+        "body": "#CONFIGEDITOR#",
+        "description": "Inserts the CONFIGEDITOR variable."
+    },
+    "Include Variable": {
+        "prefix": "Include",
+        "body": "@include",
+        "description": "Inserts the @ include syntax."
+    }
+}

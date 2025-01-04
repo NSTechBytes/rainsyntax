@@ -1,0 +1,81 @@
+{
+    "String Meter": {
+        "prefix": "string",
+        "body": [
+            "[Meter_String]",
+            "Meter=String",
+            "Text=",
+            "FontSize=",
+            "FontColor",
+            "FontWeight",
+            "FontFace",
+            "Antialias",
+            "DynamicVariables"
+        ],
+        "description": "Creates a String Meter."
+    },
+    "Rectangle Meter": {
+        "prefix": "Rectangle",
+        "body": [
+            "[Rectangle_Shape]",
+            "Meter=Shape",
+            "Shape=Rectangle 0,0,Width,Height,Round|StrokeWidth Width|FillColor Color|StrokeColor Color",
+            "DynamicVariables"
+        ],
+        "description": "Creates a Rectangle Shape Meter."
+    },
+    "Ellipse Meter": {
+        "prefix": "Ellipse",
+        "body": [
+            "[Ellipse_Shape]",
+            "Meter=Shape",
+            "Shape=Rectangle CenterX,CenterY,RadiusX,RadiusY|StrokeWidth Width|FillColor Color|StrokeColor Color",
+            "DynamicVariables"
+        ],
+        "description": "Creates a Ellipse Shape Meter."
+    },
+    "Line Meter": {
+        "prefix": "Line",
+        "body": [
+            "[Line_Shape]",
+            "Meter=Shape",
+            "Shape=Rectangle StartX,StartY,EndX,EndY|StrokeWidth Width|FillColor Color|StrokeColor Color",
+            "DynamicVariables"
+        ],
+        "description": "Creates a Line Shape Meter."
+    },
+    "Arc Meter": {
+        "prefix": "Arc",
+        "body": [
+            "[Arc_Shape]",
+            "Meter=Shape",
+            "Shape=Rectangle StartX,StartY,EndX,EndY,RadiusX,RadiusY,RotationAngle,SweepDirection,ArcSize,ShapeEnding|StrokeWidth Width|FillColor Color|StrokeColor Color",
+            "DynamicVariables"
+        ],
+        "description": "Creates a Arc Shape Meter."
+    },
+    "Curve Meter": {
+        "prefix": "Curve",
+        "body": [
+            "[Curve_Shape]",
+            "Meter=Shape",
+            "Shape=Rectangle StartX,StartY,EndX,EndY,RadiusX,RadiusY,ControlX1,ControlY1,ControlX2,ControlY2,ShapeEnding|StrokeWidth Width|FillColor Color|StrokeColor Color",
+            "DynamicVariables"
+        ],
+        "description": "Creates a Curve Shape Meter."
+    },
+    "Image Meter": {
+        "prefix": "Image",
+        "body": [
+            "[Meter_Image]",
+            "Meter=Image",
+            "ImageName=",
+            "W=",
+            "H=",
+            "X=",
+            "Y=",
+            "DynamicVariables"
+        ],
+        "description": "Creates a Shape Meter."
+    }
+}

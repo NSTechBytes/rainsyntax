@@ -1,0 +1,148 @@
+{
+  "LeftMouseUpAction": {
+    "prefix": "LeftMouseUpAction",
+    "body": "LeftMouseUpAction=[$1]",
+    "description": "Inserts a LeftMouseUpAction Bang."
+  },
+  "RightMouseUpAction": {
+    "prefix": "RightMouseUpAction",
+    "body": "RightMouseUpAction=[$1]",
+    "description": "Inserts a RightMouseUpAction Bang."
+  },
+  "MouseOverAction": {
+    "prefix": "MouseOverAction",
+    "body": "MouseOverAction=[$1]",
+    "description": "Inserts a MouseOverAction Bang."
+  },
+  "MouseLeaveAction": {
+    "prefix": "MouseLeaveAction",
+    "body": "MouseLeaveAction=[$1]",
+    "description": "Inserts a MouseLeaveAction Bang."
+  },
+  "LeftMouseDoubleClickAction": {
+    "prefix": "LeftMouseDoubleClickAction",
+    "body": "LeftMouseDoubleClickAction=[$1]",
+    "description": "Inserts a LeftMouseDoubleClickAction Bang."
+  },
+  "RightMouseDoubleClickAction": {
+    "prefix": "RightMouseDoubleClickAction",
+    "body": "RightMouseDoubleClickAction=[$1]",
+    "description": "Inserts a RightMouseDoubleClickAction Bang."
+  },
+  "MiddleMouseDoubleClickAction": {
+    "prefix": "MiddleMouseDoubleClickAction",
+    "body": "MiddleMouseDoubleClickAction=[$1]",
+    "description": "Inserts a MiddleMouseDoubleClickAction Bang."
+  },
+  "X1MouseDownAction": {
+    "prefix": "X1MouseDownAction",
+    "body": "X1MouseDownAction=[$1]",
+    "description": "Inserts an X1MouseDownAction Bang."
+  },
+  "X2MouseDownAction": {
+    "prefix": "X2MouseDownAction",
+    "body": "X2MouseDownAction=[$1]",
+    "description": "Inserts an X2MouseDownAction Bang."
+  },
+  "X1MouseUpAction": {
+    "prefix": "X1MouseUpAction",
+    "body": "X1MouseUpAction=[$1]",
+    "description": "Inserts an X1MouseUpAction Bang."
+  },
+  "X2MouseUpAction": {
+    "prefix": "X2MouseUpAction",
+    "body": "X2MouseUpAction=[$1]",
+    "description": "Inserts an X2MouseUpAction Bang."
+  },
+  "X1MouseDoubleClickAction": {
+    "prefix": "X1MouseDoubleClickAction",
+    "body": "X1MouseDoubleClickAction=[$1]",
+    "description": "Inserts an X1MouseDoubleClickAction Bang."
+  },
+  "X2MouseDoubleClickAction": {
+    "prefix": "X2MouseDoubleClickAction",
+    "body": "X2MouseDoubleClickAction=[$1]",
+    "description": "Inserts an X2MouseDoubleClickAction Bang."
+  },
+  "MouseScrollDownAction": {
+    "prefix": "MouseScrollDownAction",
+    "body": "MouseScrollDownAction=[$1]",
+    "description": "Inserts a MouseScrollDownAction Bang."
+  },
+  "MouseScrollUpAction": {
+    "prefix": "MouseScrollUpAction",
+    "body": "MouseScrollUpAction=[$1]",
+    "description": "Inserts a MouseScrollUpAction Bang."
+  },
+  "MouseScrollLeftAction": {
+    "prefix": "MouseScrollLeftAction",
+    "body": "MouseScrollLeftAction=[$1]",
+    "description": "Inserts a MouseScrollLeftAction Bang."
+  },
+  "MouseScrollRightAction": {
+    "prefix": "MouseScrollRightAction",
+    "body": "MouseScrollRightAction=[$1]",
+    "description": "Inserts a MouseScrollRightAction Bang."
+  },
+
+  "OnRefreshAction Attribute": {
+    "prefix": "OnRefreshAction",
+    "body": "OnRefreshAction=[$1]",
+    "description": "Action to execute when the skin is loaded or refreshed.Note: The action(s) defined will take place at the very end of the first update cycle. Changes made will generally not be visible until the next update, unless bangs are used to update desired measures and meters and redraw the skin."
+  },
+  "OnUpdateAction Attribute": {
+    "prefix": "OnUpdateAction",
+    "body": "OnUpdateAction=[$1]",
+    "description": "Action to execute on each Update of the skin.Note: The action(s) defined will take place at the very end of the update cycle. Changes made will generally not be visible until the next update, unless bangs are used to update desired measures and meters and redraw the skin."
+  },
+  "OnCloseAction Attribute": {
+    "prefix": "OnCloseAction",
+    "body": "OnCloseAction=[$1]",
+    "description": "Action to execute when the skin is unloaded or when Rainmeter is closed."
+  },
+  "OnFocusAction Attribute": {
+    "prefix": "OnFocusAction",
+    "body": "OnFocusAction=[$1]",
+    "description": "Action to execute when the skin receives focus in Windows (focus is given when the mouse is clicked on the skin).Note: The action(s) defined will take place at the very end of the update cycle. Changes made will generally not be visible until the next update, unless bangs are used to update desired measures and meters and redraw the skin."
+  },
+  "OnUnfocusAction Attribute": {
+    "prefix": "OnUnfocusAction",
+    "body": "OnUnfocusAction=[$1]",
+    "description": "Action to execute when the skin loses focus in Windows (focus is lost when the mouse is clicked outside the skin).Note: The action(s) defined will take place at the very end of the update cycle. Changes made will generally not be visible until the next update, unless bangs are used to update desired measures and meters and redraw the skin."
+  },
+  "OnWakeAction Attribute": {
+    "prefix": "OnWakeAction",
+    "body": "OnWakeAction=[$1]",
+    "description": "Action to execute when Windows returns from the sleep or hibernate states.Note: The action(s) defined will take place at the very end of the first update cycle. Changes made will generally not be visible until the next update, unless bangs are used to update desired measures and meters and redraw the skin."
+  },
+  "ifCondition Attribute": {
+    "prefix": "ifCondition",
+    "body": "ifCondition",
+    "description": "Specifies the condition for an action to execute."
+  },
+  "IfTrueAction Attribute": {
+    "prefix": "IfTrueAction",
+    "body": "IfTrueAction",
+    "description": "Specifies the action to execute if the condition evaluates to true."
+  },
+  "IfFalseAction Attribute": {
+    "prefix": "IfFalseAction",
+    "body": "IfFalseAction",
+    "description": "Specifies the action to execute if the condition evaluates to false."
+  },
+  "OnFinishAction Attribute": {
+    "prefix": "OnFinishAction",
+    "body": "OnFinishAction",
+    "description": "Specifies the action to execute when a process finishes."
+  },
+  "OnChangeAction Attribute": {
+    "prefix": "OnChangeAction",
+    "body": "OnChangeAction",
+    "description": "Specifies the action to execute when a value changes."
+  },
+  "OnMatchAction Attribute": {
+    "prefix": "OnMatchAction",
+    "body": "OnMatchAction",
+    "description": "Specifies the action to execute when a match is detected."
+  }
+}

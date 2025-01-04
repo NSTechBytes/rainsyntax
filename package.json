@@ -23,11 +23,13 @@
     "commands": [
       {
         "command": "rainSyntax.toggleAutoRefresh",
-        "title": "Toggle AutoRefresh Rainmeter"
+        "title": "Toggle AutoRefresh Rainmeter",
+         "category": "RainSyntax"
       },
       {
         "command": "rainSyntax.changeRainmeterPath",
-        "title": "Change Rainmeter Path"
+        "title": "Change Rainmeter Path",
+         "category": "RainSyntax"
       },
       {
         "command": "rainSyntax.changeRefreshMode",
@@ -39,7 +41,6 @@
         "title": "Open RainSyntax Settings",
         "category": "RainSyntax"
       }
-      
     ],
     "configuration": {
       "type": "object",
@@ -99,6 +100,26 @@
       {
         "language": "rainmeter",
         "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "rainmeter",
+        "path": "./snippets/content/actions.json"
+      },
+      {
+        "language": "rainmeter",
+        "path": "./snippets/content/built-in-variables.json"
+      },
+      {
+        "language": "rainmeter",
+        "path": "./snippets/content/keys.json"
+      },
+      {
+        "language": "rainmeter",
+        "path": "./snippets/content/meters.json"
+      },
+      {
+        "language": "rainmeter",
+        "path": "./snippets/content/bangs.json"
       }
     ]
   },
