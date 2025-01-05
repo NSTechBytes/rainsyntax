@@ -1,4 +1,3 @@
-
 const path = require("path");
 const fs = require("fs");
 const vscode = require("vscode");
@@ -7,67 +6,91 @@ function validateDocument(document) {
   const diagnostics = [];
   const text = document.getText();
   const lines = text.split(/\r?\n/);
+
   const sectionHeaders = new Set();
   let currentSection = null;
   const keysInCurrentSection = new Set();
+
   let hasRainmeterSection = false;
   let hasVariablesSection = false;
+
   const fileDir = path.dirname(document.uri.fsPath);
   const includedFiles = new Set();
-
-
+  //=======================================================Validate Macros======================================================================//
   const resolveRainmeterMacros = (filePath, context) => {
-    const skinsDir = path.resolve(context.fileDir, "../../");
+    const skinsDir = path.resolve(context.fileDir, "../../") + path.sep; // Add path.sep for trailing backslash
     let baseSkinDir = context.fileDir;
 
+    // Find the base skin directory that contains "@Resources"
     while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
-      baseSkinDir = path.dirname(baseSkinDir);
+        baseSkinDir = path.dirname(baseSkinDir);
     }
 
+    // Define paths for resources and root config
     const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
-      ? path.join(baseSkinDir, "@Resources") + path.sep
-      : "";
+        ? path.join(baseSkinDir, "@Resources") + path.sep
+        : "";
 
     const rootConfigPath = baseSkinDir + path.sep;
     const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
 
+    // Get the full relative path from skinsDir to the current skin's directory
+    const currentConfig = path.relative(skinsDir, currentConfigPath).replace(/\\/g, '/'); // Use forward slashes for consistency
+
+    // Ensure currentConfig does not include the file name
+    const currentFile = path.basename(context.currentFilePath);
+    const rootConfig = path.basename(baseSkinDir);
+
     const supportedMacros = {
-      "#@#": resourcesPath,
-      "#SKINSPATH#": resourcesPath,
-      "#CURRENTPATH#": currentConfigPath,
-      "#CURRENTFILE#": path.basename(context.currentFilePath),
-      "#ROOTCONFIGPATH#": rootConfigPath,
-      "#ROOTCONFIG#": path.basename(baseSkinDir),
-      "#CURRENTCONFIG#": path.relative(baseSkinDir, path.dirname(context.currentFilePath)),
+        "#@#": resourcesPath,
+        "#SKINSPATH#": skinsDir, // This has a trailing backslash
+        "#CURRENTPATH#": currentConfigPath,
+        "#CURRENTFILE#": currentFile,
+        "#ROOTCONFIGPATH#": rootConfigPath,
+        "#ROOTCONFIG#": rootConfig,
+        "#CURRENTCONFIG#": currentConfig.endsWith('/') ? currentConfig.slice(0, -1) : currentConfig, // Ensure no trailing slash
     };
 
+    // Log each key-value pair for debugging
+    for (const [key, value] of Object.entries(supportedMacros)) {
+        console.log(`${key}: ${value}`);
+    }
+
+    // Replace macros in the input filePath
     let resolvedPath = filePath;
     Object.keys(supportedMacros).forEach((macro) => {
-      const value = supportedMacros[macro];
-      resolvedPath = resolvedPath.split(macro).join(value);
+        const value = supportedMacros[macro];
+        resolvedPath = resolvedPath.split(macro).join(value);
     });
 
-    const unsupportedMacroRegex = /#[A-Z0-9_]+#/g;
+    // Check for unsupported macros
+    const unsupportedMacroRegex = /\/?#\w+#|\[#.*?\]/g;
+
+
     const hasUnsupported = unsupportedMacroRegex.test(resolvedPath);
 
     return {
-      path: resolvedPath,
-      hasUnsupported,
+        path: resolvedPath,
+        hasUnsupported,
     };
-  };
+};
 
-
+  //=======================================================Validate for Meter Keys======================================================================//
   const validateMeterKeys = (lines, diagnostics, validKeys, meterType, sharedKeys = []) => {
     let inTargetMeter = false;
     let currentSection = null;
+
+
     const allValidKeys = [...validKeys, ...sharedKeys];
 
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
 
+
       if (!trimmedLine || trimmedLine.startsWith(";") || trimmedLine.toLowerCase().startsWith("@include")) {
         return;
       }
+
 
       if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
         currentSection = trimmedLine.slice(1, -1);
@@ -80,11 +103,13 @@ function validateDocument(document) {
         return;
       }
 
+
       if (inTargetMeter) {
         const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
         if (keyValue.length !== 2) return;
 
         const [key] = keyValue;
+
 
         if (key.toLowerCase().startsWith("@include")) return;
 
@@ -96,7 +121,7 @@ function validateDocument(document) {
           diagnostics.push(
             new vscode.Diagnostic(
               range,
-              `Invalid key '${key }' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(", ")} (shared keys: ${sharedKeys.join(", ")}).`,
+              `Invalid key '${key}' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(", ")} (shared keys: ${sharedKeys.join(", ")}).`,
               vscode.DiagnosticSeverity.Error
             )
           );
@@ -104,7 +129,6 @@ function validateDocument(document) {
       }
     });
   };
-
   const sharedKeys = [
     "DynamicVariables",
     "SolidColor",
@@ -135,7 +159,7 @@ function validateDocument(document) {
   validateMeterKeys(lines, diagnostics, validStringMeterKeys, "String", sharedKeys);
   validateMeterKeys(lines, diagnostics, validImageMeterKeys, "Image", sharedKeys);
 
-  
+  //=======================================================Main validation logic======================================================================//
   lines.forEach((line, index) => {
     const trimmedLine = line.trim();
 

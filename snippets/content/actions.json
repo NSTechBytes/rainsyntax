@@ -122,27 +122,27 @@
   },
   "IfTrueAction Attribute": {
     "prefix": "IfTrueAction",
-    "body": "IfTrueAction",
+    "body": "IfTrueAction=[$1]",
     "description": "Specifies the action to execute if the condition evaluates to true."
   },
   "IfFalseAction Attribute": {
     "prefix": "IfFalseAction",
-    "body": "IfFalseAction",
+    "body": "IfFalseAction=[$1]",
     "description": "Specifies the action to execute if the condition evaluates to false."
   },
   "OnFinishAction Attribute": {
     "prefix": "OnFinishAction",
-    "body": "OnFinishAction",
+    "body": "OnFinishAction=[$1]",
     "description": "Specifies the action to execute when a process finishes."
   },
   "OnChangeAction Attribute": {
     "prefix": "OnChangeAction",
-    "body": "OnChangeAction",
+    "body": "OnChangeAction=[$1]",
     "description": "Specifies the action to execute when a value changes."
   },
   "OnMatchAction Attribute": {
     "prefix": "OnMatchAction",
-    "body": "OnMatchAction",
+    "body": "OnMatchAction=[$1]",
     "description": "Specifies the action to execute when a match is detected."
   }
 }
