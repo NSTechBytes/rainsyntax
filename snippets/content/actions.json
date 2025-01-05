@@ -144,5 +144,16 @@
     "prefix": "OnMatchAction",
     "body": "OnMatchAction=[$1]",
     "description": "Specifies the action to execute when a match is detected."
+  },
+  "LeftMouseDownAction Attribute": {
+    "prefix": "LeftMouseDownAction",
+    "body": "LeftMouseDownAction=[$1]",
+    "description": "Inserts a LeftMouseDownAction Bang."
+  },
+  "RightMouseDownAction Attribute": {
+    "prefix": "RightMouseDownAction",
+    "body": "RightMouseDownAction=[$1]",
+    "description": "Inserts a RightMouseDownAction Bang."
   }
 }
+

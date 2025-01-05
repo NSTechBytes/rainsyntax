@@ -1034,9 +1034,24 @@
         "body": "Clamp",
         "description": "Defines the Clamp Attribute for  meter."
     },
+    "Prefix": {
+        "prefix": "Prefix",
+        "body": "Prefix",
+        "description": "Text displayed before Text.Note: It is preferable to put the entire string in Text instead of using this option."
+    },
+    "Postfix": {
+        "prefix": "Postfix",
+        "body": "Postfix",
+        "description": "Text displayed after Text.Note: It is preferable to put the entire string in Text instead of using this option."
+    },
     "Padding": {
         "prefix": "Padding",
         "body": "Padding",
         "description": "Defines the Padding Attribute for  meter."
+    },
+    "Substitute": {
+        "prefix": "Substitute",
+        "body": "Substitute",
+        "description": "Defines the Substitute Attribute for  meter."
     }
 }

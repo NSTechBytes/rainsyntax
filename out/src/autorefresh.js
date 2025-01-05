@@ -1,121 +1,135 @@
 const vscode = require("vscode");
 const { exec } = require("child_process");
 const path = require("path");
+const util = require("util");
+const execAsync = util.promisify(exec);
 const selector = { scheme: "file", language: "rainmeter" };
+
 /**
  * Initializes Rainmeter-related listeners, such as auto-refresh on file save.
  * @param {vscode.ExtensionContext} context
  */
 function autoRefresh(context) {
-  const saveListener = vscode.workspace.onDidSaveTextDocument((document) => {
-    const autoRefreshEnabled = vscode.workspace
-      .getConfiguration("rainSyntax")
-      .get("autoRefreshOnSave", true);
+  const saveListener = vscode.workspace.onDidSaveTextDocument(async (document) => {
+    const config = vscode.workspace.getConfiguration("rainSyntax");
+    const autoRefreshEnabled = config.get("autoRefreshOnSave", true);
+    const refreshMode = config.get("refreshMode", "all");
 
     if (!autoRefreshEnabled || document.languageId !== "rainmeter") {
       return;
     }
 
-    const refreshMode = vscode.workspace
-      .getConfiguration("rainSyntax")
-      .get("refreshMode", "all");
+    const isRunning = await RainmeterUtils.isRunning();
+    if (!isRunning) {
+      vscode.window.showWarningMessage(
+        "Rainmeter is not running. Please start Rainmeter to enable skin refreshing."
+      );
+      return;
+    }
 
-    if (refreshMode === "specific" && document.uri.fsPath.endsWith(".ini")) {
-      refreshSpecificSkin(document.uri.fsPath);
-    } else if (
-      refreshMode === "all" &&
-      (document.uri.fsPath.endsWith(".ini") ||
-        document.uri.fsPath.endsWith(".inc") ||
-        document.uri.fsPath.endsWith(".nek"))
-    ) {
-      refreshAllSkins();
+    const filePath = document.uri.fsPath;
+    if (refreshMode === "specific" && filePath.endsWith(".ini")) {
+      RainmeterUtils.refreshSpecificSkin(filePath);
+    } else if ([".ini", ".inc", ".nek"].some(ext => filePath.endsWith(ext))) {
+      RainmeterUtils.refreshAllSkins();
     }
   });
 
   context.subscriptions.push(saveListener);
 }
 
-
 /**
- * Refreshes a specific Rainmeter skin based on the file path.
- * @param {string} filePath - The file path of the skin to refresh.
+ * Rainmeter utility functions.
  */
-function refreshSpecificSkin(filePath) {
-  const rainmeterPath = vscode.workspace
-    .getConfiguration("rainSyntax")
-    .get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
-
-  if (!rainmeterPath) {
-    vscode.window.showErrorMessage(
-      "Rainmeter path is not configured. Please set it in the settings."
-    );
-    return;
-  }
-
-  const skinsIndex = filePath.toLowerCase().indexOf("\\skins\\");
-  if (skinsIndex === -1) {
-    vscode.window.showErrorMessage(
-      "File is not located within the Rainmeter 'Skins' folder."
-    );
-    return;
-  }
-
-  const relativePath = filePath.substring(skinsIndex + 7);
-  const iniFolderPath = relativePath.split(path.sep).slice(0, -1).join(path.sep);
-
-  const sanitizedIniFolderPath = iniFolderPath.trim().replace(/[^\w\s\-\\]/g, "");
-
-  exec(
-    `"${rainmeterPath}" !Refresh "${sanitizedIniFolderPath}"`,
-    (error, stdout, stderr) => {
-      if (error || stderr) {
-        console.error(`Error refreshing Rainmeter: ${error?.message || stderr}`);
-        vscode.window.showErrorMessage(
-          `Failed to refresh Rainmeter skin "${sanitizedIniFolderPath}". Ensure the skin exists.`
-        );
-        return;
-      }
-
-      vscode.window.showInformationMessage(
-        `Rainmeter skin "${sanitizedIniFolderPath}" refreshed successfully!`
-      );
-    }
-  );
-}
-
-/**
- * Refreshes all Rainmeter skins.
- */
-function refreshAllSkins() {
-  const rainmeterPath = vscode.workspace
-    .getConfiguration("rainSyntax")
-    .get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
-
-  if (!rainmeterPath) {
-    vscode.window.showErrorMessage(
-      "Rainmeter path is not configured. Please set it in the settings."
-    );
-    return;
-  }
-
-  exec(`"${rainmeterPath}" !RefreshApp`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error refreshing Rainmeter: ${error.message}`);
+const RainmeterUtils = {
+  /**
+   * Checks if Rainmeter is running.
+   * @returns {Promise<boolean>} True if running, false otherwise.
+   */
+  async isRunning() {
+    if (process.platform !== "win32") {
       vscode.window.showErrorMessage(
-        "Failed to refresh Rainmeter. Make sure Rainmeter is installed."
+        "Rainmeter is only supported on Windows systems."
+      );
+      return false;
+    }
+
+    try {
+      const { stdout } = await execAsync('tasklist /FI "IMAGENAME eq Rainmeter.exe"');
+      return stdout.toLowerCase().includes("rainmeter.exe");
+    } catch (error) {
+      console.error(`Error checking Rainmeter status: ${error.message}`);
+      return false;
+    }
+  },
+
+  /**
+   * Refreshes a specific Rainmeter skin.
+   * @param {string} filePath - The file path of the skin to refresh.
+   */
+  async refreshSpecificSkin(filePath) {
+    const config = vscode.workspace.getConfiguration("rainSyntax");
+    const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+
+    if (!rainmeterPath) {
+      vscode.window.showErrorMessage(
+        "Rainmeter path is not configured. Please set it in the settings."
       );
       return;
     }
 
-    vscode.window.showInformationMessage(
-      "Rainmeter skins refreshed successfully!"
-    );
-  });
-}
+    const skinsIndex = filePath.toLowerCase().indexOf("\\skins\\");
+    if (skinsIndex === -1) {
+      vscode.window.showErrorMessage(
+        "The file is not located within the Rainmeter 'Skins' folder. Unable to refresh."
+      );
+      return;
+    }
 
+    const relativePath = filePath.substring(skinsIndex + 7);
+    const iniFolderPath = relativePath.split(path.sep).slice(0, -1).join(path.sep);
+
+    try {
+      const command = `"${rainmeterPath}" !Refresh "${iniFolderPath}"`;
+      await execAsync(command);
+      vscode.window.showInformationMessage(
+        `Rainmeter skin "${iniFolderPath}" refreshed successfully!`
+      );
+    } catch (error) {
+      console.error(`Error refreshing specific skin: ${error.message}`);
+      vscode.window.showErrorMessage(
+        `Failed to refresh Rainmeter skin "${iniFolderPath}". Ensure the skin exists and Rainmeter is running.`
+      );
+    }
+  },
+
+  /**
+   * Refreshes all Rainmeter skins.
+   */
+  async refreshAllSkins() {
+    const config = vscode.workspace.getConfiguration("rainSyntax");
+    const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+
+    if (!rainmeterPath) {
+      vscode.window.showErrorMessage(
+        "Rainmeter path is not configured. Please set it in the settings."
+      );
+      return;
+    }
+
+    try {
+      const command = `"${rainmeterPath}" !RefreshApp`;
+      await execAsync(command);
+      vscode.window.showInformationMessage("All Rainmeter skins refreshed successfully!");
+    } catch (error) {
+      console.error(`Error refreshing all skins: ${error.message}`);
+      vscode.window.showErrorMessage(
+        "Failed to refresh all Rainmeter skins. Ensure Rainmeter is running."
+      );
+    }
+  }
+};
 
 module.exports = {
   autoRefresh,
-  refreshSpecificSkin,
-  refreshAllSkins,
 };

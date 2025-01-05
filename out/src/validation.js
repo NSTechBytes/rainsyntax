@@ -20,9 +20,11 @@ function validateDocument(document) {
   const resolveRainmeterMacros = (filePath, context) => {
     let baseSkinDir = context.fileDir;
     let skinsDir = baseSkinDir;
-    while (!fs.existsSync(path.join(skinsDir, "Skins")) && skinsDir !== path.dirname(skinsDir)) {
+    while (
+      !fs.existsSync(path.join(skinsDir, "Skins")) &&
+      skinsDir !== path.dirname(skinsDir)
+    ) {
       skinsDir = path.dirname(skinsDir);
-
     }
 
     if (!fs.existsSync(path.join(skinsDir, "Skins"))) {
@@ -30,30 +32,26 @@ function validateDocument(document) {
       skinsDir = "";
     } else {
       skinsDir = path.join(skinsDir, "Skins") + path.sep;
-
     }
-
-
-    while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== path.dirname(baseSkinDir)) {
+    while (
+      !fs.existsSync(path.join(baseSkinDir, "@Resources")) &&
+      baseSkinDir !== path.dirname(baseSkinDir)
+    ) {
       baseSkinDir = path.dirname(baseSkinDir);
-
     }
-
-
     const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
       ? path.join(baseSkinDir, "@Resources") + path.sep
       : "";
 
-
-
-
     const rootConfigPath = baseSkinDir + path.sep;
     const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
 
-
     let currentConfig = "";
     if (skinsDir && context.currentFilePath.startsWith(skinsDir)) {
-      currentConfig = path.relative(skinsDir, path.dirname(context.currentFilePath));
+      currentConfig = path.relative(
+        skinsDir,
+        path.dirname(context.currentFilePath)
+      );
     }
 
     if (!currentConfig || currentConfig === "") {
@@ -76,10 +74,8 @@ function validateDocument(document) {
       resolvedPath = resolvedPath.split(macro).join(value);
     });
 
-
     const unsupportedMacroRegex = /\/?#\w+#|\[#.*?\]/g;
     const hasUnsupported = unsupportedMacroRegex.test(resolvedPath);
-
 
     return {
       path: resolvedPath,
@@ -88,52 +84,85 @@ function validateDocument(document) {
   };
 
   //=======================================================Validate for Meter Keys======================================================================//
-  const validateMeterKeys = (lines, diagnostics, validKeys, meterType, sharedKeys = []) => {
+  const validateMeterKeys = (
+    lines,
+    diagnostics,
+    validKeys,
+    meterType,
+    sharedKeys = []
+  ) => {
     let inTargetMeter = false;
     let currentSection = null;
-
-
+  
     const allValidKeys = [...validKeys, ...sharedKeys];
-
+  
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
-
-
-      if (!trimmedLine || trimmedLine.startsWith(";") || trimmedLine.toLowerCase().startsWith("@include")) {
+  
+      // Skip empty lines, comments, and includes
+      if (
+        !trimmedLine ||
+        trimmedLine.startsWith(";") ||
+        trimmedLine.toLowerCase().startsWith("@include")
+      ) {
         return;
       }
-
-
+  
+      // Detect section headers
       if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
         currentSection = trimmedLine.slice(1, -1);
         inTargetMeter = false;
         return;
       }
-
-      if (currentSection && trimmedLine.toLowerCase() === `meter=${meterType.toLowerCase()}`) {
+  
+      // Check if the current section matches the target meter type
+      if (
+        currentSection &&
+        trimmedLine.toLowerCase() === `meter=${meterType.toLowerCase()}`
+      ) {
         inTargetMeter = true;
         return;
       }
-
-
+  
       if (inTargetMeter) {
         const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
         if (keyValue.length !== 2) return;
-
-        const [key] = keyValue;
-
-
+  
+        const [key, value] = keyValue;
+  
+        // Skip includes
         if (key.toLowerCase().startsWith("@include")) return;
-
+  
+        // Handle specific patterns
+        if (/^MeasureName\d*$/.test(key)) {
+          // Handle MeasureName*
+          handleKeyPattern(key, value, diagnostics, index, "MeasureName");
+          return;
+        }
+        if (/^LineColor\d*$/.test(key)) {
+          // Handle LineColor*
+          handleKeyPattern(key, value, diagnostics, index, "LineColor");
+          return;
+        }
+        if (/^Scale\d*$/.test(key)) {
+          // Handle Scale*
+          handleKeyPattern(key, value, diagnostics, index, "Scale");
+          return;
+        }
+  
+        // Validate against allowed keys
         if (key && !allValidKeys.includes(key)) {
           const range = new vscode.Range(
             new vscode.Position(index, 0),
             new vscode.Position(index, key.length)
           );
+  
           diagnostics.push(
             new vscode.Diagnostic(
               range,
-              `Invalid key '${key}' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(", ")} (shared keys: ${sharedKeys.join(", ")}).`,
+              `Invalid key '${key}' in [${currentSection}]. Valid keys for ${meterType} are: ${validKeys.join(
+                ", "
+              )} (shared keys: ${sharedKeys.join(", ")}).`,
               vscode.DiagnosticSeverity.Error
             )
           );
@@ -141,9 +170,89 @@ function validateDocument(document) {
       }
     });
   };
+  
+  // Utility function to handle specific key patterns
+  const handleKeyPattern = (key, value, diagnostics, lineIndex, keyPrefix) => {
+    if (!value) {
+      diagnostics.push(
+        new vscode.Diagnostic(
+          new vscode.Range(
+            new vscode.Position(lineIndex, 0),
+            new vscode.Position(lineIndex, key.length)
+          ),
+          `Key '${key}' (part of the '${keyPrefix}' pattern) must have a value.`,
+          vscode.DiagnosticSeverity.Warning
+        )
+      );
+    }
+  };
+  
+
+  
   const sharedKeys = [
+    "ToolTipText",
+    "ToolTipTitle",
+    "ToolTipIcon",
+    "ToolTipType",
+    "ToolTipWidth",
+    "LeftMouseUpAction",
+    "LeftMouseDownAction",
+    "RightMouseUpAction",
+    "RightMouseDownAction",
+    "MouseOverAction",
+    "MouseLeaveAction",
+    "LeftMouseDoubleClickAction",
+    "RightMouseDoubleClickAction",
+    "MiddleMouseDoubleClickAction",
+    "X1MouseUpAction",
+    "X1MouseDownAction",
+    "X2MouseUpAction",
+    "X2MouseDownAction",
+    "X1MouseDoubleClickAction",
+    "X2MouseDoubleClickAction",
+    "MouseScrollDownAction",
+    "MouseScrollUpAction",
+    "MouseScrollDownAction",
+    "MouseScrollLeftAction",
+    "MouseScrollRightAction",
+    "OnRefreshAction",
+    "OnUpdateAction",
+    "OnCloseAction",
+    "OnFocusAction",
+    "OnUnfocusAction",
+    "OnWakeAction",
+    "ifCondition",
+    "IfTrueAction",
+    "IfFalseAction",
+    "OnFinishAction",
+    "OnChangeAction",
+    "OnMatchAction",
+    "Container",
+    "W",
+    "H",
+    "X",
+    "Y",
     "DynamicVariables",
+    "Hidden",
+    "MouseActionCursor",
+    "MouseActionCursorName",
+    "MeterStyle",
+    "Group",
+    "DragGroup",
+    "Padding",
+    "UpdateDivider",
+    "TransformationMatrix",
+    "AntiAlias",
+    "GradientAngle",
     "SolidColor",
+    "SolidColor1",
+    "SolidColor2",
+    "BevelColor",
+    "BevelColor1",
+    "BevelColor2",
+    "BevelType",
+    "MeasureName",
+
   ];
 
   const validStringMeterKeys = [
@@ -153,23 +262,64 @@ function validateDocument(document) {
     "FontFace",
     "StringStyle",
     "StringAlign",
-    "Padding",
-    "AntiAlias",
     "ClipString",
-    "TransformationMatrix",
+    "FontFace",
+    "FontColor",
+    "FontWeight",
+    "AutoScale",
+    "InlineSetting",
+    "InlinePattern",
+    "StringEffect",
+    "ClipStringW",
+    "ClipStringH",
+    "TrailingSpaces",
+    "Angle",
+    "Percentual",
+    "NumOfDecimals",
+    "StringCase",
+    "FontEffectColor",
+    "Scale",
+    "Substitute",
+    "Tile",
+    "MaskImageName",
+    "MaskImagePath",
+    "MaskImageFlip",
+    "MaskImageRotate"
+
   ];
 
   const validImageMeterKeys = [
     "ImageName",
+    "ImagePath",
     "ImageTint",
     "ImageRotate",
     "ImageFlip",
     "ImageCrop",
     "ImageDivide",
+    "Greyscale",
+    "ImageAlpha",
+    "UseExifOrientation",
+    "ColorMatrix1",
+    "ColorMatrix2",
+    "ColorMatrix3",
+    "ColorMatrix4",
+    "ColorMatrix5",
   ];
 
-  validateMeterKeys(lines, diagnostics, validStringMeterKeys, "String", sharedKeys);
-  validateMeterKeys(lines, diagnostics, validImageMeterKeys, "Image", sharedKeys);
+  validateMeterKeys(
+    lines,
+    diagnostics,
+    validStringMeterKeys,
+    "String",
+    sharedKeys
+  );
+  validateMeterKeys(
+    lines,
+    diagnostics,
+    validImageMeterKeys,
+    "Image",
+    sharedKeys
+  );
 
   //=======================================================Main validation logic======================================================================//
   lines.forEach((line, index) => {
@@ -181,7 +331,10 @@ function validateDocument(document) {
       if (!trimmedLine.endsWith("]")) {
         diagnostics.push(
           new vscode.Diagnostic(
-            new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
+            new vscode.Range(
+              new vscode.Position(index, 0),
+              new vscode.Position(index, line.length)
+            ),
             "Section header must end with ']'.",
             vscode.DiagnosticSeverity.Warning
           )
@@ -227,8 +380,10 @@ function validateDocument(document) {
           sectionHeaders.add(sectionName);
         }
 
-        if (sectionName.toLowerCase() === "rainmeter") hasRainmeterSection = true;
-        if (sectionName.toLowerCase() === "variables") hasVariablesSection = true;
+        if (sectionName.toLowerCase() === "rainmeter")
+          hasRainmeterSection = true;
+        if (sectionName.toLowerCase() === "variables")
+          hasVariablesSection = true;
 
         currentSection = sectionName;
         keysInCurrentSection.clear();
@@ -246,10 +401,8 @@ function validateDocument(document) {
       let hasUnsupported = false;
 
       if (!rawPath.includes("#")) {
-
         resolvedPath = path.resolve(fileDir, rawPath);
       } else {
-
         const result = resolveRainmeterMacros(rawPath, {
           fileDir,
           currentFilePath: document.uri.fsPath,
@@ -257,7 +410,6 @@ function validateDocument(document) {
         resolvedPath = result.path;
         hasUnsupported = result.hasUnsupported;
       }
-
 
       if (hasUnsupported) {
         diagnostics.push(
@@ -285,16 +437,17 @@ function validateDocument(document) {
           )
         );
       } else if (includedFiles.has(resolvedPath)) {
-
         diagnostics.push(
           new vscode.Diagnostic(
-            new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
+            new vscode.Range(
+              new vscode.Position(index, 0),
+              new vscode.Position(index, line.length)
+            ),
             `Circular include detected for file: ${rawPath} (Resolved: ${resolvedPath}).`,
             vscode.DiagnosticSeverity.Error
           )
         );
       } else {
-
         includedFiles.add(resolvedPath);
       }
       return;
@@ -302,7 +455,10 @@ function validateDocument(document) {
     if (!key || value === undefined) {
       diagnostics.push(
         new vscode.Diagnostic(
-          new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
+          new vscode.Range(
+            new vscode.Position(index, 0),
+            new vscode.Position(index, line.length)
+          ),
           "Key-value pair is malformed. Ensure the format is 'Key=Value'.",
           vscode.DiagnosticSeverity.Error
         )
@@ -310,7 +466,10 @@ function validateDocument(document) {
     } else if (keysInCurrentSection.has(key)) {
       diagnostics.push(
         new vscode.Diagnostic(
-          new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, key.length)),
+          new vscode.Range(
+            new vscode.Position(index, 0),
+            new vscode.Position(index, key.length)
+          ),
           `Duplicate key '${key}' found in section [${currentSection}].`,
           vscode.DiagnosticSeverity.Warning
         )
