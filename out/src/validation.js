@@ -18,62 +18,74 @@ function validateDocument(document) {
   const includedFiles = new Set();
   //=======================================================Validate Macros======================================================================//
   const resolveRainmeterMacros = (filePath, context) => {
-    const skinsDir = path.resolve(context.fileDir, "../../") + path.sep; // Add path.sep for trailing backslash
     let baseSkinDir = context.fileDir;
+    let skinsDir = baseSkinDir;
+    while (!fs.existsSync(path.join(skinsDir, "Skins")) && skinsDir !== path.dirname(skinsDir)) {
+      skinsDir = path.dirname(skinsDir);
 
-    // Find the base skin directory that contains "@Resources"
-    while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== skinsDir) {
-        baseSkinDir = path.dirname(baseSkinDir);
     }
 
-    // Define paths for resources and root config
+    if (!fs.existsSync(path.join(skinsDir, "Skins"))) {
+      console.error("Error: Skins directory not found.");
+      skinsDir = "";
+    } else {
+      skinsDir = path.join(skinsDir, "Skins") + path.sep;
+
+    }
+
+
+    while (!fs.existsSync(path.join(baseSkinDir, "@Resources")) && baseSkinDir !== path.dirname(baseSkinDir)) {
+      baseSkinDir = path.dirname(baseSkinDir);
+
+    }
+
+
     const resourcesPath = fs.existsSync(path.join(baseSkinDir, "@Resources"))
-        ? path.join(baseSkinDir, "@Resources") + path.sep
-        : "";
+      ? path.join(baseSkinDir, "@Resources") + path.sep
+      : "";
+
+
+
 
     const rootConfigPath = baseSkinDir + path.sep;
     const currentConfigPath = path.dirname(context.currentFilePath) + path.sep;
 
-    // Get the full relative path from skinsDir to the current skin's directory
-    const currentConfig = path.relative(skinsDir, currentConfigPath).replace(/\\/g, '/'); // Use forward slashes for consistency
 
-    // Ensure currentConfig does not include the file name
-    const currentFile = path.basename(context.currentFilePath);
-    const rootConfig = path.basename(baseSkinDir);
-
-    const supportedMacros = {
-        "#@#": resourcesPath,
-        "#SKINSPATH#": skinsDir, // This has a trailing backslash
-        "#CURRENTPATH#": currentConfigPath,
-        "#CURRENTFILE#": currentFile,
-        "#ROOTCONFIGPATH#": rootConfigPath,
-        "#ROOTCONFIG#": rootConfig,
-        "#CURRENTCONFIG#": currentConfig.endsWith('/') ? currentConfig.slice(0, -1) : currentConfig, // Ensure no trailing slash
-    };
-
-    // Log each key-value pair for debugging
-    for (const [key, value] of Object.entries(supportedMacros)) {
-        console.log(`${key}: ${value}`);
+    let currentConfig = "";
+    if (skinsDir && context.currentFilePath.startsWith(skinsDir)) {
+      currentConfig = path.relative(skinsDir, path.dirname(context.currentFilePath));
     }
 
-    // Replace macros in the input filePath
+    if (!currentConfig || currentConfig === "") {
+      currentConfig = ".";
+    }
+
+    const supportedMacros = {
+      "#@#": resourcesPath,
+      "#SKINSPATH#": skinsDir,
+      "#CURRENTPATH#": currentConfigPath,
+      "#CURRENTFILE#": path.basename(context.currentFilePath),
+      "#ROOTCONFIGPATH#": rootConfigPath,
+      "#ROOTCONFIG#": path.basename(baseSkinDir),
+      "#CURRENTCONFIG#": currentConfig,
+    };
+
     let resolvedPath = filePath;
     Object.keys(supportedMacros).forEach((macro) => {
-        const value = supportedMacros[macro];
-        resolvedPath = resolvedPath.split(macro).join(value);
+      const value = supportedMacros[macro];
+      resolvedPath = resolvedPath.split(macro).join(value);
     });
 
-    // Check for unsupported macros
+
     const unsupportedMacroRegex = /\/?#\w+#|\[#.*?\]/g;
-
-
     const hasUnsupported = unsupportedMacroRegex.test(resolvedPath);
 
+
     return {
-        path: resolvedPath,
-        hasUnsupported,
+      path: resolvedPath,
+      hasUnsupported,
     };
-};
+  };
 
   //=======================================================Validate for Meter Keys======================================================================//
   const validateMeterKeys = (lines, diagnostics, validKeys, meterType, sharedKeys = []) => {
@@ -223,14 +235,29 @@ function validateDocument(document) {
       }
       return;
     }
+
     const [key, value] = trimmedLine.split("=", 2);
 
     if (key?.trim().toLowerCase().startsWith("@include")) {
       const rawPath = value?.trim().replace(/"/g, "");
-      const { path: resolvedPath, hasUnsupported } = resolveRainmeterMacros(rawPath, {
-        fileDir,
-        currentFilePath: document.uri.fsPath,
-      });
+
+      // Resolve macros and handle relative paths
+      let resolvedPath;
+      let hasUnsupported = false;
+
+      if (!rawPath.includes("#")) {
+
+        resolvedPath = path.resolve(fileDir, rawPath);
+      } else {
+
+        const result = resolveRainmeterMacros(rawPath, {
+          fileDir,
+          currentFilePath: document.uri.fsPath,
+        });
+        resolvedPath = result.path;
+        hasUnsupported = result.hasUnsupported;
+      }
+
 
       if (hasUnsupported) {
         diagnostics.push(
@@ -245,6 +272,7 @@ function validateDocument(document) {
         );
         return;
       }
+
       if (!fs.existsSync(resolvedPath)) {
         diagnostics.push(
           new vscode.Diagnostic(
@@ -257,6 +285,7 @@ function validateDocument(document) {
           )
         );
       } else if (includedFiles.has(resolvedPath)) {
+
         diagnostics.push(
           new vscode.Diagnostic(
             new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, line.length)),
@@ -265,6 +294,7 @@ function validateDocument(document) {
           )
         );
       } else {
+
         includedFiles.add(resolvedPath);
       }
       return;

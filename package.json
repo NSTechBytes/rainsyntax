@@ -24,12 +24,12 @@
       {
         "command": "rainSyntax.toggleAutoRefresh",
         "title": "Toggle AutoRefresh Rainmeter",
-         "category": "RainSyntax"
+        "category": "RainSyntax"
       },
       {
         "command": "rainSyntax.changeRainmeterPath",
         "title": "Change Rainmeter Path",
-         "category": "RainSyntax"
+        "category": "RainSyntax"
       },
       {
         "command": "rainSyntax.changeRefreshMode",
@@ -130,9 +130,5 @@
   "homepage": "https://github.com/NSTechBytes/rainsyntax",
   "bugs": {
     "url": "https://github.com/NSTechBytes/rainsyntax/issues"
-  },
-  "devDependencies": {
-    "webpack": "^5.97.1",
-    "webpack-cli": "^6.0.1"
   }
 }

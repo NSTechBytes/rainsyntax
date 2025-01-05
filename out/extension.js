@@ -39,12 +39,17 @@ function activate(context) {
   autoRefresh(context);
   registerRainmeterCommands(context);
   setupSettingsCommand(context);
-}
 
+      const guiButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
+      guiButton.text = ` 💧 RainSyntax Settings`;
+      guiButton.tooltip = 'Click to for RainSyntax Settings';
+      guiButton.command = 'rainSyntax.openSettings';
+      guiButton.show();
+      context.subscriptions.push(guiButton);
 
-function deactivate() { }
-
-module.exports = {
-  activate,
-  deactivate,
-};
+  }
+  
+  function deactivate() {}
+  
+  module.exports = { activate, deactivate };
+  

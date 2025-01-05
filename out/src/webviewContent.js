@@ -1,52 +1,52 @@
 const vscode = require("vscode");
+const path = require("path");
 
 function setupSettingsCommand(context) {
-  const openSettingsCommand = vscode.commands.registerCommand(
-    "rainSyntax.openSettings",
-    () => {
-      const panel = vscode.window.createWebviewPanel(
-        "rainSyntaxSettings",
-        "RainSyntax Settings",
-        vscode.ViewColumn.One,
-        { enableScripts: true }
-      );
+    const openSettingsCommand = vscode.commands.registerCommand(
+        "rainSyntax.openSettings",
+        () => {
+            const panel = vscode.window.createWebviewPanel(
+                "rainSyntaxSettings",
+                "RainSyntax Settings",
+                vscode.ViewColumn.One,
 
-      panel.webview.html = getWebviewContent();
+            );
 
-      panel.webview.onDidReceiveMessage(async (message) => {
-        if (message.command === "saveSettings") {
-          await vscode.workspace
-            .getConfiguration("rainSyntax")
-            .update("rainmeterPath", message.rainmeterPath, true);
-          await vscode.workspace
-            .getConfiguration("rainSyntax")
-            .update("autoRefreshOnSave", message.autoRefreshOnSave, true);
-          await vscode.workspace
-            .getConfiguration("rainSyntax")
-            .update("refreshMode", message.refreshMode, true);
+            panel.webview.html = getWebviewContent();
 
-          vscode.window.showInformationMessage("RainSyntax settings updated!");
+            panel.webview.onDidReceiveMessage(async (message) => {
+                if (message.command === "saveSettings") {
+                    await vscode.workspace
+                        .getConfiguration("rainSyntax")
+                        .update("rainmeterPath", message.rainmeterPath, true);
+                    await vscode.workspace
+                        .getConfiguration("rainSyntax")
+                        .update("autoRefreshOnSave", message.autoRefreshOnSave, true);
+                    await vscode.workspace
+                        .getConfiguration("rainSyntax")
+                        .update("refreshMode", message.refreshMode, true);
+
+                    vscode.window.showInformationMessage("RainSyntax settings updated!");
+                }
+            });
         }
-      });
-    }
-  );
+    );
 
-  context.subscriptions.push(openSettingsCommand);
+    context.subscriptions.push(openSettingsCommand);
 }
 
 function getWebviewContent() {
-  const config = vscode.workspace.getConfiguration("rainSyntax");
-  const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
-  const autoRefreshOnSave = config.get("autoRefreshOnSave", true);
-  const refreshMode = config.get("refreshMode", "all");
+    const config = vscode.workspace.getConfiguration("rainSyntax");
+    const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+    const autoRefreshOnSave = config.get("autoRefreshOnSave", true);
+    const refreshMode = config.get("refreshMode", "all");
 
-  return `
+    return `
   <!DOCTYPE html>
   <html lang="en">
   <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>RainSyntax Settings</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">  
       <style>
          
           body {
@@ -178,5 +178,5 @@ function getWebviewContent() {
 }
 
 module.exports = {
-  setupSettingsCommand,
+    setupSettingsCommand,
 };
