@@ -99,7 +99,7 @@ function validateDocument(document) {
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
   
-      // Skip empty lines, comments, and includes
+     
       if (
         !trimmedLine ||
         trimmedLine.startsWith(";") ||
@@ -108,14 +108,14 @@ function validateDocument(document) {
         return;
       }
   
-      // Detect section headers
+   
       if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
         currentSection = trimmedLine.slice(1, -1);
         inTargetMeter = false;
         return;
       }
   
-      // Check if the current section matches the target meter type
+
       if (
         currentSection &&
         trimmedLine.toLowerCase() === `meter=${meterType.toLowerCase()}`
@@ -130,27 +130,38 @@ function validateDocument(document) {
   
         const [key, value] = keyValue;
   
-        // Skip includes
+     
         if (key.toLowerCase().startsWith("@include")) return;
   
-        // Handle specific patterns
+        
         if (/^MeasureName\d*$/.test(key)) {
-          // Handle MeasureName*
+       
           handleKeyPattern(key, value, diagnostics, index, "MeasureName");
           return;
         }
         if (/^LineColor\d*$/.test(key)) {
-          // Handle LineColor*
+        
           handleKeyPattern(key, value, diagnostics, index, "LineColor");
           return;
         }
         if (/^Scale\d*$/.test(key)) {
-          // Handle Scale*
+      
           handleKeyPattern(key, value, diagnostics, index, "Scale");
           return;
         }
-  
-        // Validate against allowed keys
+
+        if (/^InlineSetting\d*$/.test(key)) {
+       
+          handleKeyPattern(key, value, diagnostics, index, "InlineSetting");
+          return;
+        }
+
+        if (/^InlinePattern\d*$/.test(key)) {
+       
+          handleKeyPattern(key, value, diagnostics, index, "InlinePattern");
+          return;
+        }
+        
         if (key && !allValidKeys.includes(key)) {
           const range = new vscode.Range(
             new vscode.Position(index, 0),
@@ -171,7 +182,6 @@ function validateDocument(document) {
     });
   };
   
-  // Utility function to handle specific key patterns
   const handleKeyPattern = (key, value, diagnostics, lineIndex, keyPrefix) => {
     if (!value) {
       diagnostics.push(
@@ -186,8 +196,6 @@ function validateDocument(document) {
       );
     }
   };
-  
-
   
   const sharedKeys = [
     "ToolTipText",
@@ -215,18 +223,7 @@ function validateDocument(document) {
     "MouseScrollDownAction",
     "MouseScrollLeftAction",
     "MouseScrollRightAction",
-    "OnRefreshAction",
     "OnUpdateAction",
-    "OnCloseAction",
-    "OnFocusAction",
-    "OnUnfocusAction",
-    "OnWakeAction",
-    "ifCondition",
-    "IfTrueAction",
-    "IfFalseAction",
-    "OnFinishAction",
-    "OnChangeAction",
-    "OnMatchAction",
     "Container",
     "W",
     "H",
@@ -252,7 +249,6 @@ function validateDocument(document) {
     "BevelColor2",
     "BevelType",
     "MeasureName",
-
   ];
 
   const validStringMeterKeys = [
@@ -281,11 +277,6 @@ function validateDocument(document) {
     "Scale",
     "Substitute",
     "Tile",
-    "MaskImageName",
-    "MaskImagePath",
-    "MaskImageFlip",
-    "MaskImageRotate"
-
   ];
 
   const validImageMeterKeys = [
@@ -304,6 +295,13 @@ function validateDocument(document) {
     "ColorMatrix3",
     "ColorMatrix4",
     "ColorMatrix5",
+    "MaskImageName",
+    "MaskImagePath",
+    "MaskImageFlip",
+    "MaskImageRotate",
+    "PreserveAspectRatio",
+    "ScaleMargins",
+    "Tile"
   ];
 
   validateMeterKeys(
@@ -353,6 +351,7 @@ function validateDocument(document) {
             )
           );
         }
+        /*
         if (!/^[a-zA-Z0-9_\-]+$/.test(sectionName)) {
           diagnostics.push(
             new vscode.Diagnostic(
@@ -364,7 +363,7 @@ function validateDocument(document) {
               vscode.DiagnosticSeverity.Error
             )
           );
-        }
+        }*/
         if (sectionHeaders.has(sectionName)) {
           diagnostics.push(
             new vscode.Diagnostic(
@@ -396,7 +395,6 @@ function validateDocument(document) {
     if (key?.trim().toLowerCase().startsWith("@include")) {
       const rawPath = value?.trim().replace(/"/g, "");
 
-      // Resolve macros and handle relative paths
       let resolvedPath;
       let hasUnsupported = false;
 

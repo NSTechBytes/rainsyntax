@@ -83,8 +83,8 @@
         ],
         "extensions": [
           ".ini",
-          ".nek",
-          ".inc"
+          ".inc",
+          ".nek"
         ],
         "configuration": "./language-configuration.json"
       }

@@ -5,7 +5,6 @@ const vscode = require("vscode");
  * @param {vscode.ExtensionContext} context
  */
 function registerRainmeterCommands(context) {
-  // Toggle Auto Refresh command
   const toggleAutoRefreshCommand = vscode.commands.registerCommand(
     "rainSyntax.toggleAutoRefresh",
     () => {
@@ -22,7 +21,6 @@ function registerRainmeterCommands(context) {
     }
   );
 
-  // Change Rainmeter Path command
   const changeRainmeterPathCommand = vscode.commands.registerCommand(
     "rainSyntax.changeRainmeterPath",
     async () => {
@@ -51,7 +49,7 @@ function registerRainmeterCommands(context) {
     }
   );
 
-  // Change Refresh Mode command
+
   const changeRefreshModeCommand = vscode.commands.registerCommand(
     "rainSyntax.changeRefreshMode",
     async () => {
@@ -73,7 +71,7 @@ function registerRainmeterCommands(context) {
     }
   );
 
-  // Add commands to the context's subscriptions
+
   context.subscriptions.push(toggleAutoRefreshCommand);
   context.subscriptions.push(changeRainmeterPathCommand);
   context.subscriptions.push(changeRefreshModeCommand);

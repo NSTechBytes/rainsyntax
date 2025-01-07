@@ -65,7 +65,7 @@ const RainmeterUtils = {
 
   /**
    * Refreshes a specific Rainmeter skin.
-   * @param {string} filePath - The file path of the skin to refresh.
+   * @param {string} filePath 
    */
   async refreshSpecificSkin(filePath) {
     const config = vscode.workspace.getConfiguration("rainSyntax");
@@ -103,9 +103,6 @@ const RainmeterUtils = {
     }
   },
 
-  /**
-   * Refreshes all Rainmeter skins.
-   */
   async refreshAllSkins() {
     const config = vscode.workspace.getConfiguration("rainSyntax");
     const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
