@@ -249,6 +249,9 @@ function validateDocument(document) {
     "BevelColor2",
     "BevelType",
     "MeasureName",
+   "RegExpSubstitute",
+   "Substitute",
+    "Antialias"
   ];
 
   const validStringMeterKeys = [
@@ -277,6 +280,9 @@ function validateDocument(document) {
     "Scale",
     "Substitute",
     "Tile",
+    "Postfix",
+    "Prefix"
+   
   ];
 
   const validImageMeterKeys = [

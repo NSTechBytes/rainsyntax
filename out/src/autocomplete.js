@@ -248,6 +248,8 @@ function provideCompletionItems(document, position) {
             !hasAssignedValue("tooltiphidden=")) ||
         (lineText.startsWith("blur=") &&
             !hasAssignedValue("blur=")) ||
+            (lineText.startsWith("regexpsubstitute=") &&
+            !hasAssignedValue("regexpsubstitute=")) ||
         (lineText.startsWith("defaultclickthrough=") &&
             !hasAssignedValue("defaultclickthrough=")) ||
         (lineText.startsWith("defaultkeeponscreen=") &&

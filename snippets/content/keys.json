@@ -1053,5 +1053,10 @@
         "prefix": "Substitute",
         "body": "Substitute",
         "description": "Defines the Substitute Attribute for  meter."
+    },
+    "RegExpSubstitute": {
+        "prefix": "RegExpSubstitute",
+        "body": "RegExpSubstitute",
+        "description": "Defines the RegExpSubstitute Attribute for  meter."
     }
 }

@@ -152,7 +152,7 @@ function getWebviewContent() {
       </style>
   </head>
   <body>
-      <h1>RainSyntax Settings</h1>
+      <h1>RainSyntax Settings 💧</h1>
       <form id="settingsForm">
           <label for="rainmeterPath">Rainmeter Path</label>
           <input type="text" id="rainmeterPath" value="${rainmeterPath}" placeholder="Enter Rainmeter path" />
