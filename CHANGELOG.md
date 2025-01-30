@@ -1,9 +1,5 @@
-# Change Log
+# What's New
 
-All notable changes to the "rainsyntax" extension will be documented in this file.
+## Version 0.0.6
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+1. Fixed Validation for MeterKeys.

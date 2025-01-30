@@ -162,7 +162,7 @@ function validateDocument(document) {
           return;
         }
         
-        if (key && !allValidKeys.includes(key)) {
+        if (key && !allValidKeys.map(k => k.toLowerCase()).includes(key.toLowerCase())) {
           const range = new vscode.Range(
             new vscode.Position(index, 0),
             new vscode.Position(index, key.length)
