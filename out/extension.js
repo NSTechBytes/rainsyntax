@@ -8,6 +8,7 @@ const { validateDocument } = require("./src/validation");
 const { provideCompletionItems } = require("./src/autocomplete");
 const { createHoverProvider } = require('./src/hoverProvider');
 const { formatRainmeterFile } = require('./src/formatter');
+const { openLogViewerPanel } = require("./src/logViewer");
 
 /**
  * This method is called when the extension is activated.
@@ -95,7 +96,21 @@ const formattingProvider = vscode.languages.registerDocumentFormattingEditProvid
       }
   }
 );
+
+const logButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 99);
+logButton.text = `📄 Rainmeter Logs`;
+logButton.tooltip = 'Open Rainmeter.log Viewer';
+logButton.command = 'rainSyntax.openLogViewer';
+logButton.show();
+context.subscriptions.push(logButton);
+
 context.subscriptions.push(formattingProvider);
+
+const logCommand = vscode.commands.registerCommand("rainSyntax.openLogViewer", () => {
+  openLogViewerPanel(context);
+});
+context.subscriptions.push(logCommand);
+
 }
 
   function deactivate() {}

@@ -55,7 +55,7 @@ const RainmeterUtils = {
     }
 
     try {
-      const { stdout } = await execAsync('tasklist /FI "IMAGENAME eq Rainmeter.exe"');
+      const { stdout } = await execAsync('C:\\Windows\\System32\\tasklist.exe /FI "IMAGENAME eq Rainmeter.exe"');
       return stdout.toLowerCase().includes("rainmeter.exe");
     } catch (error) {
       console.error(`Error checking Rainmeter status: ${error.message}`);
