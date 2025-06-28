@@ -203,6 +203,7 @@ function validateDocument(document) {
     "ToolTipIcon",
     "ToolTipType",
     "ToolTipWidth",
+    "ToolTipHidden",
     "LeftMouseUpAction",
     "LeftMouseDownAction",
     "RightMouseUpAction",
