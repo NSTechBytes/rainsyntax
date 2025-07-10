@@ -12,7 +12,9 @@ function getDefaultRainmeterLogPath() {
 function getFormattedLogContent(logFilePath) {
   // Return guide if file missing
   if (!logFilePath || !fs.existsSync(logFilePath)) {
-    return getLogGuideHtml("Rainmeter.log not found. Please select the correct path.");
+    return getLogGuideHtml(
+      "Rainmeter.log not found. Please select the correct path."
+    );
   }
 
   // Read and strip BOM if present
@@ -75,7 +77,8 @@ function openLogViewerPanel(context) {
   }
 
   const defaultPath = getDefaultRainmeterLogPath();
-  let currentLogPath = context.globalState.get("rainmeterLogPath") || defaultPath;
+  let currentLogPath =
+    context.globalState.get("rainmeterLogPath") || defaultPath;
 
   logPanel = vscode.window.createWebviewPanel(
     "rainmeterLogViewer",
@@ -99,7 +102,9 @@ function openLogViewerPanel(context) {
       case "copyAll":
         if (fs.existsSync(logPath)) {
           vscode.env.clipboard.writeText(fs.readFileSync(logPath, "utf8"));
-          vscode.window.showInformationMessage("✅ All logs copied to clipboard");
+          vscode.window.showInformationMessage(
+            "✅ All logs copied to clipboard"
+          );
         }
         break;
       case "clearLogs":
@@ -110,7 +115,11 @@ function openLogViewerPanel(context) {
         }
         break;
       case "copyLine": {
-        const lines = fs.readFileSync(logPath, "utf8").split("\n").filter(Boolean).reverse();
+        const lines = fs
+          .readFileSync(logPath, "utf8")
+          .split("\n")
+          .filter(Boolean)
+          .reverse();
         const line = lines[msg.index] || "";
         vscode.env.clipboard.writeText(line);
         vscode.window.showInformationMessage("📋 Log line copied");
@@ -125,7 +134,9 @@ function openLogViewerPanel(context) {
         if (file && file[0]) {
           const newPath = file[0].fsPath;
           await context.globalState.update("rainmeterLogPath", newPath);
-          vscode.window.showInformationMessage(`📂 Custom Rainmeter.log path saved: ${newPath}`);
+          vscode.window.showInformationMessage(
+            `📂 Custom Rainmeter.log path saved: ${newPath}`
+          );
           update();
         }
         break;
@@ -133,10 +144,14 @@ function openLogViewerPanel(context) {
     }
   });
 
-  logPanel.onDidDispose(() => {
-    clearInterval(refreshInterval);
-    logPanel = null;
-  }, null, context.subscriptions);
+  logPanel.onDidDispose(
+    () => {
+      clearInterval(refreshInterval);
+      logPanel = null;
+    },
+    null,
+    context.subscriptions
+  );
 }
 
 function getWebviewHtml(logContent, logPath) {

@@ -1,361 +1,621 @@
-const vscode = require('vscode');
+const vscode = require("vscode");
 
 const keysDescription = {
-    "[Rainmeter]": "The main section of a Rainmeter skin. Defines general settings for the skin, such as `Update` and `BackgroundMode`.",
-    "[Variables]": "Defines reusable variables for the skin. Variables can store values to reduce repetition and improve maintainability.",
-    "FontFace": "Specifies the font face to use for string meters. Example: `FontFace=Arial`.",
-    "FontSize": "Sets the font size for string meters. Example: `FontSize=12`.",
-    "FontColor": "Sets the font color in hexadecimal RGB. Example: `FontColor=255,255,255`.",
-    "StringAlign": "Aligns the text within a string meter. Example: `StringAlign=Center`.",
-    "Antialias": "Enables or disables antialiasing for a string meter. Example: `Antialias=1`.",
-    "SolidColor": "Fills a meter with a solid color. Example: `SolidColor=255,0,0,128`.",
-    "X": "Sets the X position of the meter on the screen. Example: `X=100`.",
-    "Y": "Sets the Y position of the meter on the screen. Example: `Y=200`.",
-    "W": "Sets the width of the meter. Example: `W=300`.",
-    "H": "Sets the height of the meter. Example: `H=100`.",
-    "Text": "Defines the text to display in a string meter. Example: `Text=Hello, World!`.",
-    "Meter": "Defines the type of meter. Example: `Meter=String`.",
-    "Measure": "Defines the measure that the meter will use. Example: `Measure=CPU`.",
-    "Plugin": "Defines the plugin that the meter will use. Example: `Plugin=PluginName`.",
-    "MouseActionCursor": "Sets the cursor style when a mouse action is triggered. Example: `MouseActionCursor=1`.",
-    "MouseActionCursorName": "Sets the name of the cursor for mouse actions. Example: `MouseActionCursorName=Pointer`.",
-    "ScriptFile": "Specifies the script file to be executed. Example: `ScriptFile=script.lua`.",
-    "MeterStyle": "Defines the style for a meter. Example: `MeterStyle=Default`.",
-    "Hidden": "Hides or shows a meter. Example: `Hidden=1`.",
-    "DynamicVariables": "Enables or disables dynamic variables. Example: `DynamicVariables=1`.",
-    "FontWeight": "Sets the weight of the font. Example: `FontWeight=Bold`.",
-    "StrokeWidth": "Sets the stroke width for a meter. Example: `StrokeWidth=2`.",
-    "FillColor": "Sets the fill color for a meter. Example: `FillColor=0,255,0`.",
-    "Offset": "Sets the offset for a meter. Example: `Offset=10`.",
-    "DragGroup": "Specifies the group for dragging a meter. Example: `DragGroup=Group1`.",
-    "Group": "Defines the group for a meter. Example: `Group=Group1`.",
-    "AutoSelectScreen": "Automatically selects the screen for a skin. Example: `AutoSelectScreen=1`.",
-    "LoadOrder": "Sets the load order for a skin or meter. Example: `LoadOrder=1`.",
-    "KeepOnScreen": "Keeps the skin on the screen. Example: `KeepOnScreen=1`.",
-    "ClickThrough": "Enables or disables click-through for a skin. Example: `ClickThrough=1`.",
-    "FadeDuration": "Sets the fade duration for a meter or skin. Example: `FadeDuration=500`.",
-    "OnHover": "Defines the action to take on hover for a meter. Example: `OnHover=Show`.",
-    "AlphaValue": "Sets the transparency of the skin. Valid values range from 0 (fully transparent) to 255 (fully visible). Example: `AlphaValue=255`.",
-    "StartHidden": "If set to 1, the skin will start hidden. Example: `StartHidden=1`.",
-    "SnapEdges": "If set to 1, the skin will snap onto screen edges and other skins when moved. Example: `SnapEdges=1`.",
-    "DraggableDefault": "Sets the default draggable behavior for a skin. Example: `DraggableDefault=1`.",
-    "AlwaysOnTop": "Keeps the skin on top of other windows. Example: `AlwaysOnTop=1`.",
-    "SavePosition": "Saves the position of the skin when it is moved. Example: `SavePosition=1`.",
-    "AnchorX": "Sets the X anchor position of the skin or meter. Example: `AnchorX=0.5`.",
-    "AnchorY": "Sets the Y anchor position of the skin or meter. Example: `AnchorY=0.5`.",
-    "WindowX": "Sets the X position of the skin window. Example: `WindowX=100`.",
-    "WindowY": "Sets the Y position of the skin window. Example: `WindowY=200`.",
-    "Active": "Sets whether the skin or meter is active. Example: `Active=1`.",
-    "ImageTint": "Applies a tint to an image in a skin. Example: `ImageTint=255,0,0`.",
-    "UpdateDivider": "Sets the update interval for the skin or meter. Example: `UpdateDivider=1`.",
-    "Disabled": "Disables a meter or skin functionality. Example: `Disabled=1`.",
-    "ImagePath": "Sets the path for an image used in a skin. Example: `ImagePath=images/background.png`.",
-    "ImageName": "Sets the path for an image used in a skin. Example: `ImageName=images/background.png`.",
-    "ImageAlpha": "Sets the alpha transparency for an image. Example: `ImageAlpha=128`.",
-    "ImageFlip": "Flips the image. Valid values are None, Horizontal, Vertical or Both.",
-    "StringStyle": "Style of the string. Valid values are Normal, Bold, Italic, and BoldItalic. Example: `StringStyle=Bold`.",
-    "ToolTipText": "Sets the text for a tool tip. Example: `ToolTipText=Click here`.",
-    "ToolTipTitle": "Sets the title of a tool tip. Example: `ToolTipTitle=Info`.",
-    "ToolTipIcon": "Sets the icon for a tool tip. Example: `ToolTipIcon=Info`.",
-    "ToolTipType": "Defines the type of tool tip. Example: `ToolTipType=Standard`.",
-    "ToolTipWidth": "Sets the width of a tool tip. Example: `ToolTipWidth=200`.",
-    "RegHKey": "Defines the registry root key for a registry action. Example: `RegHKey=HKEY_CURRENT_USER`.",
-    "RegKey": "Defines the registry key for a registry action. Example: `RegKey=Software\\MyApp`.",
-    "RegValue": "Defines the registry value for a registry action. Example: `RegValue=Setting`.",
-    "PreserveAspectRatio": "Preserves the aspect ratio of an image. Example: `PreserveAspectRatio=1`.",
-    "InlineSetting": "Defines an inline setting for a skin. Example: `InlineSetting=1`.",
-    "InlinePattern": "Defines an InlinePattern for a skin. Example: `InlinePattern=Pattern`.",
-    "Container": "Defines a container for meters and controls. Example: `Container=MainContainer`.",
-    "MeasureName": "Sets the name for a measure. Example: `MeasureName=CPUUsage`.",
-    "BarColor": "Sets the color for a bar meter. Example: `BarColor=0,255,0`.",
-    "BarImage": "Sets the image for a bar meter. Example: `BarImage=bar.png`.",
-    "BarBorder": "Defines the border for a bar meter. Example: `BarBorder=1`.",
-    "BarOrientation": "Defines the orientation of a bar meter. Example: `BarOrientation=Horizontal`.",
-    "BitmapSeparation": "Sets the separation between bitmap images. Example: `BitmapSeparation=5`.",
-    "BitmapAlign": "Aligns the bitmap images within a meter. Example: `BitmapAlign=Center`.",
-    "BitmapDigits": "Defines the number of digits in a bitmap meter. Example: `BitmapDigits=3`.",
-    "BitmapExtend": "Defines the extension for bitmap images in a meter. Example: `BitmapExtend=.png`.",
-    "BitmapZeroFrame": "Sets the zero frame index for a bitmap meter. Example: `BitmapZeroFrame=0`.",
-    "BitmapTransitionFrames": "Defines the number of transition frames for a bitmap meter. Example: `BitmapTransitionFrames=10`.",
-    "BitmapFrames": "Sets the number of frames for a bitmap meter. Example: `BitmapFrames=5`.",
-    "BitmapImage": "Sets the image for a bitmap meter. Example: `BitmapImage=bitmap.png`.",
-    "ButtonImage": "Defines the image for a button meter. Example: `ButtonImage=button.png`.",
-    "ButtonCommand": "Sets the command to run when the button is clicked. Example: `ButtonCommand=RunApp`.",
-    "PrimaryColorMatrixN": "Applies the color matrix transformation to the primary image. Example: `PrimaryColorMatrixN=1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1`.",
-    "SecondaryColorMatrixN": "Applies the color matrix transformation to the secondary image. Example: `SecondaryColorMatrixN=1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1`.",
-    "BothImageColorMatrixN": "Applies the color matrix transformation to both primary and secondary images. Example: `BothImageColorMatrixN=1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1`.",
-    "PrimaryImageRotate": "Rotates the primary image by the specified angle. Example: `PrimaryImageRotate=90`.",
-    "SecondaryImageRotate": "Rotates the secondary image by the specified angle. Example: `SecondaryImageRotate=90`.",
-    "BothImageRotate": "Rotates both primary and secondary images by the specified angle. Example: `BothImageRotate=90`.",
-    "PrimaryImageAlpha": "Sets the alpha transparency for the primary image. Example: `PrimaryImageAlpha=128`.",
-    "SecondaryImageAlpha": "Sets the alpha transparency for the secondary image. Example: `SecondaryImageAlpha=128`.",
-    "BothImageAlpha": "Sets the alpha transparency for both primary and secondary images. Example: `BothImageAlpha=128`.",
-    "ScaleMargins": "Margins of the image to exclude from scaling when Tile=0 and PreserveAspectRatio=0. Example: `ScaleMargins=10, 50, 10, 50`.",
-    "Tile": "If set to 1, the image is tiled (repeated) within the bounds defined by W and H. Example: `Tile=1`.",
-    "MaskImageName": "Defines the name of the mask image. Example: `MaskImageName=mask.png`.",
-    "MaskImagePath": "Sets the path for the mask image. Example: `MaskImagePath=images/mask.png`.",
-    "MaskImageFlip": "Flips the mask image horizontally or vertically. Example: `MaskImageFlip=1`.",
-    "MaskImageRotate": "Rotates the mask image by the specified angle. Example: `MaskImageRotate=45`.",
-    "TransformStroke": "Determines how the line (stroke) width is treated when TransformationMatrix is used on the meter. Example: `TransformStroke=1`.",
-    "HorizontalLineColor": "Color of the horizontal marker lines (for HorizontalLines=1). Example: `HorizontalLineColor=255,0,0`.",
-    "HorizontalLines": "If set to 1, horizontal marker lines are displayed behind the lines. Example: `HorizontalLines=1`.",
-    "LineCount": "Number of lines in the meter. Default: 1. Example: `LineCount=5`.",
-    "Scale": "Scaling factor used for the measure values. The measure value is divided by the specified value. Example: `Scale=100`.",
-    "LineWidth": "Width in pixels of the line when Solid is 0. Example: `LineWidth=2`.",
-    "OffsetX": "Sets the horizontal offset for an element. Example: `OffsetX=10`.",
-    "OffsetY": "Sets the vertical offset for an element. Example: `OffsetY=10`.",
-    "StartAngle": "The starting angle in radians for the line. Example: `StartAngle=0`.",
-    "RotationAngle": "The size of the rotation angle in radians for the line. Example: `RotationAngle=1.57`.",
-    "ValueRemainder": "Use a remainder instead of the actual measured value. Example: `ValueRemainder=1`.",
-    "ControlLength": "If ControlLength is set to 1, then the percentage value of the measure that is bound to the meter controls the length of the line. Example: `ControlLength=1`.",
-    "LengthShift": "Defines the starting shift value for a control element. Example: `LengthShift=5`.",
-    "ControlStart": "Defines the start position of a control element. Example: `ControlStart=0`.",
-    "StartShift": "Defines the starting shift value for a control element. Example: `StartShift=0`.",
-    "ControlAngle": "If ControlAngle is 1 (default), then the percentage value of the measure that is bound to the meter controls the angle of the line. Example: `ControlAngle=1`.",
-    "Solid": "If set to 1, meter will fill the meter with LineColor from StartAngle to the current MeasureName percentage value. Example: `Solid=1`.",
-    "LineColor": "Sets the color of a line in a graph or meter. Example: `LineColor=0,0,255`.",
-    "LineLength": "Length in pixels of the line. Example: `LineLength=100`.",
-    "LineStart": "Defines the distance in pixels from the center of rotation at which the line starts. Example: `LineStart=0`.",
-    "StringCase": "Converts the string to a case. Valid values are None, Upper, Lower, and Proper. Example: `StringCase=Upper`.",
-    "StringEffect": "Effect applied to a string. Valid values are None, Shadow, and Border. Example: `StringEffect=Shadow`.",
-    "FontEffectColor": "Sets the font color for string effects. Example: `FontEffectColor=255,255,0`.",
-    "ClipString": "Controls how strings are truncated (clipped) or wrapped to fit in or expand the containing meter. Example: `ClipString=1`.",
-    "ClipStringW": "Sets a maximum width that the meter will expand to accommodate the string when ClipString=2. Example: `ClipStringW=200`.",
-    "ClipStringH": "Sets a maximum height that the meter will expand to accommodate the string when ClipString=2. Example: `ClipStringH=50`.",
-    "TrailingSpaces": "When this option is set to 1, any Text option that is enclosed in \"quotes\" will display leading and trailing spaces on the string. Example: `TrailingSpaces=1`.",
-    "Angle": "Defines the angle of the text in radians. Example: `Angle=0`.",
-    "Percentual": "If set to 1, the value of bound measures are converted to a percentage. Example: `Percentual=1`.",
-    "NumOfDecimals": "Number of decimals to display with numerical measure values. Example: `NumOfDecimals=2`.",
-    "Left": "Aligns the element to the left. Example: `Left=1`.",
-    "Right": "Aligns the element to the right. Example: `Right=1`.",
-    "GreyScale": "If set to 1, the image is greyscaled (color desaturated). Example: `GreyScale=1`.",
-    "ImageCrop": "Crops out and uses a defined part of the image. Example: `ImageCrop=0,0,100,100`.",
-    "ImageRotate": "Rotates the image by the specified angle in degrees. Example: `ImageRotate=90`.",
-    "AutoScale": "If set to 1, the histogram is automatically scaled to show all the values. Example: `AutoScale=1`.",
-    "GraphStart": "Starting point of the graph. Valid values are Left and Right. Example: `GraphStart=Left`.",
-    "GraphOrientation": "Orientation of the graph elements. Valid values are Horizontal and Vertical. Example: `GraphOrientation= Vertical`.",
-    "Flip": "Flips the bar in a bar meter. Example: `Flip=1`.",
-    "PrimaryColor": "Sets the Colors for the histogram. Example: `PrimaryColor=255,0,0`.",
-    "SecondaryColor": "Sets the Colors for the histogram. Example: `SecondaryColor=0,255,0`.",
-    "BothColor": "Sets the Colors for the histogram. Example: `BothColor=0,0,255`.",
-    "PrimaryImage": "PrimaryImage is the image used for the primary histogram. Example: `PrimaryImage=primary.png`.",
-    "SecondaryImage": "SecondaryImage is the image used for the secondary histogram. Example: `SecondaryImage=secondary.png`.",
-    "BothImage": "BothImage is the image used where the histogram elements overlap. Example: `BothImage=overlap.png`.",
-    "PrimaryImagePath": "Path to the location of optional image used as the primary histogram. Example: `PrimaryImagePath=images/primary.png`.",
-    "SecondaryImagePath": "Path to the location of optional image used as the secondary histogram. Example: `SecondaryImagePath=images/secondary.png`.",
-    "BothImagePath": "Path to the location of optional image used as both histograms. Example: `BothImagePath=images/both.png`.",
-    "PrimaryImageCrop": "Crops the primary image within the specified bounds. Example: `PrimaryImageCrop=0,0,100,100`.",
-    "SecondaryImageCrop": "Crops the secondary image within the specified bounds. Example: `SecondaryImageCrop=0,0,100,100`.",
-    "BothImageCrop": "Crops both primary and secondary images within the specified bounds. Example: `BothImageCrop=0,0,100,100`.",
-    "PrimaryGreyScale": "Applies greyscale to the primary image. If set to 1, the image is greyscaled (color desaturated). Example: `PrimaryGreyScale=1`.",
-    "SecondaryGreyScale": "Applies greyscale to the secondary image. If set to 1, the image is greyscaled (color desaturated). Example: `SecondaryGreyScale=1`.",
-    "BothGreyScale": "Applies greyscale to both primary and secondary images. If set to 1, the image is greyscaled (color desaturated). Example: `BothGreyScale=1`.",
-    "PrimaryImageTint": "Applies a tint to the primary image. Example: `PrimaryImageTint=255,0,0`.",
-    "SecondaryImageTint": "Applies a tint to the secondary image. Example: `SecondaryImageTint=0,255,0`.",
-    "BothImageTint": "Applies a tint to both primary and secondary images. Example: `BothImageTint=0,0,255`.",
-    "PrimaryImageFlip": "Flips the image. Valid values are None, Horizontal, Vertical, or Both. Example: `PrimaryImageFlip=Horizontal`.",
-    "SecondaryImageFlip": "Flips the image. Valid values are None, Horizontal, Vertical, or Both. Example: `SecondaryImageFlip=Vertical`.",
-    "BothImageFlip": "Flips the image. Valid values are None, Horizontal, Vertical, or Both. Example: `BothImageFlip=Both`.",
-    "ColorMatrixN": "Defines a 5x5 matrix used to manipulate the color values of the image. Example: `ColorMatrix1=1;0;0;0;0; ColorMatrix2=0;1;0;0;0;`.",
-    "UseExifOrientation": "If set to 1, the image is rotated based on the EXIF data encoded in the image by a camera. Example: `UseExifOrientation=1`.",
-    "RadialGradient": "Parameters: CenterX, CenterY, OffsetX, OffsetY, RadiusX, RadiusY | Color ; Percentage | ... . Example: `RadialGradient=50,50,0,0,100,100|255,0,0;50`.",
-    "LinearGradient": "Parameters: Angle | Color ; Percentage | ... . Example: `LinearGradient=90|255,255,255;100`.",
-    "Extend": "A special modifier that will allow you to move Attribute and/or Transform modifiers from the ShapeN option to one or more named options in the meter. Example: `Extend=1`.",
-    "TransformOrder": "Allows you to change the default order in which the various Transform modifiers are applied. Default: Rotate, Scale, Skew, Offset. Example: `TransformOrder=Scale, Rotate`.",
-    "Skew": "Skews the shape in the X and/or Y axis, some number of positive or negative degrees of angle. Default: `Skew=0.0,0.0`.",
-    "Rotate": "Rotates the shape some number of positive or negative degrees of angle, either around the center of the shape (default), or optional X,Y anchor points in pixels relative to the top left of the shape. Example: `Rotate=45`.",
-    "StrokeDashOffset": "Defines an offset where the first dash will start relative to the start of the shape. Example: `StrokeDashOffset=0.5`.",
-    "StrokeLineJoin": "Defines the type of join used on angled connections of drawing stroke segments in a shape or path. Example: `StrokeLineJoin=Miter`.",
-    "StrokeDashes": "Defines a repeating dash or dot pattern for the shape's drawing stroke. Example: `StrokeDashes=5,2`.",
-    "StrokeDashCap": "Defines the shape of a cap used at the start and end of each dash in the drawing stroke defined by the StrokeDashes modifier. Example: `StrokeDashCap=Round`.",
-    "StrokeEndCap": "Defines the shape of a cap used at the end of the drawing stroke on an open shape. Example: `StrokeEndCap=Square`.",
-    "StrokeStartCap": "Defines the shape of a cap used at the start of the drawing stroke on an open shape. Example: `StrokeStartCap=Round`.",
-    "Draggable": "If set to 1, the skin can be dragged around with the mouse. Example: `Draggable=1`.",
-    "Update": "Define Update in Skin. Example: `Update=1000`.",
-    "DynamicWindowSize": "Define DynamicWindowSize in Skin. Example: `DynamicWindowSize=1`.",
-    "AccurateText": "Define AccurateText in Skin. Example: `AccurateText=1`.",
-    "Rainmeter": "Define Rainmeter Section in Skin. Example: `[Rainmeter]`.",
-    "Variables": "Define Variables Section in Skin. Example: `[Variables]`.",
-    "DefaultUpdateDivider": "Default number of updates at which skin measure and meter values are updated. Example: `DefaultUpdateDivider=1`.",
-    "SkinWidth": "This will set and constrain the skin to the fixed dimensions defined. Example: `SkinWidth=300`.",
-    "SkinHeight": "This will set and constrain the skin to the fixed dimensions defined. Example: `SkinHeight=200`.",
-    "DragMarginsDefault": "Uses 4 values (left, top, right, bottom) to define the area from where the window can be dragged. Example: `DragMarginsDefault=0,0,0,0`.",
-    "TransitionUpdate": "Defines the update time in milliseconds for meter transitions. Example: `TransitionUpdate=100`.",
-    "ToolTipHidden": "If set to 1, all tooltips in the skin will be hidden. Example: `ToolTipHidden=1`.",
-    "SelectedColor": "A color code used to define the color and transparency of the overlay when a skin is selected. Example: `SelectedColor=255,0,0`.",
-    "Background": "Path of a background image file. Example: `Background=background.png`.",
-    "BackgroundMode": "Defines the background mode for the skin. Example: `BackgroundMode=2`.",
-    "BackgroundMargins": "Defines margins of the Background image that are not scaled. Example: `BackgroundMargins=0,10,0,20`.",
-    "GradientAngle": "Angle of the gradient in degrees when BackgroundMode=2. Example: `GradientAngle=45`.",
-    "BevelType": "If enabled, draws a bevel around the edges of the entire skin when BackgroundMode=2. Example: `BevelType=1`.",
-    "ContextTitle": "If not blank, adds an item to the skin's context menu under 'Custom skin actions'. Example: `ContextTitle=My Action`.",
-    "ContextAction": "Action triggered by clicking the corresponding ContextTitleN item. Example: `ContextAction=MyActionFunction`.",
-    "Blur": "Set to 1 to enable Aero Blur on Windows 7. Example: `Blur=1`.",
-    "BlurRegion": "Defines areas and shapes of the regions of the skin to be blurred. Example: `BlurRegion=Type,0,0,100,100,10`.",
-    "DefaultWindowX": "Defines the default X position of the window. Example: `DefaultWindowX=100`.",
-    "DefaultWindowY": "Defines the default Y position of the window. Example: `DefaultWindowY=100`.",
-    "DefaultAnchorX": "Defines the default X anchor point of the window. Example: `DefaultAnchorX=0`.",
-    "DefaultFadeDuration": "Defines the default fade duration for window visibility. Example: `DefaultFadeDuration=500`.",
-    "DefaultClickThrough": "Defines whether the window allows click-through (true or false). Example: `DefaultClickThrough=1`.",
-    "DefaultKeepOnScreen": "Defines whether the window should stay on the screen (true or false). Example: `DefaultKeepOnScreen=1`.",
-    "DefaultAutoSelectScreen": "Defines whether the screen selection is automatic (true or false). Example: `DefaultAutoSelectScreen=1`.",
-    "DefaultAnchorY": "Defines the default Y anchor point of the window. Example: `DefaultAnchorY=0`.",
-    "DefaultSavePosition": "Defines whether the window's position should be saved (true or false). Example: `DefaultSavePosition=1`.",
-    "DefaultAlwaysOnTop": "Defines whether the window should always stay on top of other windows (true or false). Example: `DefaultAlwaysOnTop=1`.",
-    "DefaultDraggable": "If set to 1, the skin can be dragged around with the mouse. Example: `DefaultDraggable=1`.",
-    "DefaultSnapEdges": "If set to 1, the skin will snap onto screen edges and other skins when moved. Example: `DefaultSnapEdges=1`.",
-    "DefaultStartHidden": "If set to 1, the skin will start hidden. Example: `DefaultStartHidden=1`.",
-    "DefaultAlphaValue": "Sets the transparency of the skin. Valid values range from 0 (fully transparent) to 255 (fully visible). Example: `DefaultAlphaValue=255`.",
-    "DefaultOnHover": "Controls the transparency of the skin when the mouse is moved on and off of it. Example: `DefaultOnHover=1`.",
-    "Combine": "Defines the Combine Attribute for shape meter. Example: `Combine=1`.",
-    "XOR": "Defines the XOR Attribute for shape meter. Example: `XOR=1`.",
-    "Formula": "Defines the Formula in the measure. Example: `Formula=Value*2`.",
-    "Clamp": "Defines the Clamp Attribute for meter. Example: `Clamp=0,100`.",
-    "Prefix": "Text displayed before Text. Example: `Prefix=Value: `.",
-    "Postfix": "Text displayed after Text. Example: `Postfix= units`.",
-    "Padding": "Defines the Padding Attribute for meter. Example: `Padding=5`.",
-    "Substitute": "Defines the Substitute Attribute for meter. Example: `Substitute=Value`.",
-    "Antialias": "Defines the Antialias Attribute for string like  meter. Example: `Antialias=1`.",
+  "[Rainmeter]":
+    "The main section of a Rainmeter skin. Defines general settings for the skin, such as `Update` and `BackgroundMode`.",
+  "[Variables]":
+    "Defines reusable variables for the skin. Variables can store values to reduce repetition and improve maintainability.",
+  FontFace:
+    "Specifies the font face to use for string meters. Example: `FontFace=Arial`.",
+  FontSize: "Sets the font size for string meters. Example: `FontSize=12`.",
+  FontColor:
+    "Sets the font color in hexadecimal RGB. Example: `FontColor=255,255,255`.",
+  StringAlign:
+    "Aligns the text within a string meter. Example: `StringAlign=Center`.",
+  Antialias:
+    "Enables or disables antialiasing for a string meter. Example: `Antialias=1`.",
+  SolidColor:
+    "Fills a meter with a solid color. Example: `SolidColor=255,0,0,128`.",
+  X: "Sets the X position of the meter on the screen. Example: `X=100`.",
+  Y: "Sets the Y position of the meter on the screen. Example: `Y=200`.",
+  W: "Sets the width of the meter. Example: `W=300`.",
+  H: "Sets the height of the meter. Example: `H=100`.",
+  Text: "Defines the text to display in a string meter. Example: `Text=Hello, World!`.",
+  Meter: "Defines the type of meter. Example: `Meter=String`.",
+  Measure:
+    "Defines the measure that the meter will use. Example: `Measure=CPU`.",
+  Plugin:
+    "Defines the plugin that the meter will use. Example: `Plugin=PluginName`.",
+  MouseActionCursor:
+    "Sets the cursor style when a mouse action is triggered. Example: `MouseActionCursor=1`.",
+  MouseActionCursorName:
+    "Sets the name of the cursor for mouse actions. Example: `MouseActionCursorName=Pointer`.",
+  ScriptFile:
+    "Specifies the script file to be executed. Example: `ScriptFile=script.lua`.",
+  MeterStyle: "Defines the style for a meter. Example: `MeterStyle=Default`.",
+  Hidden: "Hides or shows a meter. Example: `Hidden=1`.",
+  DynamicVariables:
+    "Enables or disables dynamic variables. Example: `DynamicVariables=1`.",
+  FontWeight: "Sets the weight of the font. Example: `FontWeight=Bold`.",
+  StrokeWidth: "Sets the stroke width for a meter. Example: `StrokeWidth=2`.",
+  FillColor: "Sets the fill color for a meter. Example: `FillColor=0,255,0`.",
+  Offset: "Sets the offset for a meter. Example: `Offset=10`.",
+  DragGroup:
+    "Specifies the group for dragging a meter. Example: `DragGroup=Group1`.",
+  Group: "Defines the group for a meter. Example: `Group=Group1`.",
+  AutoSelectScreen:
+    "Automatically selects the screen for a skin. Example: `AutoSelectScreen=1`.",
+  LoadOrder: "Sets the load order for a skin or meter. Example: `LoadOrder=1`.",
+  KeepOnScreen: "Keeps the skin on the screen. Example: `KeepOnScreen=1`.",
+  ClickThrough:
+    "Enables or disables click-through for a skin. Example: `ClickThrough=1`.",
+  FadeDuration:
+    "Sets the fade duration for a meter or skin. Example: `FadeDuration=500`.",
+  OnHover:
+    "Defines the action to take on hover for a meter. Example: `OnHover=Show`.",
+  AlphaValue:
+    "Sets the transparency of the skin. Valid values range from 0 (fully transparent) to 255 (fully visible). Example: `AlphaValue=255`.",
+  StartHidden:
+    "If set to 1, the skin will start hidden. Example: `StartHidden=1`.",
+  SnapEdges:
+    "If set to 1, the skin will snap onto screen edges and other skins when moved. Example: `SnapEdges=1`.",
+  DraggableDefault:
+    "Sets the default draggable behavior for a skin. Example: `DraggableDefault=1`.",
+  AlwaysOnTop:
+    "Keeps the skin on top of other windows. Example: `AlwaysOnTop=1`.",
+  SavePosition:
+    "Saves the position of the skin when it is moved. Example: `SavePosition=1`.",
+  AnchorX:
+    "Sets the X anchor position of the skin or meter. Example: `AnchorX=0.5`.",
+  AnchorY:
+    "Sets the Y anchor position of the skin or meter. Example: `AnchorY=0.5`.",
+  WindowX: "Sets the X position of the skin window. Example: `WindowX=100`.",
+  WindowY: "Sets the Y position of the skin window. Example: `WindowY=200`.",
+  Active: "Sets whether the skin or meter is active. Example: `Active=1`.",
+  ImageTint:
+    "Applies a tint to an image in a skin. Example: `ImageTint=255,0,0`.",
+  UpdateDivider:
+    "Sets the update interval for the skin or meter. Example: `UpdateDivider=1`.",
+  Disabled: "Disables a meter or skin functionality. Example: `Disabled=1`.",
+  ImagePath:
+    "Sets the path for an image used in a skin. Example: `ImagePath=images/background.png`.",
+  ImageName:
+    "Sets the path for an image used in a skin. Example: `ImageName=images/background.png`.",
+  ImageAlpha:
+    "Sets the alpha transparency for an image. Example: `ImageAlpha=128`.",
+  ImageFlip:
+    "Flips the image. Valid values are None, Horizontal, Vertical or Both.",
+  StringStyle:
+    "Style of the string. Valid values are Normal, Bold, Italic, and BoldItalic. Example: `StringStyle=Bold`.",
+  ToolTipText:
+    "Sets the text for a tool tip. Example: `ToolTipText=Click here`.",
+  ToolTipTitle: "Sets the title of a tool tip. Example: `ToolTipTitle=Info`.",
+  ToolTipIcon: "Sets the icon for a tool tip. Example: `ToolTipIcon=Info`.",
+  ToolTipType: "Defines the type of tool tip. Example: `ToolTipType=Standard`.",
+  ToolTipWidth: "Sets the width of a tool tip. Example: `ToolTipWidth=200`.",
+  RegHKey:
+    "Defines the registry root key for a registry action. Example: `RegHKey=HKEY_CURRENT_USER`.",
+  RegKey:
+    "Defines the registry key for a registry action. Example: `RegKey=Software\\MyApp`.",
+  RegValue:
+    "Defines the registry value for a registry action. Example: `RegValue=Setting`.",
+  PreserveAspectRatio:
+    "Preserves the aspect ratio of an image. Example: `PreserveAspectRatio=1`.",
+  InlineSetting:
+    "Defines an inline setting for a skin. Example: `InlineSetting=1`.",
+  InlinePattern:
+    "Defines an InlinePattern for a skin. Example: `InlinePattern=Pattern`.",
+  Container:
+    "Defines a container for meters and controls. Example: `Container=MainContainer`.",
+  MeasureName: "Sets the name for a measure. Example: `MeasureName=CPUUsage`.",
+  BarColor: "Sets the color for a bar meter. Example: `BarColor=0,255,0`.",
+  BarImage: "Sets the image for a bar meter. Example: `BarImage=bar.png`.",
+  BarBorder: "Defines the border for a bar meter. Example: `BarBorder=1`.",
+  BarOrientation:
+    "Defines the orientation of a bar meter. Example: `BarOrientation=Horizontal`.",
+  BitmapSeparation:
+    "Sets the separation between bitmap images. Example: `BitmapSeparation=5`.",
+  BitmapAlign:
+    "Aligns the bitmap images within a meter. Example: `BitmapAlign=Center`.",
+  BitmapDigits:
+    "Defines the number of digits in a bitmap meter. Example: `BitmapDigits=3`.",
+  BitmapExtend:
+    "Defines the extension for bitmap images in a meter. Example: `BitmapExtend=.png`.",
+  BitmapZeroFrame:
+    "Sets the zero frame index for a bitmap meter. Example: `BitmapZeroFrame=0`.",
+  BitmapTransitionFrames:
+    "Defines the number of transition frames for a bitmap meter. Example: `BitmapTransitionFrames=10`.",
+  BitmapFrames:
+    "Sets the number of frames for a bitmap meter. Example: `BitmapFrames=5`.",
+  BitmapImage:
+    "Sets the image for a bitmap meter. Example: `BitmapImage=bitmap.png`.",
+  ButtonImage:
+    "Defines the image for a button meter. Example: `ButtonImage=button.png`.",
+  ButtonCommand:
+    "Sets the command to run when the button is clicked. Example: `ButtonCommand=RunApp`.",
+  PrimaryColorMatrixN:
+    "Applies the color matrix transformation to the primary image. Example: `PrimaryColorMatrixN=1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1`.",
+  SecondaryColorMatrixN:
+    "Applies the color matrix transformation to the secondary image. Example: `SecondaryColorMatrixN=1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1`.",
+  BothImageColorMatrixN:
+    "Applies the color matrix transformation to both primary and secondary images. Example: `BothImageColorMatrixN=1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1`.",
+  PrimaryImageRotate:
+    "Rotates the primary image by the specified angle. Example: `PrimaryImageRotate=90`.",
+  SecondaryImageRotate:
+    "Rotates the secondary image by the specified angle. Example: `SecondaryImageRotate=90`.",
+  BothImageRotate:
+    "Rotates both primary and secondary images by the specified angle. Example: `BothImageRotate=90`.",
+  PrimaryImageAlpha:
+    "Sets the alpha transparency for the primary image. Example: `PrimaryImageAlpha=128`.",
+  SecondaryImageAlpha:
+    "Sets the alpha transparency for the secondary image. Example: `SecondaryImageAlpha=128`.",
+  BothImageAlpha:
+    "Sets the alpha transparency for both primary and secondary images. Example: `BothImageAlpha=128`.",
+  ScaleMargins:
+    "Margins of the image to exclude from scaling when Tile=0 and PreserveAspectRatio=0. Example: `ScaleMargins=10, 50, 10, 50`.",
+  Tile: "If set to 1, the image is tiled (repeated) within the bounds defined by W and H. Example: `Tile=1`.",
+  MaskImageName:
+    "Defines the name of the mask image. Example: `MaskImageName=mask.png`.",
+  MaskImagePath:
+    "Sets the path for the mask image. Example: `MaskImagePath=images/mask.png`.",
+  MaskImageFlip:
+    "Flips the mask image horizontally or vertically. Example: `MaskImageFlip=1`.",
+  MaskImageRotate:
+    "Rotates the mask image by the specified angle. Example: `MaskImageRotate=45`.",
+  TransformStroke:
+    "Determines how the line (stroke) width is treated when TransformationMatrix is used on the meter. Example: `TransformStroke=1`.",
+  HorizontalLineColor:
+    "Color of the horizontal marker lines (for HorizontalLines=1). Example: `HorizontalLineColor=255,0,0`.",
+  HorizontalLines:
+    "If set to 1, horizontal marker lines are displayed behind the lines. Example: `HorizontalLines=1`.",
+  LineCount:
+    "Number of lines in the meter. Default: 1. Example: `LineCount=5`.",
+  Scale:
+    "Scaling factor used for the measure values. The measure value is divided by the specified value. Example: `Scale=100`.",
+  LineWidth:
+    "Width in pixels of the line when Solid is 0. Example: `LineWidth=2`.",
+  OffsetX: "Sets the horizontal offset for an element. Example: `OffsetX=10`.",
+  OffsetY: "Sets the vertical offset for an element. Example: `OffsetY=10`.",
+  StartAngle:
+    "The starting angle in radians for the line. Example: `StartAngle=0`.",
+  RotationAngle:
+    "The size of the rotation angle in radians for the line. Example: `RotationAngle=1.57`.",
+  ValueRemainder:
+    "Use a remainder instead of the actual measured value. Example: `ValueRemainder=1`.",
+  ControlLength:
+    "If ControlLength is set to 1, then the percentage value of the measure that is bound to the meter controls the length of the line. Example: `ControlLength=1`.",
+  LengthShift:
+    "Defines the starting shift value for a control element. Example: `LengthShift=5`.",
+  ControlStart:
+    "Defines the start position of a control element. Example: `ControlStart=0`.",
+  StartShift:
+    "Defines the starting shift value for a control element. Example: `StartShift=0`.",
+  ControlAngle:
+    "If ControlAngle is 1 (default), then the percentage value of the measure that is bound to the meter controls the angle of the line. Example: `ControlAngle=1`.",
+  Solid:
+    "If set to 1, meter will fill the meter with LineColor from StartAngle to the current MeasureName percentage value. Example: `Solid=1`.",
+  LineColor:
+    "Sets the color of a line in a graph or meter. Example: `LineColor=0,0,255`.",
+  LineLength: "Length in pixels of the line. Example: `LineLength=100`.",
+  LineStart:
+    "Defines the distance in pixels from the center of rotation at which the line starts. Example: `LineStart=0`.",
+  StringCase:
+    "Converts the string to a case. Valid values are None, Upper, Lower, and Proper. Example: `StringCase=Upper`.",
+  StringEffect:
+    "Effect applied to a string. Valid values are None, Shadow, and Border. Example: `StringEffect=Shadow`.",
+  FontEffectColor:
+    "Sets the font color for string effects. Example: `FontEffectColor=255,255,0`.",
+  ClipString:
+    "Controls how strings are truncated (clipped) or wrapped to fit in or expand the containing meter. Example: `ClipString=1`.",
+  ClipStringW:
+    "Sets a maximum width that the meter will expand to accommodate the string when ClipString=2. Example: `ClipStringW=200`.",
+  ClipStringH:
+    "Sets a maximum height that the meter will expand to accommodate the string when ClipString=2. Example: `ClipStringH=50`.",
+  TrailingSpaces:
+    'When this option is set to 1, any Text option that is enclosed in "quotes" will display leading and trailing spaces on the string. Example: `TrailingSpaces=1`.',
+  Angle: "Defines the angle of the text in radians. Example: `Angle=0`.",
+  Percentual:
+    "If set to 1, the value of bound measures are converted to a percentage. Example: `Percentual=1`.",
+  NumOfDecimals:
+    "Number of decimals to display with numerical measure values. Example: `NumOfDecimals=2`.",
+  Left: "Aligns the element to the left. Example: `Left=1`.",
+  Right: "Aligns the element to the right. Example: `Right=1`.",
+  GreyScale:
+    "If set to 1, the image is greyscaled (color desaturated). Example: `GreyScale=1`.",
+  ImageCrop:
+    "Crops out and uses a defined part of the image. Example: `ImageCrop=0,0,100,100`.",
+  ImageRotate:
+    "Rotates the image by the specified angle in degrees. Example: `ImageRotate=90`.",
+  AutoScale:
+    "If set to 1, the histogram is automatically scaled to show all the values. Example: `AutoScale=1`.",
+  GraphStart:
+    "Starting point of the graph. Valid values are Left and Right. Example: `GraphStart=Left`.",
+  GraphOrientation:
+    "Orientation of the graph elements. Valid values are Horizontal and Vertical. Example: `GraphOrientation= Vertical`.",
+  Flip: "Flips the bar in a bar meter. Example: `Flip=1`.",
+  PrimaryColor:
+    "Sets the Colors for the histogram. Example: `PrimaryColor=255,0,0`.",
+  SecondaryColor:
+    "Sets the Colors for the histogram. Example: `SecondaryColor=0,255,0`.",
+  BothColor: "Sets the Colors for the histogram. Example: `BothColor=0,0,255`.",
+  PrimaryImage:
+    "PrimaryImage is the image used for the primary histogram. Example: `PrimaryImage=primary.png`.",
+  SecondaryImage:
+    "SecondaryImage is the image used for the secondary histogram. Example: `SecondaryImage=secondary.png`.",
+  BothImage:
+    "BothImage is the image used where the histogram elements overlap. Example: `BothImage=overlap.png`.",
+  PrimaryImagePath:
+    "Path to the location of optional image used as the primary histogram. Example: `PrimaryImagePath=images/primary.png`.",
+  SecondaryImagePath:
+    "Path to the location of optional image used as the secondary histogram. Example: `SecondaryImagePath=images/secondary.png`.",
+  BothImagePath:
+    "Path to the location of optional image used as both histograms. Example: `BothImagePath=images/both.png`.",
+  PrimaryImageCrop:
+    "Crops the primary image within the specified bounds. Example: `PrimaryImageCrop=0,0,100,100`.",
+  SecondaryImageCrop:
+    "Crops the secondary image within the specified bounds. Example: `SecondaryImageCrop=0,0,100,100`.",
+  BothImageCrop:
+    "Crops both primary and secondary images within the specified bounds. Example: `BothImageCrop=0,0,100,100`.",
+  PrimaryGreyScale:
+    "Applies greyscale to the primary image. If set to 1, the image is greyscaled (color desaturated). Example: `PrimaryGreyScale=1`.",
+  SecondaryGreyScale:
+    "Applies greyscale to the secondary image. If set to 1, the image is greyscaled (color desaturated). Example: `SecondaryGreyScale=1`.",
+  BothGreyScale:
+    "Applies greyscale to both primary and secondary images. If set to 1, the image is greyscaled (color desaturated). Example: `BothGreyScale=1`.",
+  PrimaryImageTint:
+    "Applies a tint to the primary image. Example: `PrimaryImageTint=255,0,0`.",
+  SecondaryImageTint:
+    "Applies a tint to the secondary image. Example: `SecondaryImageTint=0,255,0`.",
+  BothImageTint:
+    "Applies a tint to both primary and secondary images. Example: `BothImageTint=0,0,255`.",
+  PrimaryImageFlip:
+    "Flips the image. Valid values are None, Horizontal, Vertical, or Both. Example: `PrimaryImageFlip=Horizontal`.",
+  SecondaryImageFlip:
+    "Flips the image. Valid values are None, Horizontal, Vertical, or Both. Example: `SecondaryImageFlip=Vertical`.",
+  BothImageFlip:
+    "Flips the image. Valid values are None, Horizontal, Vertical, or Both. Example: `BothImageFlip=Both`.",
+  ColorMatrixN:
+    "Defines a 5x5 matrix used to manipulate the color values of the image. Example: `ColorMatrix1=1;0;0;0;0; ColorMatrix2=0;1;0;0;0;`.",
+  UseExifOrientation:
+    "If set to 1, the image is rotated based on the EXIF data encoded in the image by a camera. Example: `UseExifOrientation=1`.",
+  RadialGradient:
+    "Parameters: CenterX, CenterY, OffsetX, OffsetY, RadiusX, RadiusY | Color ; Percentage | ... . Example: `RadialGradient=50,50,0,0,100,100|255,0,0;50`.",
+  LinearGradient:
+    "Parameters: Angle | Color ; Percentage | ... . Example: `LinearGradient=90|255,255,255;100`.",
+  Extend:
+    "A special modifier that will allow you to move Attribute and/or Transform modifiers from the ShapeN option to one or more named options in the meter. Example: `Extend=1`.",
+  TransformOrder:
+    "Allows you to change the default order in which the various Transform modifiers are applied. Default: Rotate, Scale, Skew, Offset. Example: `TransformOrder=Scale, Rotate`.",
+  Skew: "Skews the shape in the X and/or Y axis, some number of positive or negative degrees of angle. Default: `Skew=0.0,0.0`.",
+  Rotate:
+    "Rotates the shape some number of positive or negative degrees of angle, either around the center of the shape (default), or optional X,Y anchor points in pixels relative to the top left of the shape. Example: `Rotate=45`.",
+  StrokeDashOffset:
+    "Defines an offset where the first dash will start relative to the start of the shape. Example: `StrokeDashOffset=0.5`.",
+  StrokeLineJoin:
+    "Defines the type of join used on angled connections of drawing stroke segments in a shape or path. Example: `StrokeLineJoin=Miter`.",
+  StrokeDashes:
+    "Defines a repeating dash or dot pattern for the shape's drawing stroke. Example: `StrokeDashes=5,2`.",
+  StrokeDashCap:
+    "Defines the shape of a cap used at the start and end of each dash in the drawing stroke defined by the StrokeDashes modifier. Example: `StrokeDashCap=Round`.",
+  StrokeEndCap:
+    "Defines the shape of a cap used at the end of the drawing stroke on an open shape. Example: `StrokeEndCap=Square`.",
+  StrokeStartCap:
+    "Defines the shape of a cap used at the start of the drawing stroke on an open shape. Example: `StrokeStartCap=Round`.",
+  Draggable:
+    "If set to 1, the skin can be dragged around with the mouse. Example: `Draggable=1`.",
+  Update: "Define Update in Skin. Example: `Update=1000`.",
+  DynamicWindowSize:
+    "Define DynamicWindowSize in Skin. Example: `DynamicWindowSize=1`.",
+  AccurateText: "Define AccurateText in Skin. Example: `AccurateText=1`.",
+  Rainmeter: "Define Rainmeter Section in Skin. Example: `[Rainmeter]`.",
+  Variables: "Define Variables Section in Skin. Example: `[Variables]`.",
+  DefaultUpdateDivider:
+    "Default number of updates at which skin measure and meter values are updated. Example: `DefaultUpdateDivider=1`.",
+  SkinWidth:
+    "This will set and constrain the skin to the fixed dimensions defined. Example: `SkinWidth=300`.",
+  SkinHeight:
+    "This will set and constrain the skin to the fixed dimensions defined. Example: `SkinHeight=200`.",
+  DragMarginsDefault:
+    "Uses 4 values (left, top, right, bottom) to define the area from where the window can be dragged. Example: `DragMarginsDefault=0,0,0,0`.",
+  TransitionUpdate:
+    "Defines the update time in milliseconds for meter transitions. Example: `TransitionUpdate=100`.",
+  ToolTipHidden:
+    "If set to 1, all tooltips in the skin will be hidden. Example: `ToolTipHidden=1`.",
+  SelectedColor:
+    "A color code used to define the color and transparency of the overlay when a skin is selected. Example: `SelectedColor=255,0,0`.",
+  Background:
+    "Path of a background image file. Example: `Background=background.png`.",
+  BackgroundMode:
+    "Defines the background mode for the skin. Example: `BackgroundMode=2`.",
+  BackgroundMargins:
+    "Defines margins of the Background image that are not scaled. Example: `BackgroundMargins=0,10,0,20`.",
+  GradientAngle:
+    "Angle of the gradient in degrees when BackgroundMode=2. Example: `GradientAngle=45`.",
+  BevelType:
+    "If enabled, draws a bevel around the edges of the entire skin when BackgroundMode=2. Example: `BevelType=1`.",
+  ContextTitle:
+    "If not blank, adds an item to the skin's context menu under 'Custom skin actions'. Example: `ContextTitle=My Action`.",
+  ContextAction:
+    "Action triggered by clicking the corresponding ContextTitleN item. Example: `ContextAction=MyActionFunction`.",
+  Blur: "Set to 1 to enable Aero Blur on Windows 7. Example: `Blur=1`.",
+  BlurRegion:
+    "Defines areas and shapes of the regions of the skin to be blurred. Example: `BlurRegion=Type,0,0,100,100,10`.",
+  DefaultWindowX:
+    "Defines the default X position of the window. Example: `DefaultWindowX=100`.",
+  DefaultWindowY:
+    "Defines the default Y position of the window. Example: `DefaultWindowY=100`.",
+  DefaultAnchorX:
+    "Defines the default X anchor point of the window. Example: `DefaultAnchorX=0`.",
+  DefaultFadeDuration:
+    "Defines the default fade duration for window visibility. Example: `DefaultFadeDuration=500`.",
+  DefaultClickThrough:
+    "Defines whether the window allows click-through (true or false). Example: `DefaultClickThrough=1`.",
+  DefaultKeepOnScreen:
+    "Defines whether the window should stay on the screen (true or false). Example: `DefaultKeepOnScreen=1`.",
+  DefaultAutoSelectScreen:
+    "Defines whether the screen selection is automatic (true or false). Example: `DefaultAutoSelectScreen=1`.",
+  DefaultAnchorY:
+    "Defines the default Y anchor point of the window. Example: `DefaultAnchorY=0`.",
+  DefaultSavePosition:
+    "Defines whether the window's position should be saved (true or false). Example: `DefaultSavePosition=1`.",
+  DefaultAlwaysOnTop:
+    "Defines whether the window should always stay on top of other windows (true or false). Example: `DefaultAlwaysOnTop=1`.",
+  DefaultDraggable:
+    "If set to 1, the skin can be dragged around with the mouse. Example: `DefaultDraggable=1`.",
+  DefaultSnapEdges:
+    "If set to 1, the skin will snap onto screen edges and other skins when moved. Example: `DefaultSnapEdges=1`.",
+  DefaultStartHidden:
+    "If set to 1, the skin will start hidden. Example: `DefaultStartHidden=1`.",
+  DefaultAlphaValue:
+    "Sets the transparency of the skin. Valid values range from 0 (fully transparent) to 255 (fully visible). Example: `DefaultAlphaValue=255`.",
+  DefaultOnHover:
+    "Controls the transparency of the skin when the mouse is moved on and off of it. Example: `DefaultOnHover=1`.",
+  Combine:
+    "Defines the Combine Attribute for shape meter. Example: `Combine=1`.",
+  XOR: "Defines the XOR Attribute for shape meter. Example: `XOR=1`.",
+  Formula: "Defines the Formula in the measure. Example: `Formula=Value*2`.",
+  Clamp: "Defines the Clamp Attribute for meter. Example: `Clamp=0,100`.",
+  Prefix: "Text displayed before Text. Example: `Prefix=Value: `.",
+  Postfix: "Text displayed after Text. Example: `Postfix= units`.",
+  Padding: "Defines the Padding Attribute for meter. Example: `Padding=5`.",
+  Substitute:
+    "Defines the Substitute Attribute for meter. Example: `Substitute=Value`.",
+  Antialias:
+    "Defines the Antialias Attribute for string like  meter. Example: `Antialias=1`.",
 };
 
 const builtVariablesdescriptions = {
-    "#CURRENTSECTION#": "Defines the built-in CURRENTSECTION variable. Example: `#CURRENTSECTION#`.",
-    "#ROOTCONFIG#": "Defines the built-in ROOTCONFIG variable. Example: `#ROOTCONFIG#`.",
-    "#CURRENTPATH#": "Defines the built-in CURRENTPATH variable. Example: `#CURRENTPATH#`.",
-    "#SETTINGSPATH#": "Defines the built-in SETTINGSPATH variable. Example: `#SETTINGSPATH#`.",
-    "#CONFIGPATH#": "Defines the built-in CONFIGPATH variable. Example: `#CONFIGPATH#`.",
-    "#PROGRAMDRIVE#": "Defines the built-in PROGRAMDRIVE variable. Example: `#PROGRAMDRIVE#`.",
-    "#PROGRAMPATH#": "Defines the built-in PROGRAMPATH variable. Example: `#PROGRAMPATH#`.",
-    "#SKINSPATH#": "Defines the built-in SKINSPATH variable. Example: `#SKINSPATH#`.",
-    "#PLUGINSPATH#": "Defines the built-in PLUGINSPATH variable. Example: `#PLUGINSPATH#`.",
-    "#ADDONSPATH#": "Defines the built-in ADDONSPATH variable. Example: `#ADDONSPATH#`.",
-    "#@#": "Defines the built-in @Resources folder variable. Example: `#@#`.",
-    "#WORKAREAX#": "Defines the built-in WORKAREAX variable. Example: `#WORKAREAX#`.",
-    "#WORKAREAY#": "Defines the built-in WORKAREAY variable. Example: `#WORKAREAY#`.",
-    "#WORKAREAWIDTH#": "Defines the built-in WORKAREAWIDTH variable. Example: `#WORKAREAWIDTH#`.",
-    "#WORKAREAHEIGHT#": "Defines the built-in WORKAREAHEIGHT variable. Example: `#WORKAREAHEIGHT#`.",
-    "#SCREENAREAX#": "Defines the built-in SCREENAREAX variable. Example: `#SCREENAREAX#`.",
-    "#SCREENAREAY#": "Defines the built-in SCREENAREAY variable. Example: `#SCREENAREAY#`.",
-    "#SCREENAREAWIDTH#": "Defines the built-in SCREENAREAWIDTH variable. Example: `#SCREENAREAWIDTH#`.",
-    "#SCREENAREAHEIGHT#": "Defines the built-in SCREENAREAHEIGHT variable. Example: `#SCREENAREAHEIGHT#`.",
-    "#PWORKAREAX#": "Defines the built-in PWORKAREAX variable. Example: `#PWORKAREAX#`.",
-    "#PWORKAREAY#": "Defines the built-in PWORKAREAY variable. Example: `#PWORKAREAY#`.",
-    "#PWORKAREAWIDTH#": "Defines the built-in PWORKAREAWIDTH variable. Example: `#PWORKAREAWIDTH#`.",
-    "#PWORKAREAHEIGHT#": "Defines the built-in PWORKAREAHEIGHT variable. Example: `#PWORKAREAHEIGHT#`.",
-    "#PSCREENAREAX#": "Defines the built-in PSCREENAREAX variable. Example: `#PSCREENAREAX#`.",
-    "#PSCREENAREAY#": "Defines the built-in PSCREENAREAY variable. Example: `#PSCREENAREAY#`.",
-    "#PSCREENAREAWIDTH#": "Defines the built-in PSCREENAREAWIDTH variable. Example: `#PSCREENAREAWIDTH#`.",
-    "#PSCREENAREAHEIGHT#": "Defines the built-in PSCREENAREAHEIGHT variable. Example: `#PSCREENAREAHEIGHT#`.",
-    "#WORKAREAX@N#": "Defines the built-in WORKAREAX@N variable. Example: `#WORKAREAX@N#`.",
-    "#WORKAREAY@N#": "Defines the built-in WORKAREAY@N variable. Example: `#WORKAREAY@N#`.",
-    "#WORKAREAWIDTH@N#": "Defines the built-in WORKAREAWIDTH@N variable. Example: `#WORKAREAWIDTH@N#`.",
-    "#WORKAREAHEIGHT@N#": "Defines the built-in WORKAREAHEIGHT@N variable. Example: `#WORKAREAHEIGHT@N#`.",
-    "#SCREENAREAX@N#": "Defines the built-in SCREENAREAX@N variable. Example: `#SCREENAREAX@N#`.",
-    "#SCREENAREAY@N#": "Defines the built-in SCREENAREAY@N variable. Example: `#SCREENAREAY@N#`.",
-    "#SCREENAREAWIDTH@N#": "Defines the built-in SCREENAREAWIDTH@N variable. Example: `#SCREENAREAWIDTH@N#`.",
-    "#SCREENAREAHEIGHT@N#": "Defines the built-in SCREENAREAHEIGHT@N variable. Example: `#SCREENAREA HEIGHT@N#`.",
-    "#PWORKAREAX@N#": "Defines the built-in PWORKAREAX@N variable. Example: `#PWORKAREAX@N#`.",
-    "#PWORKAREAY@N#": "Defines the built-in PWORKAREAY@N variable. Example: `#PWORKAREAY@N#`.",
-    "#PWORKAREAWIDTH@N#": "Defines the built-in PWORKAREAWIDTH@N variable. Example: `#PWORKAREAWIDTH@N#`.",
-    "#PWORKAREAHEIGHT@N#": "Defines the built-in PWORKAREAHEIGHT@N variable. Example: `#PWORKAREAHEIGHT@N#`.",
-    "#PSCREENAREAX@N#": "Defines the built-in PSCREENAREAX@N variable. Example: `#PSCREENAREAX@N#`.",
-    "#PSCREENAREAY@N#": "Defines the built-in PSCREENAREAY@N variable. Example: `#PSCREENAREAY@N#`.",
-    "#PSCREENAREAWIDTH@N#": "Defines the built-in PSCREENAREAWIDTH@N variable. Example: `#PSCREENAREAWIDTH@N#`.",
-    "#PSCREENAREAHEIGHT@N#": "Defines the built-in PSCREENAREAHEIGHT@N variable. Example: `#PSCREENAREAHEIGHT@N#`.",
-    "#SCREENAREAX@N#": "Defines the built-in SCREENAREAX@N variable. Example: `#SCREENAREAX@N#`.",
-    "#SCREENAREAY@N#": "Defines the built-in SCREENAREAY@N variable. Example: `#SCREENAREAY@N#`.",
-    "#SCREENAREAWIDTH@N#": "Defines the built-in SCREENAREAWIDTH@N variable. Example: `#SCREENAREAWIDTH@N#`.",
-    "#SCREENAREAHEIGHT@N#": "Defines the built-in SCREENAREAHEIGHT@N variable. Example: `#SCREENAREAHEIGHT@N#`.",
-    "#VSCREENAREAX#": "Defines the built-in VSCREENAREAX variable. Example: `#VSCREENAREAX#`.",
-    "#VSCREENAREAY#": "Defines the built-in VSCREENAREAY variable. Example: `#VSCREENAREAY#`.",
-    "#VSCREENAREAWIDTH#": "Defines the built-in VSCREENAREAWIDTH variable. Example: `#VSCREENAREAWIDTH#`.",
-    "#VSCREENAREAHEIGHT#": "Defines the built-in VSCREENAREAHEIGHT variable. Example: `#VSCREENAREAHEIGHT#`.",
-    "#CURRENTFILE#": "Defines the built-in CURRENTFILE variable. Example: `#CURRENTFILE#`.",
-    "#ROOTCONFIGPATH#": "Defines the built-in ROOTCONFIGPATH variable. Example: `#ROOTCONFIGPATH#`.",
-    "#CURRENTCONFIG#": "Defines the built-in CURRENTCONFIG variable. Example: `#CURRENTCONFIG#`.",
-    "#CURRENTCONFIGX#": "Defines the built-in CURRENTCONFIGX variable. Example: `#CURRENTCONFIGX#`.",
-    "#CURRENTCONFIGY#": "Defines the built-in CURRENTCONFIGY variable. Example: `#CURRENTCONFIGY#`.",
-    "#CURRENTCONFIGWIDTH#": "Defines the built-in CURRENTCONFIGWIDTH variable. Example: `#CURRENTCONFIGWIDTH#`.",
-    "#CURRENTCONFIGHEIGHT#": "Defines the built-in CURRENTCONFIGHEIGHT variable. Example: `#CURRENTCONFIGHEIGHT#`.",
-    "#CURRENTCONFIGZPOS#": "Defines the built-in CURRENTCONFIGZPOS variable. Example: `#CURRENTCONFIGZPOS#`.",
-    "#CRLF#": "Defines the built-in CRLF variable. Example: `#CRLF#`.",
-    "#CONFIGEDITOR#": "Defines the built-in CONFIGEDITOR variable. Example: `#CONFIGEDITOR#`.",
+  "#CURRENTSECTION#":
+    "Defines the built-in CURRENTSECTION variable. Example: `#CURRENTSECTION#`.",
+  "#ROOTCONFIG#":
+    "Defines the built-in ROOTCONFIG variable. Example: `#ROOTCONFIG#`.",
+  "#CURRENTPATH#":
+    "Defines the built-in CURRENTPATH variable. Example: `#CURRENTPATH#`.",
+  "#SETTINGSPATH#":
+    "Defines the built-in SETTINGSPATH variable. Example: `#SETTINGSPATH#`.",
+  "#CONFIGPATH#":
+    "Defines the built-in CONFIGPATH variable. Example: `#CONFIGPATH#`.",
+  "#PROGRAMDRIVE#":
+    "Defines the built-in PROGRAMDRIVE variable. Example: `#PROGRAMDRIVE#`.",
+  "#PROGRAMPATH#":
+    "Defines the built-in PROGRAMPATH variable. Example: `#PROGRAMPATH#`.",
+  "#SKINSPATH#":
+    "Defines the built-in SKINSPATH variable. Example: `#SKINSPATH#`.",
+  "#PLUGINSPATH#":
+    "Defines the built-in PLUGINSPATH variable. Example: `#PLUGINSPATH#`.",
+  "#ADDONSPATH#":
+    "Defines the built-in ADDONSPATH variable. Example: `#ADDONSPATH#`.",
+  "#@#": "Defines the built-in @Resources folder variable. Example: `#@#`.",
+  "#WORKAREAX#":
+    "Defines the built-in WORKAREAX variable. Example: `#WORKAREAX#`.",
+  "#WORKAREAY#":
+    "Defines the built-in WORKAREAY variable. Example: `#WORKAREAY#`.",
+  "#WORKAREAWIDTH#":
+    "Defines the built-in WORKAREAWIDTH variable. Example: `#WORKAREAWIDTH#`.",
+  "#WORKAREAHEIGHT#":
+    "Defines the built-in WORKAREAHEIGHT variable. Example: `#WORKAREAHEIGHT#`.",
+  "#SCREENAREAX#":
+    "Defines the built-in SCREENAREAX variable. Example: `#SCREENAREAX#`.",
+  "#SCREENAREAY#":
+    "Defines the built-in SCREENAREAY variable. Example: `#SCREENAREAY#`.",
+  "#SCREENAREAWIDTH#":
+    "Defines the built-in SCREENAREAWIDTH variable. Example: `#SCREENAREAWIDTH#`.",
+  "#SCREENAREAHEIGHT#":
+    "Defines the built-in SCREENAREAHEIGHT variable. Example: `#SCREENAREAHEIGHT#`.",
+  "#PWORKAREAX#":
+    "Defines the built-in PWORKAREAX variable. Example: `#PWORKAREAX#`.",
+  "#PWORKAREAY#":
+    "Defines the built-in PWORKAREAY variable. Example: `#PWORKAREAY#`.",
+  "#PWORKAREAWIDTH#":
+    "Defines the built-in PWORKAREAWIDTH variable. Example: `#PWORKAREAWIDTH#`.",
+  "#PWORKAREAHEIGHT#":
+    "Defines the built-in PWORKAREAHEIGHT variable. Example: `#PWORKAREAHEIGHT#`.",
+  "#PSCREENAREAX#":
+    "Defines the built-in PSCREENAREAX variable. Example: `#PSCREENAREAX#`.",
+  "#PSCREENAREAY#":
+    "Defines the built-in PSCREENAREAY variable. Example: `#PSCREENAREAY#`.",
+  "#PSCREENAREAWIDTH#":
+    "Defines the built-in PSCREENAREAWIDTH variable. Example: `#PSCREENAREAWIDTH#`.",
+  "#PSCREENAREAHEIGHT#":
+    "Defines the built-in PSCREENAREAHEIGHT variable. Example: `#PSCREENAREAHEIGHT#`.",
+  "#WORKAREAX@N#":
+    "Defines the built-in WORKAREAX@N variable. Example: `#WORKAREAX@N#`.",
+  "#WORKAREAY@N#":
+    "Defines the built-in WORKAREAY@N variable. Example: `#WORKAREAY@N#`.",
+  "#WORKAREAWIDTH@N#":
+    "Defines the built-in WORKAREAWIDTH@N variable. Example: `#WORKAREAWIDTH@N#`.",
+  "#WORKAREAHEIGHT@N#":
+    "Defines the built-in WORKAREAHEIGHT@N variable. Example: `#WORKAREAHEIGHT@N#`.",
+  "#SCREENAREAX@N#":
+    "Defines the built-in SCREENAREAX@N variable. Example: `#SCREENAREAX@N#`.",
+  "#SCREENAREAY@N#":
+    "Defines the built-in SCREENAREAY@N variable. Example: `#SCREENAREAY@N#`.",
+  "#SCREENAREAWIDTH@N#":
+    "Defines the built-in SCREENAREAWIDTH@N variable. Example: `#SCREENAREAWIDTH@N#`.",
+  "#SCREENAREAHEIGHT@N#":
+    "Defines the built-in SCREENAREAHEIGHT@N variable. Example: `#SCREENAREA HEIGHT@N#`.",
+  "#PWORKAREAX@N#":
+    "Defines the built-in PWORKAREAX@N variable. Example: `#PWORKAREAX@N#`.",
+  "#PWORKAREAY@N#":
+    "Defines the built-in PWORKAREAY@N variable. Example: `#PWORKAREAY@N#`.",
+  "#PWORKAREAWIDTH@N#":
+    "Defines the built-in PWORKAREAWIDTH@N variable. Example: `#PWORKAREAWIDTH@N#`.",
+  "#PWORKAREAHEIGHT@N#":
+    "Defines the built-in PWORKAREAHEIGHT@N variable. Example: `#PWORKAREAHEIGHT@N#`.",
+  "#PSCREENAREAX@N#":
+    "Defines the built-in PSCREENAREAX@N variable. Example: `#PSCREENAREAX@N#`.",
+  "#PSCREENAREAY@N#":
+    "Defines the built-in PSCREENAREAY@N variable. Example: `#PSCREENAREAY@N#`.",
+  "#PSCREENAREAWIDTH@N#":
+    "Defines the built-in PSCREENAREAWIDTH@N variable. Example: `#PSCREENAREAWIDTH@N#`.",
+  "#PSCREENAREAHEIGHT@N#":
+    "Defines the built-in PSCREENAREAHEIGHT@N variable. Example: `#PSCREENAREAHEIGHT@N#`.",
+  "#SCREENAREAX@N#":
+    "Defines the built-in SCREENAREAX@N variable. Example: `#SCREENAREAX@N#`.",
+  "#SCREENAREAY@N#":
+    "Defines the built-in SCREENAREAY@N variable. Example: `#SCREENAREAY@N#`.",
+  "#SCREENAREAWIDTH@N#":
+    "Defines the built-in SCREENAREAWIDTH@N variable. Example: `#SCREENAREAWIDTH@N#`.",
+  "#SCREENAREAHEIGHT@N#":
+    "Defines the built-in SCREENAREAHEIGHT@N variable. Example: `#SCREENAREAHEIGHT@N#`.",
+  "#VSCREENAREAX#":
+    "Defines the built-in VSCREENAREAX variable. Example: `#VSCREENAREAX#`.",
+  "#VSCREENAREAY#":
+    "Defines the built-in VSCREENAREAY variable. Example: `#VSCREENAREAY#`.",
+  "#VSCREENAREAWIDTH#":
+    "Defines the built-in VSCREENAREAWIDTH variable. Example: `#VSCREENAREAWIDTH#`.",
+  "#VSCREENAREAHEIGHT#":
+    "Defines the built-in VSCREENAREAHEIGHT variable. Example: `#VSCREENAREAHEIGHT#`.",
+  "#CURRENTFILE#":
+    "Defines the built-in CURRENTFILE variable. Example: `#CURRENTFILE#`.",
+  "#ROOTCONFIGPATH#":
+    "Defines the built-in ROOTCONFIGPATH variable. Example: `#ROOTCONFIGPATH#`.",
+  "#CURRENTCONFIG#":
+    "Defines the built-in CURRENTCONFIG variable. Example: `#CURRENTCONFIG#`.",
+  "#CURRENTCONFIGX#":
+    "Defines the built-in CURRENTCONFIGX variable. Example: `#CURRENTCONFIGX#`.",
+  "#CURRENTCONFIGY#":
+    "Defines the built-in CURRENTCONFIGY variable. Example: `#CURRENTCONFIGY#`.",
+  "#CURRENTCONFIGWIDTH#":
+    "Defines the built-in CURRENTCONFIGWIDTH variable. Example: `#CURRENTCONFIGWIDTH#`.",
+  "#CURRENTCONFIGHEIGHT#":
+    "Defines the built-in CURRENTCONFIGHEIGHT variable. Example: `#CURRENTCONFIGHEIGHT#`.",
+  "#CURRENTCONFIGZPOS#":
+    "Defines the built-in CURRENTCONFIGZPOS variable. Example: `#CURRENTCONFIGZPOS#`.",
+  "#CRLF#": "Defines the built-in CRLF variable. Example: `#CRLF#`.",
+  "#CONFIGEDITOR#":
+    "Defines the built-in CONFIGEDITOR variable. Example: `#CONFIGEDITOR#`.",
 };
 
 const actiondescriptions = {
-    "LeftMouseUpAction": "Defines  a LeftMouseUpAction Bang of Mouse. Example: `LeftMouseUpAction=[!CommandMeasure MeasureName Action]`.",
-    "RightMouseUpAction": "Defines  a RightMouseUpAction Bang of Mouse. Example: `RightMouseUpAction=[!CommandMeasure MeasureName Action]`.",
-    "MouseOverAction": "Defines  a MouseOverAction Bang of Mouse. Example: `MouseOverAction=[!CommandMeasure MeasureName Action]`.",
-    "MouseLeaveAction": "Defines  a MouseLeaveAction Bang of Mouse. Example: `MouseLeaveAction=[!CommandMeasure MeasureName Action]`.",
-    "LeftMouseDoubleClickAction": "Defines  a LeftMouseDoubleClickAction Bang of Mouse. Example: `LeftMouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
-    "RightMouseDoubleClickAction": "Defines  a RightMouseDoubleClickAction Bang of Mouse. Example: `RightMouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
-    "MiddleMouseDoubleClickAction": "Defines  a MiddleMouseDoubleClickAction Bang of Mouse. Example: `MiddleMouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
-    "X1MouseDownAction": "Defines  a X1MouseDownAction Bang of Mouse. Example: `X1MouseDownAction=[!CommandMeasure MeasureName Action]`.",
-    "X2MouseDownAction": "Defines  a X2MouseDownAction Bang of Mouse. Example: `X2MouseDownAction=[!CommandMeasure MeasureName Action]`.",
-    "X1MouseUpAction": "Defines  a X1MouseUpAction Bang of Mouse. Example: `X1MouseUpAction=[!CommandMeasure MeasureName Action]`.",
-    "X2MouseUpAction": "Defines  a X2MouseUpAction Bang of Mouse. Example: `X2MouseUpAction=[!CommandMeasure MeasureName Action]`.",
-    "X1MouseDoubleClickAction": "Defines  a X1MouseDoubleClickAction Bang of Mouse. Example: `X1MouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
-    "X2MouseDoubleClickAction": "Defines  a X2MouseDoubleClickAction Bang of Mouse. Example: `X2MouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
-    "MouseScrollDownAction": "Defines  a MouseScrollDownAction Bang of Mouse. Example: `MouseScrollDownAction=[!CommandMeasure MeasureName Action]`.",
-    "MouseScrollUpAction": "Defines  a MouseScrollUpAction Bang of Mouse. Example: `MouseScrollUpAction=[!CommandMeasure MeasureName Action]`.",
-    "MouseScrollLeftAction": "Defines  a MouseScrollLeftAction Bang of Mouse. Example: `MouseScrollLeftAction=[!CommandMeasure MeasureName Action]`.",
-    "MouseScrollRightAction": "Defines  a MouseScrollRightAction Bang of Mouse. Example: `MouseScrollRightAction=[!CommandMeasure MeasureName Action]`.",
-    "OnRefreshAction": "Action to execute when the skin is loaded or refreshed. Example: `OnRefreshAction=[!CommandMeasure MeasureName Action]`.",
-    "OnUpdateAction": "Action to execute on each Update of the skin. Example: `OnUpdateAction=[!CommandMeasure MeasureName Action]`.",
-    "OnCloseAction": "Action to execute when the skin is unloaded or when Rainmeter is closed. Example: `OnCloseAction=[!CommandMeasure MeasureName Action]`.",
-    "OnFocusAction": "Action to execute when the skin receives focus in Windows. Example: `OnFocusAction=[!CommandMeasure MeasureName Action]`.",
-    "OnUnfocusAction": "Action to execute when the skin loses focus in Windows. Example: `OnUnfocusAction=[!CommandMeasure MeasureName Action]`.",
-    "OnWakeAction": "Action to execute when Windows returns from sleep or hibernate states. Example: `OnWakeAction=[!CommandMeasure MeasureName Action]`.",
-    "ifCondition": "Specifies the condition for an action to execute. Example: `ifCondition=MeasureName=1`.",
-    "IfTrueAction": "Specifies the action to execute if the condition evaluates to true. Example: `IfTrueAction=[!CommandMeasure MeasureName Action]`.",
-    "IfFalseAction": "Specifies the action to execute if the condition evaluates to false. Example: `IfFalseAction=[!CommandMeasure MeasureName Action]`.",
-    "OnFinishAction": "Specifies the action to execute when a process finishes. Example: `OnFinishAction=[!CommandMeasure MeasureName Action]`.",
-    "OnChangeAction": "Specifies the action to execute when a value changes. Example: `OnChangeAction=[!CommandMeasure MeasureName Action]`.",
-    "OnMatchAction": "Specifies the action to execute when a match is detected. Example: `OnMatchAction=[!CommandMeasure MeasureName Action]`."
+  LeftMouseUpAction:
+    "Defines  a LeftMouseUpAction Bang of Mouse. Example: `LeftMouseUpAction=[!CommandMeasure MeasureName Action]`.",
+  RightMouseUpAction:
+    "Defines  a RightMouseUpAction Bang of Mouse. Example: `RightMouseUpAction=[!CommandMeasure MeasureName Action]`.",
+  MouseOverAction:
+    "Defines  a MouseOverAction Bang of Mouse. Example: `MouseOverAction=[!CommandMeasure MeasureName Action]`.",
+  MouseLeaveAction:
+    "Defines  a MouseLeaveAction Bang of Mouse. Example: `MouseLeaveAction=[!CommandMeasure MeasureName Action]`.",
+  LeftMouseDoubleClickAction:
+    "Defines  a LeftMouseDoubleClickAction Bang of Mouse. Example: `LeftMouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
+  RightMouseDoubleClickAction:
+    "Defines  a RightMouseDoubleClickAction Bang of Mouse. Example: `RightMouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
+  MiddleMouseDoubleClickAction:
+    "Defines  a MiddleMouseDoubleClickAction Bang of Mouse. Example: `MiddleMouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
+  X1MouseDownAction:
+    "Defines  a X1MouseDownAction Bang of Mouse. Example: `X1MouseDownAction=[!CommandMeasure MeasureName Action]`.",
+  X2MouseDownAction:
+    "Defines  a X2MouseDownAction Bang of Mouse. Example: `X2MouseDownAction=[!CommandMeasure MeasureName Action]`.",
+  X1MouseUpAction:
+    "Defines  a X1MouseUpAction Bang of Mouse. Example: `X1MouseUpAction=[!CommandMeasure MeasureName Action]`.",
+  X2MouseUpAction:
+    "Defines  a X2MouseUpAction Bang of Mouse. Example: `X2MouseUpAction=[!CommandMeasure MeasureName Action]`.",
+  X1MouseDoubleClickAction:
+    "Defines  a X1MouseDoubleClickAction Bang of Mouse. Example: `X1MouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
+  X2MouseDoubleClickAction:
+    "Defines  a X2MouseDoubleClickAction Bang of Mouse. Example: `X2MouseDoubleClickAction=[!CommandMeasure MeasureName Action]`.",
+  MouseScrollDownAction:
+    "Defines  a MouseScrollDownAction Bang of Mouse. Example: `MouseScrollDownAction=[!CommandMeasure MeasureName Action]`.",
+  MouseScrollUpAction:
+    "Defines  a MouseScrollUpAction Bang of Mouse. Example: `MouseScrollUpAction=[!CommandMeasure MeasureName Action]`.",
+  MouseScrollLeftAction:
+    "Defines  a MouseScrollLeftAction Bang of Mouse. Example: `MouseScrollLeftAction=[!CommandMeasure MeasureName Action]`.",
+  MouseScrollRightAction:
+    "Defines  a MouseScrollRightAction Bang of Mouse. Example: `MouseScrollRightAction=[!CommandMeasure MeasureName Action]`.",
+  OnRefreshAction:
+    "Action to execute when the skin is loaded or refreshed. Example: `OnRefreshAction=[!CommandMeasure MeasureName Action]`.",
+  OnUpdateAction:
+    "Action to execute on each Update of the skin. Example: `OnUpdateAction=[!CommandMeasure MeasureName Action]`.",
+  OnCloseAction:
+    "Action to execute when the skin is unloaded or when Rainmeter is closed. Example: `OnCloseAction=[!CommandMeasure MeasureName Action]`.",
+  OnFocusAction:
+    "Action to execute when the skin receives focus in Windows. Example: `OnFocusAction=[!CommandMeasure MeasureName Action]`.",
+  OnUnfocusAction:
+    "Action to execute when the skin loses focus in Windows. Example: `OnUnfocusAction=[!CommandMeasure MeasureName Action]`.",
+  OnWakeAction:
+    "Action to execute when Windows returns from sleep or hibernate states. Example: `OnWakeAction=[!CommandMeasure MeasureName Action]`.",
+  ifCondition:
+    "Specifies the condition for an action to execute. Example: `ifCondition=MeasureName=1`.",
+  IfTrueAction:
+    "Specifies the action to execute if the condition evaluates to true. Example: `IfTrueAction=[!CommandMeasure MeasureName Action]`.",
+  IfFalseAction:
+    "Specifies the action to execute if the condition evaluates to false. Example: `IfFalseAction=[!CommandMeasure MeasureName Action]`.",
+  OnFinishAction:
+    "Specifies the action to execute when a process finishes. Example: `OnFinishAction=[!CommandMeasure MeasureName Action]`.",
+  OnChangeAction:
+    "Specifies the action to execute when a value changes. Example: `OnChangeAction=[!CommandMeasure MeasureName Action]`.",
+  OnMatchAction:
+    "Specifies the action to execute when a match is detected. Example: `OnMatchAction=[!CommandMeasure MeasureName Action]`.",
 };
-
-
 
 /**
  * Provides hover information for Rainmeter files.
  * @returns {vscode.HoverProvider}
  */
 function createHoverProvider() {
-    return {
-        provideHover(document, position, token) {
+  return {
+    provideHover(document, position, token) {
+      const range = document.getWordRangeAtPosition(
+        position,
+        /[A-Za-z0-9_\[\]\.#\!\-]+/
+      );
+      if (!range) {
+        return null;
+      }
 
-            const range = document.getWordRangeAtPosition(position, /[A-Za-z0-9_\[\]\.#\!\-]+/);
-            if (!range) {
-                return null;
-            }
+      const word = document.getText(range);
 
-            const word = document.getText(range);
+      if (keysDescription[word]) {
+        return new vscode.Hover(keysDescription[word]);
+      }
 
-            if (keysDescription[word]) {
-                return new vscode.Hover(keysDescription[word]);
-            }
+      const sectionMatch = word.match(/^\[.*\]$/);
+      if (sectionMatch && word !== "[Rainmeter]" && word !== "[Variables]") {
+        return new vscode.Hover(
+          `Custom section: ${word}. Define specific settings or use this section for organization.`
+        );
+      }
 
-            const sectionMatch = word.match(/^\[.*\]$/);
-            if (sectionMatch && word !== "[Rainmeter]" && word !== "[Variables]") {
-                return new vscode.Hover(`Custom section: ${word}. Define specific settings or use this section for organization.`);
-            }
-
-            const placeholderMatch = word.match(/^#.*#$/);
-            if (placeholderMatch) {
-                if (builtVariablesdescriptions[word]) {
-                    return new vscode.Hover(`${word}: ${builtVariablesdescriptions[word]}`);
-                } else {
-                    return new vscode.Hover(`Unknown placeholder: ${word}. Make sure it's defined in your variables or settings.`);
-                }
-            }
-
-            if (actiondescriptions[word]) {
-                return new vscode.Hover(`${word}: ${actiondescriptions[word]}`);
-            }
-
-            return null;
+      const placeholderMatch = word.match(/^#.*#$/);
+      if (placeholderMatch) {
+        if (builtVariablesdescriptions[word]) {
+          return new vscode.Hover(
+            `${word}: ${builtVariablesdescriptions[word]}`
+          );
+        } else {
+          return new vscode.Hover(
+            `Unknown placeholder: ${word}. Make sure it's defined in your variables or settings.`
+          );
         }
-    };
+      }
+
+      if (actiondescriptions[word]) {
+        return new vscode.Hover(`${word}: ${actiondescriptions[word]}`);
+      }
+
+      return null;
+    },
+  };
 }
 
 module.exports = { createHoverProvider };

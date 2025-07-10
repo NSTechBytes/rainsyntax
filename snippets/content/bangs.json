@@ -1,542 +1,542 @@
 {
-    "!Refresh Bang": {
-        "prefix": "!Refresh",
-        "body": "!Refresh",
-        "description": "Inserts the !Refresh bang to reload the skin."
-    },
-    "!Redraw Bang": {
-        "prefix": "!Redraw",
-        "body": "!Redraw",
-        "description": "Inserts the !Redraw bang to redraw the skin."
-    },
-    "!SetVariable Bang": {
-        "prefix": "!SetVariable",
-        "body": "!SetVariable $1 $2",
-        "description": "Inserts the !SetVariable bang to set a variable value."
-    },
-    "!DeactivateConfig Bang": {
-        "prefix": "!DeactivateConfig",
-        "body": "!DeactivateConfig",
-        "description": "Inserts the !DeactivateConfig bang to deactivate a config."
-    },
-    "!ActivateConfig Bang": {
-        "prefix": "!ActivateConfig",
-        "body": "!ActivateConfig",
-        "description": "Inserts the !ActivateConfig bang to activate a config."
-    },
-    "!ToggleConfig Bang": {
-        "prefix": "!ToggleConfig",
-        "body": "!ToggleConfig",
-        "description": "Inserts the !ToggleConfig bang to toggle a config."
-    },
-    "!WriteKeyValue Bang": {
-        "prefix": "!WriteKeyValue",
-        "body": "!WriteKeyValue",
-        "description": "Inserts the !WriteKeyValue bang to write a key-value pair."
-    },
-    "Pause Bang": {
-        "prefix": "Pause",
-        "body": "Pause",
-        "description": "Inserts the Pause bang to pause the skin."
-    },
-    "!Unload Bang": {
-        "prefix": "!Unload",
-        "body": "!Unload",
-        "description": "Inserts the !Unload bang to unload the skin."
-    },
-    "Play Bang": {
-        "prefix": "Play",
-        "body": "Play",
-        "description": "Inserts the Play bang to start a playing action."
-    },
-    "!SetOptionGroup Bang": {
-        "prefix": "!SetOptionGroup",
-        "body": "!SetOptionGroup",
-        "description": "Inserts the !SetOptionGroup bang to set options for a group."
-    },
-    "!SetClip Bang": {
-        "prefix": "!SetClip",
-        "body": "!SetClip",
-        "description": "Inserts the !SetClip bang to set the skin clip."
-    },
-    "!SetWallpaper Bang": {
-        "prefix": "!SetWallpaper",
-        "body": "!SetWallpaper",
-        "description": "Inserts the !SetWallpaper bang to set a wallpaper."
-    },
-    "!About Bang": {
-        "prefix": "!About",
-        "body": "!About",
-        "description": "Inserts the !About bang to show the about dialog."
-    },
-    "!Manage Bang": {
-        "prefix": "!Manage",
-        "body": "!Manage",
-        "description": "Inserts the !Manage bang to manage a skin."
-    },
-    "!TrayMenu Bang": {
-        "prefix": "!TrayMenu",
-        "body": "!TrayMenu",
-        "description": "Inserts the !TrayMenu bang to open the tray menu."
-    },
-    "!Log Bang": {
-        "prefix": "!Log",
-        "body": "!Log",
-        "description": "Inserts the !Log bang to log a message."
-    },
-    "!ResetStats Bang": {
-        "prefix": "!ResetStats",
-        "body": "!ResetStats",
-        "description": "Inserts the !ResetStats bang to reset statistics."
-    },
-    "!LoadLayout Bang": {
-        "prefix": "!LoadLayout",
-        "body": "!LoadLayout",
-        "description": "Inserts the !LoadLayout bang to load a layout."
-    },
-    "!RefreshApp Bang": {
-        "prefix": "!RefreshApp",
-        "body": "!RefreshApp",
-        "description": "Inserts the !RefreshApp bang to refresh the application."
-    },
-    "!Quit Bang": {
-        "prefix": "!Quit",
-        "body": "!Quit",
-        "description": "Inserts the !Quit bang to quit the application."
-    },
-    "PlayLoop Bang": {
-        "prefix": "PlayLoop",
-        "body": "PlayLoop",
-        "description": "Inserts the PlayLoop bang to play a loop."
-    },
-    "PlayStop Bang": {
-        "prefix": "PlayStop",
-        "body": "PlayStop",
-        "description": "Inserts the PlayStop bang to stop playing."
-    },
-    "!SetOption Bang": {
-        "prefix": "!SetOption",
-        "body": "!SetOption",
-        "description": "Inserts the !SetOption bang to set an option."
-    },
-    "!SetVariableGroup Bang": {
-        "prefix": "!SetVariableGroup",
-        "body": "!SetVariableGroup",
-        "description": "Inserts the !SetVariableGroup bang to set a variable in a group."
-    },
-    "!Show Bang": {
-        "prefix": "!Show",
-        "body": "!Show",
-        "description": "Inserts the !Show bang to show the skin."
-    },
-    "!Toggle Bang": {
-        "prefix": "!Toggle",
-        "body": "!Toggle",
-        "description": "Inserts the !Toggle bang to toggle a state."
-    },
-    "!ShowFade Bang": {
-        "prefix": "!ShowFade",
-        "body": "!ShowFade",
-        "description": "Inserts the !ShowFade bang to show with fade effect."
-    },
-    "!HideFade Bang": {
-        "prefix": "!HideFade",
-        "body": "!HideFade",
-        "description": "Inserts the !HideFade bang to hide with fade effect."
-    },
-    "!ToggleFade Bang": {
-        "prefix": "!ToggleFade",
-        "body": "!ToggleFade",
-        "description": "Inserts the !ToggleFade bang to toggle fade effect."
-    },
-    "!FadeDuration Bang": {
-        "prefix": "!FadeDuration",
-        "body": "!FadeDuration",
-        "description": "Inserts the !FadeDuration bang to set the fade duration."
-    },
-    "!ShowBlur Bang": {
-        "prefix": "!ShowBlur",
-        "body": "!ShowBlur",
-        "description": "Inserts the !ShowBlur bang to show with blur effect."
-    },
-    "!HideBlur Bang": {
-        "prefix": "!HideBlur",
-        "body": "!HideBlur",
-        "description": "Inserts the !HideBlur bang to hide with blur effect."
-    },
-    "!ToggleBlur Bang": {
-        "prefix": "!ToggleBlur",
-        "body": "!ToggleBlur",
-        "description": "Inserts the !ToggleBlur bang to toggle blur effect."
-    },
-    "!AddBlur Bang": {
-        "prefix": "!AddBlur",
-        "body": "!AddBlur",
-        "description": "Inserts the !AddBlur bang to add a blur effect."
-    },
-    "!RemoveBlur Bang": {
-        "prefix": "!RemoveBlur",
-        "body": "!RemoveBlur",
-        "description": "Inserts the !RemoveBlur bang to remove the blur effect."
-    },
-    "!Move Bang": {
-        "prefix": "!Move",
-        "body": "!Move",
-        "description": "Inserts the !Move bang to move the skin."
-    },
-    "!SetWindowPosition Bang": {
-        "prefix": "!SetWindowPosition",
-        "body": "!SetWindowPosition",
-        "description": "Inserts the !SetWindowPosition bang to set the window position."
-    },
-    "!SetAnchor Bang": {
-        "prefix": "!SetAnchor",
-        "body": "!SetAnchor",
-        "description": "Inserts the !SetAnchor bang to set the anchor point."
-    },
-    "!Update Bang": {
-        "prefix": "!Update",
-        "body": "!Update",
-        "description": "Inserts the !Update bang to update the skin."
-    },
-    "!Delay Bang": {
-        "prefix": "!Delay",
-        "body": "!Delay",
-        "description": "Inserts the !Delay bang to delay an action."
-    },
-    "!SkinMenu Bang": {
-        "prefix": "!SkinMenu",
-        "body": "!SkinMenu",
-        "description": "Inserts the !SkinMenu bang to display the skin menu."
-    },
-    "!SkinCustomMenu Bang": {
-        "prefix": "!SkinCustomMenu",
-        "body": "!SkinCustomMenu",
-        "description": "Inserts the !SkinCustomMenu bang to display a custom menu."
-    },
-    "!SetTransparency Bang": {
-        "prefix": "!SetTransparency",
-        "body": "!SetTransparency",
-        "description": "Inserts the !SetTransparency bang to set transparency."
-    },
-    "!ZPos Bang": {
-        "prefix": "!ZPos",
-        "body": "!ZPos",
-        "description": "Inserts the !ZPos bang to set the Z position."
-    },
-    "!Draggable Bang": {
-        "prefix": "!Draggable",
-        "body": "!Draggable",
-        "description": "Inserts the !Draggable bang to make the skin draggable."
-    },
-    "!KeepOnScreen Bang": {
-        "prefix": "!KeepOnScreen",
-        "body": "!KeepOnScreen",
-        "description": "Inserts the !KeepOnScreen bang to keep the skin on the screen."
-    },
-    "!ClickThrough Bang": {
-        "prefix": "!ClickThrough",
-        "body": "!ClickThrough",
-        "description": "Inserts the !ClickThrough bang to enable or disable click-through mode for the skin."
-    },
-    "!SnapEdges Bang": {
-        "prefix": "!SnapEdges",
-        "body": "!SnapEdges",
-        "description": "Inserts the !SnapEdges bang to snap the skin to the edges of the screen."
-    },
-    "!AutoSelectScreen Bang": {
-        "prefix": "!AutoSelectScreen",
-        "body": "!AutoSelectScreen",
-        "description": "Inserts the !AutoSelectScreen bang to automatically select the screen."
-    },
-    "!EditSkin Bang": {
-        "prefix": "!EditSkin",
-        "body": "!EditSkin",
-        "description": "Inserts the !EditSkin bang to edit the skin."
-    },
-    "!ShowGroup Bang": {
-        "prefix": "!ShowGroup",
-        "body": "!ShowGroup",
-        "description": "Inserts the !ShowGroup bang to show a group of meters."
-    },
-    "!HideGroup Bang": {
-        "prefix": "!HideGroup",
-        "body": "!HideGroup",
-        "description": "Inserts the !HideGroup bang to hide a group of meters."
-    },
-    "!ToggleGroup Bang": {
-        "prefix": "!ToggleGroup",
-        "body": "!ToggleGroup",
-        "description": "Inserts the !ToggleGroup bang to toggle the visibility of a group of meters."
-    },
-    "!ShowFadeGroup Bang": {
-        "prefix": "!ShowFadeGroup",
-        "body": "!ShowFadeGroup",
-        "description": "Inserts the !ShowFadeGroup bang to show a group with fade effect."
-    },
-    "!HideFadeGroup Bang": {
-        "prefix": "!HideFadeGroup",
-        "body": "!HideFadeGroup",
-        "description": "Inserts the !HideFadeGroup bang to hide a group with fade effect."
-    },
-    "!ToggleFadeGroup Bang": {
-        "prefix": "!ToggleFadeGroup",
-        "body": "!ToggleFadeGroup",
-        "description": "Inserts the !ToggleFadeGroup bang to toggle fade effect on a group."
-    },
-    "!FadeDurationGroup Bang": {
-        "prefix": "!FadeDurationGroup",
-        "body": "!FadeDurationGroup",
-        "description": "Inserts the !FadeDurationGroup bang to set the fade duration for a group."
-    },
-    "!DeactivateConfigGroup Bang": {
-        "prefix": "!DeactivateConfigGroup",
-        "body": "!DeactivateConfigGroup",
-        "description": "Inserts the !DeactivateConfigGroup bang to deactivate a config group."
-    },
-    "!UpdateGroup Bang": {
-        "prefix": "!UpdateGroup",
-        "body": "!UpdateGroup",
-        "description": "Inserts the !UpdateGroup bang to update a config group."
-    },
-    "!RedrawGroup Bang": {
-        "prefix": "!RedrawGroup",
-        "body": "!RedrawGroup",
-        "description": "Inserts the !RedrawGroup bang to redraw a config group."
-    },
-    "!RefreshGroup Bang": {
-        "prefix": "!RefreshGroup",
-        "body": "!RefreshGroup",
-        "description": "Inserts the !RefreshGroup bang to refresh a config group."
-    },
-    "!SetTransparencyGroup Bang": {
-        "prefix": "!SetTransparencyGroup",
-        "body": "!SetTransparencyGroup",
-        "description": "Inserts the !SetTransparencyGroup bang to set transparency for a group."
-    },
-    "!DraggableGroup Bang": {
-        "prefix": "!DraggableGroup",
-        "body": "!DraggableGroup",
-        "description": "Inserts the !DraggableGroup bang to make a group draggable."
-    },
-    "!ZPosGroup Bang": {
-        "prefix": "!ZPosGroup",
-        "body": "!ZPosGroup",
-        "description": "Inserts the !ZPosGroup bang to set the Z position of a group."
-    },
-    "!KeepOnScreenGroup Bang": {
-        "prefix": "!KeepOnScreenGroup",
-        "body": "!KeepOnScreenGroup",
-        "description": "Inserts the !KeepOnScreenGroup bang to keep a group on the screen."
-    },
-    "!ClickThroughGroup Bang": {
-        "prefix": "!ClickThroughGroup",
-        "body": "!ClickThroughGroup",
-        "description": "Inserts the !ClickThroughGroup bang to enable or disable click-through mode for a group."
-    },
-    "!SnapEdgesGroup Bang": {
-        "prefix": "!SnapEdgesGroup",
-        "body": "!SnapEdgesGroup",
-        "description": "Inserts the !SnapEdgesGroup bang to snap a group of meters to the edges of the screen."
-    },
-    "!AutoSelectScreenGroup Bang": {
-        "prefix": "!AutoSelectScreenGroup",
-        "body": "!AutoSelectScreenGroup",
-        "description": "Inserts the !AutoSelectScreenGroup bang to automatically select a screen for a group."
-    },
-    "!ShowMeter Bang": {
-        "prefix": "!ShowMeter",
-        "body": "!ShowMeter",
-        "description": "Inserts the !ShowMeter bang to show a meter."
-    },
-    "!HideMeter Bang": {
-        "prefix": "!HideMeter",
-        "body": "!HideMeter",
-        "description": "Inserts the !HideMeter bang to hide a meter."
-    },
-    "!ToggleMeter Bang": {
-        "prefix": "!ToggleMeter",
-        "body": "!ToggleMeter",
-        "description": "Inserts the !ToggleMeter bang to toggle the visibility of a meter."
-    },
-    "!UpdateMeter Bang": {
-        "prefix": "!UpdateMeter",
-        "body": "!UpdateMeter",
-        "description": "Inserts the !UpdateMeter bang to update a meter."
-    },
-    "!MoveMeter Bang": {
-        "prefix": "!MoveMeter",
-        "body": "!MoveMeter",
-        "description": "Inserts the !MoveMeter bang to move a meter."
-    },
-    "!ShowMeterGroup Bang": {
-        "prefix": "!ShowMeterGroup",
-        "body": "!ShowMeterGroup",
-        "description": "Inserts the !ShowMeterGroup bang to show a group of meters."
-    },
-    "!HideMeterGroup Bang": {
-        "prefix": "!HideMeterGroup",
-        "body": "!HideMeterGroup",
-        "description": "Inserts the !HideMeterGroup bang to hide a group of meters."
-    },
-    "!ToggleMeterGroup Bang": {
-        "prefix": "!ToggleMeterGroup",
-        "body": "!ToggleMeterGroup",
-        "description": "Inserts the !ToggleMeterGroup bang to toggle a group of meters."
-    },
-    "!UpdateMeterGroup Bang": {
-        "prefix": "!UpdateMeterGroup",
-        "body": "!UpdateMeterGroup",
-        "description": "Inserts the !UpdateMeterGroup bang to update a group of meters."
-    },
-    "!EnableMeasure Bang": {
-        "prefix": "!EnableMeasure",
-        "body": "!EnableMeasure",
-        "description": "Inserts the !EnableMeasure bang to enable a measure."
-    },
-    "!DisableMeasure Bang": {
-        "prefix": "!DisableMeasure",
-        "body": "!DisableMeasure",
-        "description": "Inserts the !DisableMeasure bang to disable a measure."
-    },
-    "!ToggleMeasure Bang": {
-        "prefix": "!ToggleMeasure",
-        "body": "!ToggleMeasure",
-        "description": "Inserts the !ToggleMeasure bang to toggle a measure."
-    },
-    "PauseMeasure Bang": {
-        "prefix": "PauseMeasure",
-        "body": "PauseMeasure",
-        "description": "Inserts the PauseMeasure bang to pause a measure."
-    },
-    "!UnpauseMeasure Bang": {
-        "prefix": "!UnpauseMeasure",
-        "body": "!UnpauseMeasure",
-        "description": "Inserts the !UnpauseMeasure bang to unpause a measure."
-    },
-    "!TogglePauseMeasure Bang": {
-        "prefix": "!TogglePauseMeasure",
-        "body": "!TogglePauseMeasure",
-        "description": "Inserts the !TogglePauseMeasure bang to toggle the pause state of a measure."
-    },
-    "!UpdateMeasure Bang": {
-        "prefix": "!UpdateMeasure",
-        "body": "!UpdateMeasure",
-        "description": "Inserts the !UpdateMeasure bang to update a measure."
-    },
-    "!CommandMeasure Bang": {
-        "prefix": "!CommandMeasure",
-        "body": "!CommandMeasure",
-        "description": "Inserts the !CommandMeasure bang to execute a command on a measure."
-    },
-    "!EnableMeasureGroup Bang": {
-        "prefix": "!EnableMeasureGroup",
-        "body": "!EnableMeasureGroup",
-        "description": "Inserts the !EnableMeasureGroup bang to enable a group of measures."
-    },
-    "!DisableMeasureGroup Bang": {
-        "prefix": "!DisableMeasureGroup",
-        "body": "!DisableMeasureGroup",
-        "description": "Inserts the !DisableMeasureGroup bang to disable a group of measures."
-    },
-    "!ToggleMeasureGroup Bang": {
-        "prefix": "!ToggleMeasureGroup",
-        "body": "!ToggleMeasureGroup",
-        "description": "Inserts the !ToggleMeasureGroup bang to toggle a group of measures."
-    },
-    "PauseMeasureGroup Bang": {
-        "prefix": "PauseMeasureGroup",
-        "body": "PauseMeasureGroup",
-        "description": "Inserts the PauseMeasureGroup bang to pause a group of measures."
-    },
-    "!UnpauseMeasureGroup Bang": {
-        "prefix": "!UnpauseMeasureGroup",
-        "body": "!UnpauseMeasureGroup",
-        "description": "Inserts the !UnpauseMeasureGroup bang to unpause a group of measures."
-    },
-    "!TogglePauseMeasureGroup Bang": {
-        "prefix": "!TogglePauseMeasureGroup",
-        "body": "!TogglePauseMeasureGroup",
-        "description": "Inserts the !TogglePauseMeasureGroup bang to toggle the pause state of a group of measures."
-    },
-    "!UpdateMeasureGroup Bang": {
-        "prefix": "!UpdateMeasureGroup",
-        "body": "!UpdateMeasureGroup",
-        "description": "Inserts the !UpdateMeasureGroup bang to update a group of measures."
-    },
-    "!DisableMouseAction Bang": {
-        "prefix": "!DisableMouseAction",
-        "body": "!DisableMouseAction",
-        "description": "Inserts the !DisableMouseAction bang to disable a mouse action."
-    },
-    "!ClearMouseAction Bang": {
-        "prefix": "!ClearMouseAction",
-        "body": "!ClearMouseAction",
-        "description": "Inserts the !ClearMouseAction bang to clear a mouse action."
-    },
-    "!EnableMouseAction Bang": {
-        "prefix": "!EnableMouseAction",
-        "body": "!EnableMouseAction",
-        "description": "Inserts the !EnableMouseAction bang to enable a mouse action."
-    },
-    "!ToggleMouseAction Bang": {
-        "prefix": "!ToggleMouseAction",
-        "body": "!ToggleMouseAction",
-        "description": "Inserts the !ToggleMouseAction bang to toggle a mouse action."
-    },
-    "!DisableMouseActionGroup Bang": {
-        "prefix": "!DisableMouseActionGroup",
-        "body": "!DisableMouseActionGroup",
-        "description": "Inserts the !DisableMouseActionGroup bang to disable a group of mouse actions."
-    },
-    "!ClearMouseActionGroup Bang": {
-        "prefix": "!ClearMouseActionGroup",
-        "body": "!ClearMouseActionGroup",
-        "description": "Inserts the !ClearMouseActionGroup bang to clear a group of mouse actions."
-    },
-    "!EnableMouseActionGroup Bang": {
-        "prefix": "!EnableMouseActionGroup",
-        "body": "!EnableMouseActionGroup",
-        "description": "Inserts the !EnableMouseActionGroup bang to enable a group of mouse actions."
-    },
-    "!ToggleMouseActionGroup Bang": {
-        "prefix": "!ToggleMouseActionGroup",
-        "body": "!ToggleMouseActionGroup",
-        "description": "Inserts the !ToggleMouseActionGroup bang to toggle a group of mouse actions."
-    },
-    "!DisableMouseActionSkinGroup Bang": {
-        "prefix": "!DisableMouseActionSkinGroup",
-        "body": "!DisableMouseActionSkinGroup",
-        "description": "Inserts the !DisableMouseActionSkinGroup bang to disable mouse actions for the skin group."
-    },
-    "!ClearMouseActionSkinGroup Bang": {
-        "prefix": "!ClearMouseActionSkinGroup",
-        "body": "!ClearMouseActionSkinGroup",
-        "description": "Inserts the !ClearMouseActionSkinGroup bang to clear mouse actions for the skin group."
-    },
-    "!EnableMouseActionSkinGroup Bang": {
-        "prefix": "!EnableMouseActionSkinGroup",
-        "body": "!EnableMouseActionSkinGroup",
-        "description": "Inserts the !EnableMouseActionSkinGroup bang to enable mouse actions for the skin group."
-    },
-    "!ToggleMouseActionSkinGroup Bang": {
-        "prefix": "!ToggleMouseActionSkinGroup",
-        "body": "!ToggleMouseActionSkinGroup",
-        "description": "Inserts the !ToggleMouseActionSkinGroup bang to toggle mouse actions for the skin group."
-    },
-    "!Execute Bang": {
-        "prefix": "!Execute",
-        "body": "!Execute",
-        "description": "Inserts the !Execute bang to execute a command."
-    },
-    "!Rainmeter Bang": {
-        "prefix": "!Rainmeter",
-        "body": "!Rainmeter",
-        "description": "Inserts the !Rainmeter bang to interact with Rainmeter directly."
-    },
-    "!PluginBang Bang": {
-        "prefix": "!PluginBang",
-        "body": "!PluginBang",
-        "description": "Inserts the !PluginBang bang to interact with a plugin."
-    }
+  "!Refresh Bang": {
+    "prefix": "!Refresh",
+    "body": "!Refresh",
+    "description": "Inserts the !Refresh bang to reload the skin."
+  },
+  "!Redraw Bang": {
+    "prefix": "!Redraw",
+    "body": "!Redraw",
+    "description": "Inserts the !Redraw bang to redraw the skin."
+  },
+  "!SetVariable Bang": {
+    "prefix": "!SetVariable",
+    "body": "!SetVariable $1 $2",
+    "description": "Inserts the !SetVariable bang to set a variable value."
+  },
+  "!DeactivateConfig Bang": {
+    "prefix": "!DeactivateConfig",
+    "body": "!DeactivateConfig",
+    "description": "Inserts the !DeactivateConfig bang to deactivate a config."
+  },
+  "!ActivateConfig Bang": {
+    "prefix": "!ActivateConfig",
+    "body": "!ActivateConfig",
+    "description": "Inserts the !ActivateConfig bang to activate a config."
+  },
+  "!ToggleConfig Bang": {
+    "prefix": "!ToggleConfig",
+    "body": "!ToggleConfig",
+    "description": "Inserts the !ToggleConfig bang to toggle a config."
+  },
+  "!WriteKeyValue Bang": {
+    "prefix": "!WriteKeyValue",
+    "body": "!WriteKeyValue",
+    "description": "Inserts the !WriteKeyValue bang to write a key-value pair."
+  },
+  "Pause Bang": {
+    "prefix": "Pause",
+    "body": "Pause",
+    "description": "Inserts the Pause bang to pause the skin."
+  },
+  "!Unload Bang": {
+    "prefix": "!Unload",
+    "body": "!Unload",
+    "description": "Inserts the !Unload bang to unload the skin."
+  },
+  "Play Bang": {
+    "prefix": "Play",
+    "body": "Play",
+    "description": "Inserts the Play bang to start a playing action."
+  },
+  "!SetOptionGroup Bang": {
+    "prefix": "!SetOptionGroup",
+    "body": "!SetOptionGroup",
+    "description": "Inserts the !SetOptionGroup bang to set options for a group."
+  },
+  "!SetClip Bang": {
+    "prefix": "!SetClip",
+    "body": "!SetClip",
+    "description": "Inserts the !SetClip bang to set the skin clip."
+  },
+  "!SetWallpaper Bang": {
+    "prefix": "!SetWallpaper",
+    "body": "!SetWallpaper",
+    "description": "Inserts the !SetWallpaper bang to set a wallpaper."
+  },
+  "!About Bang": {
+    "prefix": "!About",
+    "body": "!About",
+    "description": "Inserts the !About bang to show the about dialog."
+  },
+  "!Manage Bang": {
+    "prefix": "!Manage",
+    "body": "!Manage",
+    "description": "Inserts the !Manage bang to manage a skin."
+  },
+  "!TrayMenu Bang": {
+    "prefix": "!TrayMenu",
+    "body": "!TrayMenu",
+    "description": "Inserts the !TrayMenu bang to open the tray menu."
+  },
+  "!Log Bang": {
+    "prefix": "!Log",
+    "body": "!Log",
+    "description": "Inserts the !Log bang to log a message."
+  },
+  "!ResetStats Bang": {
+    "prefix": "!ResetStats",
+    "body": "!ResetStats",
+    "description": "Inserts the !ResetStats bang to reset statistics."
+  },
+  "!LoadLayout Bang": {
+    "prefix": "!LoadLayout",
+    "body": "!LoadLayout",
+    "description": "Inserts the !LoadLayout bang to load a layout."
+  },
+  "!RefreshApp Bang": {
+    "prefix": "!RefreshApp",
+    "body": "!RefreshApp",
+    "description": "Inserts the !RefreshApp bang to refresh the application."
+  },
+  "!Quit Bang": {
+    "prefix": "!Quit",
+    "body": "!Quit",
+    "description": "Inserts the !Quit bang to quit the application."
+  },
+  "PlayLoop Bang": {
+    "prefix": "PlayLoop",
+    "body": "PlayLoop",
+    "description": "Inserts the PlayLoop bang to play a loop."
+  },
+  "PlayStop Bang": {
+    "prefix": "PlayStop",
+    "body": "PlayStop",
+    "description": "Inserts the PlayStop bang to stop playing."
+  },
+  "!SetOption Bang": {
+    "prefix": "!SetOption",
+    "body": "!SetOption",
+    "description": "Inserts the !SetOption bang to set an option."
+  },
+  "!SetVariableGroup Bang": {
+    "prefix": "!SetVariableGroup",
+    "body": "!SetVariableGroup",
+    "description": "Inserts the !SetVariableGroup bang to set a variable in a group."
+  },
+  "!Show Bang": {
+    "prefix": "!Show",
+    "body": "!Show",
+    "description": "Inserts the !Show bang to show the skin."
+  },
+  "!Toggle Bang": {
+    "prefix": "!Toggle",
+    "body": "!Toggle",
+    "description": "Inserts the !Toggle bang to toggle a state."
+  },
+  "!ShowFade Bang": {
+    "prefix": "!ShowFade",
+    "body": "!ShowFade",
+    "description": "Inserts the !ShowFade bang to show with fade effect."
+  },
+  "!HideFade Bang": {
+    "prefix": "!HideFade",
+    "body": "!HideFade",
+    "description": "Inserts the !HideFade bang to hide with fade effect."
+  },
+  "!ToggleFade Bang": {
+    "prefix": "!ToggleFade",
+    "body": "!ToggleFade",
+    "description": "Inserts the !ToggleFade bang to toggle fade effect."
+  },
+  "!FadeDuration Bang": {
+    "prefix": "!FadeDuration",
+    "body": "!FadeDuration",
+    "description": "Inserts the !FadeDuration bang to set the fade duration."
+  },
+  "!ShowBlur Bang": {
+    "prefix": "!ShowBlur",
+    "body": "!ShowBlur",
+    "description": "Inserts the !ShowBlur bang to show with blur effect."
+  },
+  "!HideBlur Bang": {
+    "prefix": "!HideBlur",
+    "body": "!HideBlur",
+    "description": "Inserts the !HideBlur bang to hide with blur effect."
+  },
+  "!ToggleBlur Bang": {
+    "prefix": "!ToggleBlur",
+    "body": "!ToggleBlur",
+    "description": "Inserts the !ToggleBlur bang to toggle blur effect."
+  },
+  "!AddBlur Bang": {
+    "prefix": "!AddBlur",
+    "body": "!AddBlur",
+    "description": "Inserts the !AddBlur bang to add a blur effect."
+  },
+  "!RemoveBlur Bang": {
+    "prefix": "!RemoveBlur",
+    "body": "!RemoveBlur",
+    "description": "Inserts the !RemoveBlur bang to remove the blur effect."
+  },
+  "!Move Bang": {
+    "prefix": "!Move",
+    "body": "!Move",
+    "description": "Inserts the !Move bang to move the skin."
+  },
+  "!SetWindowPosition Bang": {
+    "prefix": "!SetWindowPosition",
+    "body": "!SetWindowPosition",
+    "description": "Inserts the !SetWindowPosition bang to set the window position."
+  },
+  "!SetAnchor Bang": {
+    "prefix": "!SetAnchor",
+    "body": "!SetAnchor",
+    "description": "Inserts the !SetAnchor bang to set the anchor point."
+  },
+  "!Update Bang": {
+    "prefix": "!Update",
+    "body": "!Update",
+    "description": "Inserts the !Update bang to update the skin."
+  },
+  "!Delay Bang": {
+    "prefix": "!Delay",
+    "body": "!Delay",
+    "description": "Inserts the !Delay bang to delay an action."
+  },
+  "!SkinMenu Bang": {
+    "prefix": "!SkinMenu",
+    "body": "!SkinMenu",
+    "description": "Inserts the !SkinMenu bang to display the skin menu."
+  },
+  "!SkinCustomMenu Bang": {
+    "prefix": "!SkinCustomMenu",
+    "body": "!SkinCustomMenu",
+    "description": "Inserts the !SkinCustomMenu bang to display a custom menu."
+  },
+  "!SetTransparency Bang": {
+    "prefix": "!SetTransparency",
+    "body": "!SetTransparency",
+    "description": "Inserts the !SetTransparency bang to set transparency."
+  },
+  "!ZPos Bang": {
+    "prefix": "!ZPos",
+    "body": "!ZPos",
+    "description": "Inserts the !ZPos bang to set the Z position."
+  },
+  "!Draggable Bang": {
+    "prefix": "!Draggable",
+    "body": "!Draggable",
+    "description": "Inserts the !Draggable bang to make the skin draggable."
+  },
+  "!KeepOnScreen Bang": {
+    "prefix": "!KeepOnScreen",
+    "body": "!KeepOnScreen",
+    "description": "Inserts the !KeepOnScreen bang to keep the skin on the screen."
+  },
+  "!ClickThrough Bang": {
+    "prefix": "!ClickThrough",
+    "body": "!ClickThrough",
+    "description": "Inserts the !ClickThrough bang to enable or disable click-through mode for the skin."
+  },
+  "!SnapEdges Bang": {
+    "prefix": "!SnapEdges",
+    "body": "!SnapEdges",
+    "description": "Inserts the !SnapEdges bang to snap the skin to the edges of the screen."
+  },
+  "!AutoSelectScreen Bang": {
+    "prefix": "!AutoSelectScreen",
+    "body": "!AutoSelectScreen",
+    "description": "Inserts the !AutoSelectScreen bang to automatically select the screen."
+  },
+  "!EditSkin Bang": {
+    "prefix": "!EditSkin",
+    "body": "!EditSkin",
+    "description": "Inserts the !EditSkin bang to edit the skin."
+  },
+  "!ShowGroup Bang": {
+    "prefix": "!ShowGroup",
+    "body": "!ShowGroup",
+    "description": "Inserts the !ShowGroup bang to show a group of meters."
+  },
+  "!HideGroup Bang": {
+    "prefix": "!HideGroup",
+    "body": "!HideGroup",
+    "description": "Inserts the !HideGroup bang to hide a group of meters."
+  },
+  "!ToggleGroup Bang": {
+    "prefix": "!ToggleGroup",
+    "body": "!ToggleGroup",
+    "description": "Inserts the !ToggleGroup bang to toggle the visibility of a group of meters."
+  },
+  "!ShowFadeGroup Bang": {
+    "prefix": "!ShowFadeGroup",
+    "body": "!ShowFadeGroup",
+    "description": "Inserts the !ShowFadeGroup bang to show a group with fade effect."
+  },
+  "!HideFadeGroup Bang": {
+    "prefix": "!HideFadeGroup",
+    "body": "!HideFadeGroup",
+    "description": "Inserts the !HideFadeGroup bang to hide a group with fade effect."
+  },
+  "!ToggleFadeGroup Bang": {
+    "prefix": "!ToggleFadeGroup",
+    "body": "!ToggleFadeGroup",
+    "description": "Inserts the !ToggleFadeGroup bang to toggle fade effect on a group."
+  },
+  "!FadeDurationGroup Bang": {
+    "prefix": "!FadeDurationGroup",
+    "body": "!FadeDurationGroup",
+    "description": "Inserts the !FadeDurationGroup bang to set the fade duration for a group."
+  },
+  "!DeactivateConfigGroup Bang": {
+    "prefix": "!DeactivateConfigGroup",
+    "body": "!DeactivateConfigGroup",
+    "description": "Inserts the !DeactivateConfigGroup bang to deactivate a config group."
+  },
+  "!UpdateGroup Bang": {
+    "prefix": "!UpdateGroup",
+    "body": "!UpdateGroup",
+    "description": "Inserts the !UpdateGroup bang to update a config group."
+  },
+  "!RedrawGroup Bang": {
+    "prefix": "!RedrawGroup",
+    "body": "!RedrawGroup",
+    "description": "Inserts the !RedrawGroup bang to redraw a config group."
+  },
+  "!RefreshGroup Bang": {
+    "prefix": "!RefreshGroup",
+    "body": "!RefreshGroup",
+    "description": "Inserts the !RefreshGroup bang to refresh a config group."
+  },
+  "!SetTransparencyGroup Bang": {
+    "prefix": "!SetTransparencyGroup",
+    "body": "!SetTransparencyGroup",
+    "description": "Inserts the !SetTransparencyGroup bang to set transparency for a group."
+  },
+  "!DraggableGroup Bang": {
+    "prefix": "!DraggableGroup",
+    "body": "!DraggableGroup",
+    "description": "Inserts the !DraggableGroup bang to make a group draggable."
+  },
+  "!ZPosGroup Bang": {
+    "prefix": "!ZPosGroup",
+    "body": "!ZPosGroup",
+    "description": "Inserts the !ZPosGroup bang to set the Z position of a group."
+  },
+  "!KeepOnScreenGroup Bang": {
+    "prefix": "!KeepOnScreenGroup",
+    "body": "!KeepOnScreenGroup",
+    "description": "Inserts the !KeepOnScreenGroup bang to keep a group on the screen."
+  },
+  "!ClickThroughGroup Bang": {
+    "prefix": "!ClickThroughGroup",
+    "body": "!ClickThroughGroup",
+    "description": "Inserts the !ClickThroughGroup bang to enable or disable click-through mode for a group."
+  },
+  "!SnapEdgesGroup Bang": {
+    "prefix": "!SnapEdgesGroup",
+    "body": "!SnapEdgesGroup",
+    "description": "Inserts the !SnapEdgesGroup bang to snap a group of meters to the edges of the screen."
+  },
+  "!AutoSelectScreenGroup Bang": {
+    "prefix": "!AutoSelectScreenGroup",
+    "body": "!AutoSelectScreenGroup",
+    "description": "Inserts the !AutoSelectScreenGroup bang to automatically select a screen for a group."
+  },
+  "!ShowMeter Bang": {
+    "prefix": "!ShowMeter",
+    "body": "!ShowMeter",
+    "description": "Inserts the !ShowMeter bang to show a meter."
+  },
+  "!HideMeter Bang": {
+    "prefix": "!HideMeter",
+    "body": "!HideMeter",
+    "description": "Inserts the !HideMeter bang to hide a meter."
+  },
+  "!ToggleMeter Bang": {
+    "prefix": "!ToggleMeter",
+    "body": "!ToggleMeter",
+    "description": "Inserts the !ToggleMeter bang to toggle the visibility of a meter."
+  },
+  "!UpdateMeter Bang": {
+    "prefix": "!UpdateMeter",
+    "body": "!UpdateMeter",
+    "description": "Inserts the !UpdateMeter bang to update a meter."
+  },
+  "!MoveMeter Bang": {
+    "prefix": "!MoveMeter",
+    "body": "!MoveMeter",
+    "description": "Inserts the !MoveMeter bang to move a meter."
+  },
+  "!ShowMeterGroup Bang": {
+    "prefix": "!ShowMeterGroup",
+    "body": "!ShowMeterGroup",
+    "description": "Inserts the !ShowMeterGroup bang to show a group of meters."
+  },
+  "!HideMeterGroup Bang": {
+    "prefix": "!HideMeterGroup",
+    "body": "!HideMeterGroup",
+    "description": "Inserts the !HideMeterGroup bang to hide a group of meters."
+  },
+  "!ToggleMeterGroup Bang": {
+    "prefix": "!ToggleMeterGroup",
+    "body": "!ToggleMeterGroup",
+    "description": "Inserts the !ToggleMeterGroup bang to toggle a group of meters."
+  },
+  "!UpdateMeterGroup Bang": {
+    "prefix": "!UpdateMeterGroup",
+    "body": "!UpdateMeterGroup",
+    "description": "Inserts the !UpdateMeterGroup bang to update a group of meters."
+  },
+  "!EnableMeasure Bang": {
+    "prefix": "!EnableMeasure",
+    "body": "!EnableMeasure",
+    "description": "Inserts the !EnableMeasure bang to enable a measure."
+  },
+  "!DisableMeasure Bang": {
+    "prefix": "!DisableMeasure",
+    "body": "!DisableMeasure",
+    "description": "Inserts the !DisableMeasure bang to disable a measure."
+  },
+  "!ToggleMeasure Bang": {
+    "prefix": "!ToggleMeasure",
+    "body": "!ToggleMeasure",
+    "description": "Inserts the !ToggleMeasure bang to toggle a measure."
+  },
+  "PauseMeasure Bang": {
+    "prefix": "PauseMeasure",
+    "body": "PauseMeasure",
+    "description": "Inserts the PauseMeasure bang to pause a measure."
+  },
+  "!UnpauseMeasure Bang": {
+    "prefix": "!UnpauseMeasure",
+    "body": "!UnpauseMeasure",
+    "description": "Inserts the !UnpauseMeasure bang to unpause a measure."
+  },
+  "!TogglePauseMeasure Bang": {
+    "prefix": "!TogglePauseMeasure",
+    "body": "!TogglePauseMeasure",
+    "description": "Inserts the !TogglePauseMeasure bang to toggle the pause state of a measure."
+  },
+  "!UpdateMeasure Bang": {
+    "prefix": "!UpdateMeasure",
+    "body": "!UpdateMeasure",
+    "description": "Inserts the !UpdateMeasure bang to update a measure."
+  },
+  "!CommandMeasure Bang": {
+    "prefix": "!CommandMeasure",
+    "body": "!CommandMeasure",
+    "description": "Inserts the !CommandMeasure bang to execute a command on a measure."
+  },
+  "!EnableMeasureGroup Bang": {
+    "prefix": "!EnableMeasureGroup",
+    "body": "!EnableMeasureGroup",
+    "description": "Inserts the !EnableMeasureGroup bang to enable a group of measures."
+  },
+  "!DisableMeasureGroup Bang": {
+    "prefix": "!DisableMeasureGroup",
+    "body": "!DisableMeasureGroup",
+    "description": "Inserts the !DisableMeasureGroup bang to disable a group of measures."
+  },
+  "!ToggleMeasureGroup Bang": {
+    "prefix": "!ToggleMeasureGroup",
+    "body": "!ToggleMeasureGroup",
+    "description": "Inserts the !ToggleMeasureGroup bang to toggle a group of measures."
+  },
+  "PauseMeasureGroup Bang": {
+    "prefix": "PauseMeasureGroup",
+    "body": "PauseMeasureGroup",
+    "description": "Inserts the PauseMeasureGroup bang to pause a group of measures."
+  },
+  "!UnpauseMeasureGroup Bang": {
+    "prefix": "!UnpauseMeasureGroup",
+    "body": "!UnpauseMeasureGroup",
+    "description": "Inserts the !UnpauseMeasureGroup bang to unpause a group of measures."
+  },
+  "!TogglePauseMeasureGroup Bang": {
+    "prefix": "!TogglePauseMeasureGroup",
+    "body": "!TogglePauseMeasureGroup",
+    "description": "Inserts the !TogglePauseMeasureGroup bang to toggle the pause state of a group of measures."
+  },
+  "!UpdateMeasureGroup Bang": {
+    "prefix": "!UpdateMeasureGroup",
+    "body": "!UpdateMeasureGroup",
+    "description": "Inserts the !UpdateMeasureGroup bang to update a group of measures."
+  },
+  "!DisableMouseAction Bang": {
+    "prefix": "!DisableMouseAction",
+    "body": "!DisableMouseAction",
+    "description": "Inserts the !DisableMouseAction bang to disable a mouse action."
+  },
+  "!ClearMouseAction Bang": {
+    "prefix": "!ClearMouseAction",
+    "body": "!ClearMouseAction",
+    "description": "Inserts the !ClearMouseAction bang to clear a mouse action."
+  },
+  "!EnableMouseAction Bang": {
+    "prefix": "!EnableMouseAction",
+    "body": "!EnableMouseAction",
+    "description": "Inserts the !EnableMouseAction bang to enable a mouse action."
+  },
+  "!ToggleMouseAction Bang": {
+    "prefix": "!ToggleMouseAction",
+    "body": "!ToggleMouseAction",
+    "description": "Inserts the !ToggleMouseAction bang to toggle a mouse action."
+  },
+  "!DisableMouseActionGroup Bang": {
+    "prefix": "!DisableMouseActionGroup",
+    "body": "!DisableMouseActionGroup",
+    "description": "Inserts the !DisableMouseActionGroup bang to disable a group of mouse actions."
+  },
+  "!ClearMouseActionGroup Bang": {
+    "prefix": "!ClearMouseActionGroup",
+    "body": "!ClearMouseActionGroup",
+    "description": "Inserts the !ClearMouseActionGroup bang to clear a group of mouse actions."
+  },
+  "!EnableMouseActionGroup Bang": {
+    "prefix": "!EnableMouseActionGroup",
+    "body": "!EnableMouseActionGroup",
+    "description": "Inserts the !EnableMouseActionGroup bang to enable a group of mouse actions."
+  },
+  "!ToggleMouseActionGroup Bang": {
+    "prefix": "!ToggleMouseActionGroup",
+    "body": "!ToggleMouseActionGroup",
+    "description": "Inserts the !ToggleMouseActionGroup bang to toggle a group of mouse actions."
+  },
+  "!DisableMouseActionSkinGroup Bang": {
+    "prefix": "!DisableMouseActionSkinGroup",
+    "body": "!DisableMouseActionSkinGroup",
+    "description": "Inserts the !DisableMouseActionSkinGroup bang to disable mouse actions for the skin group."
+  },
+  "!ClearMouseActionSkinGroup Bang": {
+    "prefix": "!ClearMouseActionSkinGroup",
+    "body": "!ClearMouseActionSkinGroup",
+    "description": "Inserts the !ClearMouseActionSkinGroup bang to clear mouse actions for the skin group."
+  },
+  "!EnableMouseActionSkinGroup Bang": {
+    "prefix": "!EnableMouseActionSkinGroup",
+    "body": "!EnableMouseActionSkinGroup",
+    "description": "Inserts the !EnableMouseActionSkinGroup bang to enable mouse actions for the skin group."
+  },
+  "!ToggleMouseActionSkinGroup Bang": {
+    "prefix": "!ToggleMouseActionSkinGroup",
+    "body": "!ToggleMouseActionSkinGroup",
+    "description": "Inserts the !ToggleMouseActionSkinGroup bang to toggle mouse actions for the skin group."
+  },
+  "!Execute Bang": {
+    "prefix": "!Execute",
+    "body": "!Execute",
+    "description": "Inserts the !Execute bang to execute a command."
+  },
+  "!Rainmeter Bang": {
+    "prefix": "!Rainmeter",
+    "body": "!Rainmeter",
+    "description": "Inserts the !Rainmeter bang to interact with Rainmeter directly."
+  },
+  "!PluginBang Bang": {
+    "prefix": "!PluginBang",
+    "body": "!PluginBang",
+    "description": "Inserts the !PluginBang bang to interact with a plugin."
+  }
 }

@@ -10,30 +10,34 @@ const selector = { scheme: "file", language: "rainmeter" };
  * @param {vscode.ExtensionContext} context
  */
 function autoRefresh(context) {
-  const saveListener = vscode.workspace.onDidSaveTextDocument(async (document) => {
-    const config = vscode.workspace.getConfiguration("rainSyntax");
-    const autoRefreshEnabled = config.get("autoRefreshOnSave", true);
-    const refreshMode = config.get("refreshMode", "all");
+  const saveListener = vscode.workspace.onDidSaveTextDocument(
+    async (document) => {
+      const config = vscode.workspace.getConfiguration("rainSyntax");
+      const autoRefreshEnabled = config.get("autoRefreshOnSave", true);
+      const refreshMode = config.get("refreshMode", "all");
 
-    if (!autoRefreshEnabled || document.languageId !== "rainmeter") {
-      return;
-    }
+      if (!autoRefreshEnabled || document.languageId !== "rainmeter") {
+        return;
+      }
 
-    const isRunning = await RainmeterUtils.isRunning();
-    if (!isRunning) {
-      vscode.window.showWarningMessage(
-        "Rainmeter is not running. Please start Rainmeter to enable skin refreshing."
-      );
-      return;
-    }
+      const isRunning = await RainmeterUtils.isRunning();
+      if (!isRunning) {
+        vscode.window.showWarningMessage(
+          "Rainmeter is not running. Please start Rainmeter to enable skin refreshing."
+        );
+        return;
+      }
 
-    const filePath = document.uri.fsPath;
-    if (refreshMode === "specific" && filePath.endsWith(".ini")) {
-      RainmeterUtils.refreshSpecificSkin(filePath);
-    } else if ([".ini", ".inc", ".nek"].some(ext => filePath.endsWith(ext))) {
-      RainmeterUtils.refreshAllSkins();
+      const filePath = document.uri.fsPath;
+      if (refreshMode === "specific" && filePath.endsWith(".ini")) {
+        RainmeterUtils.refreshSpecificSkin(filePath);
+      } else if (
+        [".ini", ".inc", ".nek"].some((ext) => filePath.endsWith(ext))
+      ) {
+        RainmeterUtils.refreshAllSkins();
+      }
     }
-  });
+  );
 
   context.subscriptions.push(saveListener);
 }
@@ -55,7 +59,9 @@ const RainmeterUtils = {
     }
 
     try {
-      const { stdout } = await execAsync('C:\\Windows\\System32\\tasklist.exe /FI "IMAGENAME eq Rainmeter.exe"');
+      const { stdout } = await execAsync(
+        'C:\\Windows\\System32\\tasklist.exe /FI "IMAGENAME eq Rainmeter.exe"'
+      );
       return stdout.toLowerCase().includes("rainmeter.exe");
     } catch (error) {
       console.error(`Error checking Rainmeter status: ${error.message}`);
@@ -65,11 +71,14 @@ const RainmeterUtils = {
 
   /**
    * Refreshes a specific Rainmeter skin.
-   * @param {string} filePath 
+   * @param {string} filePath
    */
   async refreshSpecificSkin(filePath) {
     const config = vscode.workspace.getConfiguration("rainSyntax");
-    const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+    const rainmeterPath = config.get(
+      "rainmeterPath",
+      "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
+    );
 
     if (!rainmeterPath) {
       vscode.window.showErrorMessage(
@@ -87,7 +96,10 @@ const RainmeterUtils = {
     }
 
     const relativePath = filePath.substring(skinsIndex + 7);
-    const iniFolderPath = relativePath.split(path.sep).slice(0, -1).join(path.sep);
+    const iniFolderPath = relativePath
+      .split(path.sep)
+      .slice(0, -1)
+      .join(path.sep);
 
     try {
       const command = `"${rainmeterPath}" !Refresh "${iniFolderPath}"`;
@@ -105,7 +117,10 @@ const RainmeterUtils = {
 
   async refreshAllSkins() {
     const config = vscode.workspace.getConfiguration("rainSyntax");
-    const rainmeterPath = config.get("rainmeterPath", "C:\\Program Files\\Rainmeter\\Rainmeter.exe");
+    const rainmeterPath = config.get(
+      "rainmeterPath",
+      "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
+    );
 
     if (!rainmeterPath) {
       vscode.window.showErrorMessage(
@@ -117,14 +132,16 @@ const RainmeterUtils = {
     try {
       const command = `"${rainmeterPath}" !RefreshApp`;
       await execAsync(command);
-      vscode.window.showInformationMessage("All Rainmeter skins refreshed successfully!");
+      vscode.window.showInformationMessage(
+        "All Rainmeter skins refreshed successfully!"
+      );
     } catch (error) {
       console.error(`Error refreshing all skins: ${error.message}`);
       vscode.window.showErrorMessage(
         "Failed to refresh all Rainmeter skins. Ensure Rainmeter is running."
       );
     }
-  }
+  },
 };
 
 module.exports = {

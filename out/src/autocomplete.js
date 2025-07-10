@@ -912,10 +912,7 @@ function provideCompletionItems(document, position) {
     return createFlipCompletionItems();
   }
 
-  if (
-    lineText.startsWith("imageflip=") &&
-    !hasAssignedValue("imageflip=")
-  ) {
+  if (lineText.startsWith("imageflip=") && !hasAssignedValue("imageflip=")) {
     return createFlipCompletionItems();
   }
 

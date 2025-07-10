@@ -93,13 +93,12 @@ function validateDocument(document) {
   ) => {
     let inTargetMeter = false;
     let currentSection = null;
-  
+
     const allValidKeys = [...validKeys, ...sharedKeys];
-  
+
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
-  
-     
+
       if (
         !trimmedLine ||
         trimmedLine.startsWith(";") ||
@@ -107,14 +106,12 @@ function validateDocument(document) {
       ) {
         return;
       }
-  
-   
+
       if (trimmedLine.startsWith("[") && trimmedLine.endsWith("]")) {
         currentSection = trimmedLine.slice(1, -1);
         inTargetMeter = false;
         return;
       }
-  
 
       if (
         currentSection &&
@@ -123,51 +120,47 @@ function validateDocument(document) {
         inTargetMeter = true;
         return;
       }
-  
+
       if (inTargetMeter) {
         const keyValue = trimmedLine.split("=", 2).map((s) => s.trim());
         if (keyValue.length !== 2) return;
-  
+
         const [key, value] = keyValue;
-  
-     
+
         if (key.toLowerCase().startsWith("@include")) return;
-  
-        
+
         if (/^MeasureName\d*$/.test(key)) {
-       
           handleKeyPattern(key, value, diagnostics, index, "MeasureName");
           return;
         }
         if (/^LineColor\d*$/.test(key)) {
-        
           handleKeyPattern(key, value, diagnostics, index, "LineColor");
           return;
         }
         if (/^Scale\d*$/.test(key)) {
-      
           handleKeyPattern(key, value, diagnostics, index, "Scale");
           return;
         }
 
         if (/^InlineSetting\d*$/.test(key)) {
-       
           handleKeyPattern(key, value, diagnostics, index, "InlineSetting");
           return;
         }
 
         if (/^InlinePattern\d*$/.test(key)) {
-       
           handleKeyPattern(key, value, diagnostics, index, "InlinePattern");
           return;
         }
-        
-        if (key && !allValidKeys.map(k => k.toLowerCase()).includes(key.toLowerCase())) {
+
+        if (
+          key &&
+          !allValidKeys.map((k) => k.toLowerCase()).includes(key.toLowerCase())
+        ) {
           const range = new vscode.Range(
             new vscode.Position(index, 0),
             new vscode.Position(index, key.length)
           );
-  
+
           diagnostics.push(
             new vscode.Diagnostic(
               range,
@@ -181,7 +174,7 @@ function validateDocument(document) {
       }
     });
   };
-  
+
   const handleKeyPattern = (key, value, diagnostics, lineIndex, keyPrefix) => {
     if (!value) {
       diagnostics.push(
@@ -196,7 +189,7 @@ function validateDocument(document) {
       );
     }
   };
-  
+
   const sharedKeys = [
     "ToolTipText",
     "ToolTipTitle",
@@ -250,9 +243,9 @@ function validateDocument(document) {
     "BevelColor2",
     "BevelType",
     "MeasureName",
-   "RegExpSubstitute",
-   "Substitute",
-    "Antialias"
+    "RegExpSubstitute",
+    "Substitute",
+    "Antialias",
   ];
 
   const validStringMeterKeys = [
@@ -282,8 +275,7 @@ function validateDocument(document) {
     "Substitute",
     "Tile",
     "Postfix",
-    "Prefix"
-   
+    "Prefix",
   ];
 
   const validImageMeterKeys = [
@@ -308,7 +300,7 @@ function validateDocument(document) {
     "MaskImageRotate",
     "PreserveAspectRatio",
     "ScaleMargins",
-    "Tile"
+    "Tile",
   ];
 
   validateMeterKeys(

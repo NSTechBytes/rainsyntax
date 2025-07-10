@@ -159,17 +159,20 @@ function getWebviewContent() {
   
           <label for="autoRefreshOnSave">Auto Refresh on Save</label>
           <div class="checkbox-wrapper">
-              <input type="checkbox" id="autoRefreshOnSave" ${autoRefreshOnSave ? "checked" : ""
-    } />
+              <input type="checkbox" id="autoRefreshOnSave" ${
+                autoRefreshOnSave ? "checked" : ""
+              } />
               <span>Enable auto refresh when saving files</span>
           </div>
   
           <label for="refreshMode">Refresh Mode</label>
           <select id="refreshMode">
-              <option value="all" ${refreshMode === "all" ? "selected" : ""
-    }>All Skins</option>
-              <option value="specific" ${refreshMode === "specific" ? "selected" : ""
-    }>Specific Skin</option>
+              <option value="all" ${
+                refreshMode === "all" ? "selected" : ""
+              }>All Skins</option>
+              <option value="specific" ${
+                refreshMode === "specific" ? "selected" : ""
+              }>Specific Skin</option>
           </select>
   
           <button type="button" id="saveSettings">Save Settings</button>

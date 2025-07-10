@@ -12,7 +12,12 @@ function registerRainmeterCommands(context) {
       const currentSetting = config.get("autoRefreshOnSave");
       const newSetting = !currentSetting;
 
-      config.update("autoRefreshOnSave", newSetting, vscode.ConfigurationTarget.Global)
+      config
+        .update(
+          "autoRefreshOnSave",
+          newSetting,
+          vscode.ConfigurationTarget.Global
+        )
         .then(() => {
           vscode.window.showInformationMessage(
             `Auto Refresh is now ${newSetting ? "enabled" : "disabled"}`
@@ -44,11 +49,12 @@ function registerRainmeterCommands(context) {
           .getConfiguration("rainSyntax")
           .update("rainmeterPath", newPath, vscode.ConfigurationTarget.Global);
 
-        vscode.window.showInformationMessage(`Rainmeter path set to: ${newPath}`);
+        vscode.window.showInformationMessage(
+          `Rainmeter path set to: ${newPath}`
+        );
       }
     }
   );
-
 
   const changeRefreshModeCommand = vscode.commands.registerCommand(
     "rainSyntax.changeRefreshMode",
@@ -70,7 +76,6 @@ function registerRainmeterCommands(context) {
       }
     }
   );
-
 
   context.subscriptions.push(toggleAutoRefreshCommand);
   context.subscriptions.push(changeRainmeterPathCommand);
