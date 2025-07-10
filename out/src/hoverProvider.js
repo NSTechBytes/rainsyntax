@@ -52,7 +52,7 @@ const keysDescription = {
     "ImagePath": "Sets the path for an image used in a skin. Example: `ImagePath=images/background.png`.",
     "ImageName": "Sets the path for an image used in a skin. Example: `ImageName=images/background.png`.",
     "ImageAlpha": "Sets the alpha transparency for an image. Example: `ImageAlpha=128`.",
-    "ImageFlip": "If set to 1, the meter is flipped vertically. Example: `ImageFlip=1`.",
+    "ImageFlip": "Flips the image. Valid values are None, Horizontal, Vertical or Both.",
     "StringStyle": "Style of the string. Valid values are Normal, Bold, Italic, and BoldItalic. Example: `StringStyle=Bold`.",
     "ToolTipText": "Sets the text for a tool tip. Example: `ToolTipText=Click here`.",
     "ToolTipTitle": "Sets the title of a tool tip. Example: `ToolTipTitle=Info`.",

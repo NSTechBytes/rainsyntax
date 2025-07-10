@@ -242,7 +242,7 @@
     "ImageFlip Attribute": {
         "prefix": "ImageFlip",
         "body": "ImageFlip",
-        "description": "If set to 1, the meter is flipped vertically."
+        "description": "Flips the image. Valid values are None, Horizontal, Vertical or Both."
     },
     "StringStyle Attribute": {
         "prefix": "StringStyle",
