@@ -164,26 +164,22 @@ You can update the settings directly from the Command Palette:
 
 This feature provides a clear and structured visual representation of your Rainmeter code, making it easier to identify elements like sections, variables, and comments. Below is a snapshot to give you an idea of its appearance in action.
 
-<div>
-    <img src="./images/Preview/SyntaxHightlight.png" alt="Logo" width="380" height="580">
+<div align="center">
+  <img src="https://raw.githubusercontent.com/NSTechBytes/Projects-Templates/refs/heads/main/VSCODE-EXTENSIONS/rainsyntax/SyntaxHightlight.png" alt="Tooltip Lite Preview" width="380" height="580">
+</div>
 
 ### Code Snippets 📑
 
-<div>
-    <img src="./images/Preview/Snippets.gif" alt="Logo" width="680" height="380">
+<div align="center">
+  <img src="https://raw.githubusercontent.com/NSTechBytes/Projects-Templates/refs/heads/main/VSCODE-EXTENSIONS/rainsyntax/Snippets.gif" alt="Tooltip Lite Preview" width="680" height="380">
+</div>
+
 
 ### RainSyntax Theme
 
-<div>
-    <img src="./images/Preview/Theme.png" alt="Logo" width="680" height="380">
-
+<div align="center">
+  <img src="https://raw.githubusercontent.com/NSTechBytes/Projects-Templates/refs/heads/main/VSCODE-EXTENSIONS/rainsyntax/Theme.png" alt="Tooltip Lite Preview" width="680" height="380">
 </div>
- </div>
-  </div>
----
-
-
- 
   
 ---
 
