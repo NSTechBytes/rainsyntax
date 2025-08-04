@@ -8,6 +8,7 @@ const { provideCompletionItems } = require("./src/autocomplete");
 const { createHoverProvider } = require("./src/hoverProvider");
 const { formatRainmeterFile } = require("./src/formatter");
 const { openLogViewerPanel } = require("./src/logViewer");
+const { createFoldingProvider } = require("./src/sectionFoldingProvider");
 
 /**
  * This method is called when the extension is activated.
@@ -61,6 +62,13 @@ function activate(context) {
 
   // Add the hover provider to the extension's context
   context.subscriptions.push(hoverProvider);
+
+  // Register folding range provider for section folding
+  const foldingProvider = vscode.languages.registerFoldingRangeProvider(
+    { scheme: "file", language: "rainmeter" },
+    createFoldingProvider()
+  );
+  context.subscriptions.push(foldingProvider);
 
   const formatCommand = vscode.commands.registerCommand(
     "rainSyntax.formatRainmeterFile",
