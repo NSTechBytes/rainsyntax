@@ -1,3 +1,9 @@
+# Version 0.0.8
+
+1. Add section folding support for Rainmeter INI files.
+2. Enhance ImageFlip description.
+3. Added support for TooltipHidden key in meter configuration.
+
 ## Version 0.0.7
 
 1. Fixed tasklist error that not refreshing the skin.

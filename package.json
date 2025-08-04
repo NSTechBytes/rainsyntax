@@ -2,7 +2,7 @@
   "name": "rainsyntax",
   "displayName": "RainSyntax",
   "description": "Snippets and syntax highlighting for Rainmeter skins. Updated with new syntax and features.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publisher": "NSTechBytes",
   "icon": "images/RainSyntax.png",
   "engines": {
