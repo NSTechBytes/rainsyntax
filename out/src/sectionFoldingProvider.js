@@ -19,13 +19,13 @@ class RainmeterFoldingProvider {
             if (this.isSectionHeader(line)) {
                 // If we were already in a section, close the previous section
                 if (currentSectionStart !== -1) {
-                    // Find the last non-empty line before this section
                     let endLine = i - 1;
-                    while (endLine > currentSectionStart && lines[endLine].trim() === '') {
+
+                    // Exclude trailing empty lines and comment lines
+                    while (endLine > currentSectionStart && this.isIgnorableLine(lines[endLine])) {
                         endLine--;
                     }
                     
-                    // Only create folding range if there's content to fold
                     if (endLine > currentSectionStart) {
                         foldingRanges.push(new vscode.FoldingRange(
                             currentSectionStart,
@@ -43,7 +43,9 @@ class RainmeterFoldingProvider {
         // Handle the last section if there is one
         if (currentSectionStart !== -1) {
             let endLine = lines.length - 1;
-            while (endLine > currentSectionStart && lines[endLine].trim() === '') {
+
+            // Exclude trailing empty lines and comment lines
+            while (endLine > currentSectionStart && this.isIgnorableLine(lines[endLine])) {
                 endLine--;
             }
             
@@ -66,9 +68,15 @@ class RainmeterFoldingProvider {
      * Check if a line is a section header like [SectionName]
      */
     isSectionHeader(line) {
-        // Match lines that start with [ and end with ]
-        // Allow for whitespace and comments after the closing bracket
-        return /^\s*\[[^\]]+\]\s*(?:;.*)?$/.test(line);
+        return /^\s*\[[^\]]+\]\s*$/.test(line);
+    }
+
+    /**
+     * Check if a line is ignorable for folding (empty or comment)
+     */
+    isIgnorableLine(line) {
+        const trimmed = line.trim();
+        return trimmed === '' || /^\s*;/.test(trimmed);
     }
     
     /**
@@ -80,11 +88,9 @@ class RainmeterFoldingProvider {
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
             
-            // Check for region start
             if (/^\s*;\s*#region\b/.test(line)) {
                 regionStack.push(i);
             }
-            // Check for region end
             else if (/^\s*;\s*#endregion\b/.test(line)) {
                 if (regionStack.length > 0) {
                     const startLine = regionStack.pop();
@@ -99,9 +105,6 @@ class RainmeterFoldingProvider {
     }
 }
 
-/**
- * Creates and returns a folding range provider for Rainmeter files
- */
 function createFoldingProvider() {
     return new RainmeterFoldingProvider();
 }
