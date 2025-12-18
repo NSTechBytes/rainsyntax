@@ -50,7 +50,7 @@ function activate(context) {
     100
   );
   guiButton.text = ` 💧 RainSyntax Settings`;
-  guiButton.tooltip = "Click to for RainSyntax Settings";
+  guiButton.tooltip = "Click to open RainSyntax Settings";
   guiButton.command = "rainSyntax.openSettings";
   guiButton.show();
   context.subscriptions.push(guiButton);
