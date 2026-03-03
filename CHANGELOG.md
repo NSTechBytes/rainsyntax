@@ -1,3 +1,6 @@
+# Version 0.1.0
+ - Added Some Improvements and Fixed Some Bugs.
+
 # Version 0.0.9
 1. Enhanced Code Section Folding.
 
